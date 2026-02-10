@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Tests para Facultativo de bibliotecas del estado</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 18px; background: #f0f8ff; }
+    h1, h2, h3, h4 { margin: 10px 0; }
+    button { display: block; margin: 10px 0; padding: 10px; width: 280px; cursor: pointer; border-radius: 10px; border: 1px solid #b8d8ff; background: white; }
+    button:hover { filter: brightness(0.98); }
+    .secondary { background: #e8f3ff; }
+    .danger { background: #ffe8e8; border-color: #ffb3b3; }
+    .row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .card { background: white; border: 1px solid #d7e6ff; border-radius: 14px; padding: 14px; margin: 12px 0; }
+    #timer { font-weight: bold; margin-bottom: 10px; }
+    .answer-btn { width: 280px; }
+    #no-btn { width: 120px; }
+    textarea { width: 100%; box-sizing: border-box; border-radius: 10px; border: 1px solid #b8d8ff; padding: 10px; }
+    label { cursor: pointer; }
+    hr { border: 0; border-top: 1px solid #e6eefc; margin: 12px 0; }
+    .pill { display:inline-block; padding: 6px 10px; border-radius: 999px; background:#e8f3ff; border:1px solid #b8d8ff; font-size: 12px; }
+    .small { font-size: 12px; opacity: 0.85; }
+  </style>
+</head>
+<body>
+
+<!-- PANTALLA PRINCIPAL -->
+<div id="main-menu" class="card">
+  <h1>Tests para Facultativo de bibliotecas del estado</h1>
+
+  <div class="row">
+    <button id="btn-start-test">Iniciar Test</button>
+    <button id="btn-open-import" class="secondary">Importar preguntas</button>
+    <button id="btn-export-json" class="secondary">Exportar JSON</button>
+  </div>
+
+  <div class="small">
+    <span class="pill" id="db-count-pill">Cargando preguntas…</span>
+  </div>
+</div>
+
+<!-- MENÚ TEST -->
+<div id="test-menu" class="card" style="display:none"></div>
+
+<!-- TEST -->
+<div id="test-container" class="card" style="display:none">
+  <div class="row" style="justify-content:space-between; align-items:center;">
+    <div id="timer">00:00</div>
+    <div class="small" id="mode-pill"></div>
+  </div>
+
+  <div id="question-text" style="margin:10px 0; font-weight:600;"></div>
+  <div id="answers-container"></div>
+
+  <div class="row">
+    <button id="no-btn" class="secondary">No lo sé</button>
+    <button id="continue-btn" style="display:none">Continuar</button>
+  </div>
+</div>
+
+<!-- RESULTADOS -->
+<div id="results-container" class="card" style="display:none">
+  <h2>Resultados del Test</h2>
+  <div id="results-text"></div>
+  <button id="back-to-menu-btn">Volver al menú</button>
+</div>
+
+<!-- IMPORTAR -->
+<div id="import-container" class="card" style="display:none">
+  <h2>Importar preguntas</h2>
+  <p class="small">Formato por bloques separados por <strong>---</strong>. Campos: tema, bloque, fuente, pregunta, A/B/C/D, correcta, explicacion.</p>
+
+  <textarea id="import-textarea" rows="14" placeholder="Pega aquí..."></textarea>
+
+  <div class="row">
+    <button id="btn-import-questions">Importar</button>
+    <button id="btn-clear-import" class="secondary">Vaciar cuadro</button>
+  </div>
+
+  <div class="row">
+    <button id="btn-clear-added" class="danger">Vaciar añadidas</button>
+    <button id="btn-back-from-import" class="secondary">Volver</button>
+  </div>
+
+  <div id="import-status" style="margin-top:10px;"></div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
