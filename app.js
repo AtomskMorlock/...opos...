@@ -23,6 +23,7 @@ const LS_PENDING_REVIEW = "chari_pending_review_v1";
 const LS_PENDING_REVIEW_DONE = "chari_pending_review_done_v1";
 const LS_ACTIVE_PAUSED_TEST = "chari_active_paused_test_v1";
 const LS_DELETED_IDS = "chari_deleted_ids_v1";
+const LS_TTS_SETTINGS = "chari_tts_settings_v1";
 
 // ✅ NUEVO: IDs purgadas definitivamente (no deben volver aunque estén en questions.json)
 const LS_PURGED_IDS = "chari_purged_ids_v1";
@@ -192,7 +193,12 @@ let lastCorrectText = null;
 const mainMenu = document.getElementById("main-menu");
 const testMenu = document.getElementById("test-menu");
 const testContainer = document.getElementById("test-container");
+const voiceSettingsContainer = document.getElementById("voice-settings-container");
 const resultsContainer = document.getElementById("results-container");
+const reviewContainer = document.getElementById("review-container");
+const reviewText = document.getElementById("review-text");
+const backToResultsBtn = document.getElementById("back-to-results-btn");
+const statsContainer = document.getElementById("stats-container");
 const importContainer = document.getElementById("import-container");
 
 const dbCountPill = document.getElementById("db-count-pill");
@@ -203,8 +209,20 @@ const continueBtn = document.getElementById("continue-btn");
 const noSeBtn = document.getElementById("no-btn");
 const timerDisplay = document.getElementById("timer");
 const modePill = document.getElementById("mode-pill");
+const motivationalPhraseEl = document.getElementById("motivational-phrase");
+
+const ttsPanel = document.getElementById("tts-panel");
+const ttsToggleBtn = document.getElementById("tts-toggle");
+const ttsVoiceList = document.getElementById("tts-voice-list");
+const ttsRateRange = document.getElementById("tts-rate");
+const ttsPitchRange = document.getElementById("tts-pitch");
+const ttsReadBtn = document.getElementById("tts-read");
 
 const startTestBtn = document.getElementById("btn-start-test");
+const quickTest10Btn = document.getElementById("btn-quick-test-10");
+const quickTest20Btn = document.getElementById("btn-quick-test-20");
+const voiceSettingsBtn = document.getElementById("btn-voice-settings");
+const voiceSettingsBackBtn = document.getElementById("btn-voice-back");
 const openImportBtn = document.getElementById("btn-open-import");
 const exportJsonBtn = document.getElementById("btn-export-json");
 const backToMenuBtnResults = document.getElementById("back-to-menu-btn");
@@ -217,6 +235,105 @@ const btnClearAdded = document.getElementById("btn-clear-added");
 const btnBackFromImport = document.getElementById("btn-back-from-import");
 
 const resultsText = document.getElementById("results-text");
+const statsContent = document.getElementById("stats-content");
+const statsActions = document.getElementById("stats-actions");
+
+// =======================
+// MODAL (alert/confirm integrados)
+// =======================
+const modalOverlay = document.getElementById("app-modal-overlay");
+const modalTitle = document.getElementById("app-modal-title");
+const modalMessage = document.getElementById("app-modal-message");
+const modalActions = document.getElementById("app-modal-actions");
+
+function openModal({ title, message, actions }) {
+  return new Promise(resolve => {
+    if (!modalOverlay || !modalTitle || !modalMessage || !modalActions) {
+      resolve(actions?.[0]?.value ?? null);
+      return;
+    }
+
+    modalTitle.textContent = title || "Aviso";
+    modalMessage.textContent = message || "";
+    modalActions.innerHTML = "";
+
+    const btns = [];
+
+    (actions || []).forEach((action, index) => {
+      const btn = document.createElement("button");
+      btn.textContent = action.label || "Aceptar";
+      btn.className = action.className || "";
+      btn.style.width = "120px";
+      btn.onclick = () => {
+        closeModal();
+        resolve(action.value);
+      };
+      modalActions.appendChild(btn);
+      btns.push({ btn, action, index });
+    });
+
+    function onKey(e) {
+      if (e.key === "Escape") {
+        const cancel = btns.find(b => b.action.role === "cancel");
+        if (cancel) {
+          closeModal();
+          resolve(cancel.action.value);
+        }
+      }
+      if (e.key === "Enter") {
+        const def = btns.find(b => b.action.default) || btns[0];
+        if (def) {
+          closeModal();
+          resolve(def.action.value);
+        }
+      }
+    }
+
+    function closeModal() {
+      modalOverlay.style.display = "none";
+      modalOverlay.setAttribute("aria-hidden", "true");
+      document.removeEventListener("keydown", onKey);
+    }
+
+    document.addEventListener("keydown", onKey);
+    modalOverlay.style.display = "flex";
+    modalOverlay.setAttribute("aria-hidden", "false");
+
+    const defBtn = btns.find(b => b.action.default) || btns[0];
+    if (defBtn) defBtn.btn.focus();
+  });
+}
+
+function showAlert(message, title = "Aviso") {
+  return openModal({
+    title,
+    message,
+    actions: [
+      { label: "Aceptar", value: true, className: "secondary", default: true }
+    ]
+  });
+}
+
+function showConfirm(message, opts = {}) {
+  return openModal({
+    title: opts.title || "Confirmar",
+    message,
+    actions: [
+      {
+        label: opts.confirmText || "Aceptar",
+        value: true,
+        className: opts.danger ? "danger" : "",
+        default: true
+      },
+      {
+        label: opts.cancelText || "Cancelar",
+        value: false,
+        className: "secondary",
+        role: "cancel"
+      }
+    ]
+  });
+}
 
 // =======================
 // UTIL: STORAGE
@@ -233,6 +350,358 @@ function lsGetJSON(key, fallback) {
 function lsSetJSON(key, value) {
   localStorage.setItem(key, JSON.stringify(value));
 }
+
+// =======================
+// TTS (LECTURA POR VOZ)
+// =======================
+const TTS_DEFAULTS = {
+  enabled: false,
+  voiceURI: "",
+  rate: 1,
+  pitch: 1
+};
+
+let ttsSettings = { ...TTS_DEFAULTS };
+let ttsVoices = [];
+let ttsVoiceRetryCount = 0;
+let ttsUserInteracted = false;
+let ttsLastQuestionId = null;
+
+const MOTIVATIONAL_FALLBACK = [
+  "No estás procrastinando: estás entrenando la paciencia del tribunal.",
+  "Cada tema que estudias es un punto menos que tendrá el listillo de tu alrededor.",
+  "Hoy duele estudiar; mañana duele ver la lista de aprobados sin tu nombre.",
+  "No eres lento: estás cargando el cerebro en alta calidad.",
+  "El BOE no se memoriza solo. Lamentablemente.",
+  "Estudia ahora para poder decir luego: “sí, fue duro, pero mira”.",
+  "Tu futuro yo ya te está dando las gracias (aunque ahora te insulte).",
+  "No es falta de motivación, es exceso de realidad. Sigue.",
+  "Cada pregunta que fallas hoy es una que no te fallará el día del examen.",
+  "Si fuera fácil, no habría plaza.",
+  "El cansancio pasa. La plaza fija se queda.",
+  "Hoy estudias artículos; mañana discutes trienios.",
+  "No estás repitiendo el tema: lo estás clavando.",
+  "A nadie le gusta estudiar… pero a nadie le gusta suspender.",
+  "El tribunal no sabe tu nombre. Todavía.",
+  "Estudiar oposiciones es aburrido. No aprobarlas es peor.",
+  "No es obsesión: es estrategia a largo plazo.",
+  "Si te rindes hoy, mañana tendrás que estudiar igual.",
+  "No hace falta motivación. Hace falta sentarse.",
+  "Un día menos de estudio es un día más lejos de la plaza.",
+  "Nadie sueña con opositar, pero todo el mundo sueña con aprobar.",
+  "Ahora mismo hay alguien estudiando menos que tú. Aprovecha.",
+  "No estás perdiendo el tiempo: lo estás invirtiendo a interés compuesto.",
+  "Suspender también enseña, pero aprobar enseña más rápido.",
+  "Si te da pereza estudiar, imagina volver a hacerlo dentro de dos años.",
+  "No te comparas con otros: compites contra el temario.",
+  "Estudiar oposiciones es un maratón, no una huida hacia el sofá.",
+  "Cada día que estudias es un día que el azar trabaja para ti.",
+  "El cansancio es temporal. El BOE es eterno.",
+  "No estás bloqueado: estás a punto de entenderlo.",
+  "La plaza no se gana el día del examen, se cocina ahora.",
+  "Nadie recuerda las tardes perdidas estudiando. Sí recuerdan aprobar.",
+  "Esto no es sufrimiento: es entrenamiento mental con recompensa.",
+  "Estudiar cuando no apetece es exactamente el truco.",
+  "El temario no se va a estudiar solo mientras miras el techo.",
+  "Si hoy avanzas poco, mañana avanzas sobre lo avanzado.",
+  "No te falta capacidad, te sobran excusas. Hoy no las uses.",
+  "El día del examen no se improvisa. Se llega con ventaja.",
+  "No estudias para saberlo todo, estudias para saber más que otros.",
+  "Algún día dirás: menos mal que no lo dejé."
+];
+let motivationalPhrases = MOTIVATIONAL_FALLBACK.slice();
+
+function getRandomMotivationalPhrase() {
+  const list = motivationalPhrases && motivationalPhrases.length ? motivationalPhrases : MOTIVATIONAL_FALLBACK;
+  return list[Math.floor(Math.random() * list.length)];
+}
+
+function renderMotivationalPhrase() {
+  if (!motivationalPhraseEl) return;
+  motivationalPhraseEl.textContent = getRandomMotivationalPhrase();
+}
+
+function ttsLoadSettings() {
+  const raw = lsGetJSON(LS_TTS_SETTINGS, null);
+  if (raw && typeof raw === "object") {
+    ttsSettings = {
+      enabled: !!raw.enabled,
+      voiceURI: typeof raw.voiceURI === "string" ? raw.voiceURI : "",
+      rate: Number(raw.rate) || 1,
+      pitch: Number(raw.pitch) || 1
+    };
+  } else {
+    ttsSettings = { ...TTS_DEFAULTS };
+  }
+}
+
+function ttsSaveSettings() {
+  lsSetJSON(LS_TTS_SETTINGS, ttsSettings);
+}
+
+function ttsInitVoices() {
+  if (!("speechSynthesis" in window)) return;
+
+  const voices = window.speechSynthesis.getVoices();
+  if (voices && voices.length) {
+    ttsVoices = voices.slice();
+    ttsVoiceRetryCount = 0;
+    ttsPopulateVoiceButtons();
+    return;
+  }
+
+  if (ttsVoiceRetryCount < 5) {
+    ttsVoiceRetryCount += 1;
+    setTimeout(ttsInitVoices, 300 * ttsVoiceRetryCount);
+  }
+}
+
+function ttsGetSpanishVoicePreferred(voices) {
+  if (!voices || !voices.length) return null;
+  const preferredNames = ["mónica", "monica", "google español"];
+  const byName = voices.filter(v => preferredNames.includes(String(v.name || "").toLowerCase()));
+  if (byName.length) return byName[0];
+  const esVoices = voices.filter(v => String(v.lang || "").toLowerCase().startsWith("es"));
+  if (esVoices.length) {
+    const esES = esVoices.find(v => String(v.lang || "").toLowerCase() === "es-es");
+    return esES || esVoices[0];
+  }
+  return voices[0];
+}
+
+function ttsPopulateVoiceButtons() {
+  if (!ttsVoiceList) return;
+
+  ttsVoiceList.innerHTML = "";
+
+  const preferredNames = ["mónica", "monica", "google español"];
+  const esEsVoices = ttsVoices.filter(v => String(v.lang || "").toLowerCase() === "es-es");
+  const allowedVoices = esEsVoices.filter(v =>
+    preferredNames.includes(String(v.name || "").toLowerCase())
+  );
+
+  if (!allowedVoices.length) {
+    const msg = document.createElement("div");
+    msg.className = "small";
+    msg.textContent = "No están disponibles las voces Mónica o Google español.";
+    ttsVoiceList.appendChild(msg);
+    return;
+  }
+
+  if (!ttsSettings.voiceURI || !allowedVoices.find(v => v.voiceURI === ttsSettings.voiceURI)) {
+    ttsSettings.voiceURI = allowedVoices[0].voiceURI;
+    ttsSaveSettings();
+  }
+
+  allowedVoices.forEach(v => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = ttsSettings.voiceURI === v.voiceURI ? "success" : "secondary";
+    btn.textContent = v.name;
+    btn.onclick = () => {
+      ttsUserInteracted = true;
+      ttsSettings.voiceURI = v.voiceURI;
+      ttsSaveSettings();
+      ttsPopulateVoiceButtons();
+      ttsSpeakPreview(getRandomMotivationalPhrase(), v.voiceURI);
+    };
+    ttsVoiceList.appendChild(btn);
+  });
+}
+
+function ttsApplyUIState() {
+  const supported = "speechSynthesis" in window;
+  if (ttsToggleBtn) {
+    ttsToggleBtn.innerHTML = supported
+      ? (ttsSettings.enabled ? "Voz" : "<s>Voz</s>")
+      : "Voz no disponible";
+    ttsToggleBtn.disabled = !supported;
+  }
+
+  if (ttsRateRange) ttsRateRange.value = String(ttsSettings.rate || 1);
+  if (ttsPitchRange) ttsPitchRange.value = String(ttsSettings.pitch || 1);
+
+  const disabled = !supported || !ttsSettings.enabled;
+  if (ttsReadBtn) ttsReadBtn.disabled = disabled;
+  ttsRefreshReadButtonLabel();
+}
+
+function ttsRefreshReadButtonLabel() {
+  if (!ttsReadBtn) return;
+  if (!("speechSynthesis" in window)) {
+    ttsReadBtn.textContent = "Leer";
+    return;
+  }
+  const isSpeaking = window.speechSynthesis.speaking || window.speechSynthesis.pending;
+  ttsReadBtn.textContent = isSpeaking ? "Callar" : "Leer";
+}
+
+function ttsSpeak(text, opts = {}) {
+  if (!("speechSynthesis" in window)) return;
+  if (!ttsSettings.enabled) return;
+  if (!text) return;
+
+  window.speechSynthesis.cancel();
+
+  const utter = new SpeechSynthesisUtterance(text);
+  const rate = typeof opts.rate === "number" ? opts.rate : ttsSettings.rate;
+  const pitch = typeof opts.pitch === "number" ? opts.pitch : ttsSettings.pitch;
+  utter.rate = Math.min(2, Math.max(0.1, rate));
+  utter.pitch = Math.min(2, Math.max(0.1, pitch));
+
+  const voiceURI = opts.voiceURI || ttsSettings.voiceURI;
+  if (voiceURI && ttsVoices.length) {
+    const voice = ttsVoices.find(v => v.voiceURI === voiceURI);
+    if (voice) utter.voice = voice;
+  }
+
+  if (!utter.voice) {
+    const fallback = ttsGetSpanishVoicePreferred(ttsVoices);
+    if (fallback) utter.voice = fallback;
+  }
+
+  if (utter.voice && utter.voice.lang) utter.lang = utter.voice.lang;
+  else utter.lang = "es-ES";
+
+  utter.onstart = () => ttsRefreshReadButtonLabel();
+  utter.onend = () => ttsRefreshReadButtonLabel();
+  utter.onerror = () => ttsRefreshReadButtonLabel();
+
+  window.speechSynthesis.speak(utter);
+}
+
+function ttsSpeakPreview(text, voiceURI) {
+  if (!("speechSynthesis" in window)) return;
+  if (!text) return;
+
+  window.speechSynthesis.cancel();
+
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.rate = Math.min(2, Math.max(0.1, ttsSettings.rate || 1));
+  utter.pitch = Math.min(2, Math.max(0.1, ttsSettings.pitch || 1));
+
+  if (voiceURI && ttsVoices.length) {
+    const voice = ttsVoices.find(v => v.voiceURI === voiceURI);
+    if (voice) utter.voice = voice;
+  }
+
+  if (!utter.voice) {
+    const fallback = ttsGetSpanishVoicePreferred(ttsVoices);
+    if (fallback) utter.voice = fallback;
+  }
+
+  if (utter.voice && utter.voice.lang) utter.lang = utter.voice.lang;
+  else utter.lang = "es-ES";
+
+  utter.onstart = () => ttsRefreshReadButtonLabel();
+  utter.onend = () => ttsRefreshReadButtonLabel();
+  utter.onerror = () => ttsRefreshReadButtonLabel();
+
+  window.speechSynthesis.speak(utter);
+}
+function ttsStop() {
+  if (!("speechSynthesis" in window)) return;
+  window.speechSynthesis.cancel();
+  ttsRefreshReadButtonLabel();
+}
+
+function ttsSpeakQuestion(q, index, total) {
+  if (!q) return;
+  const options = currentShuffledOptions && currentShuffledOptions.length
+    ? currentShuffledOptions
+    : (q.opciones || []);
+  const letters = ["A", "B", "C", "D"];
+  const optionsText = options
+    .map((opt, i) => `Opción ${letters[i] || String(i + 1)}: ${opt}.`)
+    .join(" ");
+  const text = `Pregunta ${index} de ${total}. ${q.pregunta}. Opciones: ${optionsText}`;
+  ttsSpeak(text);
+}
+
+function ttsSpeakOnlyQuestion(q, index, total) {
+  if (!q) return;
+  const text = `Pregunta ${index} de ${total}. ${q.pregunta}.`;
+  ttsSpeak(text);
+}
+
+function ttsSpeakOnlyOptions(q) {
+  if (!q) return;
+  const options = currentShuffledOptions && currentShuffledOptions.length
+    ? currentShuffledOptions
+    : (q.opciones || []);
+  const letters = ["A", "B", "C", "D"];
+  const optionsText = options
+    .map((opt, i) => `Opción ${letters[i] || String(i + 1)}: ${opt}.`)
+    .join(" ");
+  const text = `Opciones: ${optionsText}`;
+  ttsSpeak(text);
+}
+
+function ttsMaybeAutoRead(q) {
+  if (!ttsSettings.enabled) return;
+  if (!ttsUserInteracted) return;
+  if (viewState !== "question") return;
+  if (!q) return;
+  const idStr = String(q.id);
+  if (ttsLastQuestionId === idStr) return;
+  ttsLastQuestionId = idStr;
+  ttsSpeakQuestion(q, currentIndex + 1, currentTest.length);
+}
+
+function ttsBindUI() {
+  if (ttsToggleBtn) {
+    ttsToggleBtn.onclick = () => {
+      ttsUserInteracted = true;
+      ttsSettings.enabled = !ttsSettings.enabled;
+      if (!ttsSettings.enabled) ttsStop();
+      ttsSaveSettings();
+      ttsApplyUIState();
+    };
+  }
+
+  if (ttsRateRange) {
+    ttsRateRange.oninput = () => {
+      ttsUserInteracted = true;
+      ttsSettings.rate = Number(ttsRateRange.value) || 1;
+      ttsSaveSettings();
+    };
+  }
+
+  if (ttsPitchRange) {
+    ttsPitchRange.oninput = () => {
+      ttsUserInteracted = true;
+      ttsSettings.pitch = Number(ttsPitchRange.value) || 1;
+      ttsSaveSettings();
+    };
+  }
+
+  if (ttsReadBtn) {
+    ttsReadBtn.onclick = () => {
+      ttsUserInteracted = true;
+      if ("speechSynthesis" in window && (window.speechSynthesis.speaking || window.speechSynthesis.pending)) {
+        ttsStop();
+        return;
+      }
+      const q = currentTest[currentIndex];
+      ttsSpeakQuestion(q, currentIndex + 1, currentTest.length);
+    };
+  }
+}
+
+// Init TTS
+(function initTtsOnLoad() {
+  ttsLoadSettings();
+  ttsBindUI();
+  ttsApplyUIState();
+  ttsInitVoices();
+  if ("speechSynthesis" in window) {
+    window.speechSynthesis.onvoiceschanged = () => {
+      ttsVoices = window.speechSynthesis.getVoices();
+      ttsPopulateVoiceButtons();
+      ttsApplyUIState();
+    };
+  }
+})();
 
 // ✅ fuerza a array para evitar "object is not iterable"
 function asArray(value) {
@@ -604,7 +1073,10 @@ function hideAll() {
   mainMenu.style.display = "none";
   testMenu.style.display = "none";
   testContainer.style.display = "none";
+  voiceSettingsContainer.style.display = "none";
   resultsContainer.style.display = "none";
+  reviewContainer.style.display = "none";
+  statsContainer.style.display = "none";
   importContainer.style.display = "none";
 }
 
@@ -615,6 +1087,7 @@ function showMainMenu() {
   stopTimer();
   hideAll();
   mainMenu.style.display = "block";
+  renderMotivationalPhrase();
 
   // Aseguramos zona de botones extra sin reescribir tu HTML
   let extraBox = document.getElementById("main-extra");
@@ -624,8 +1097,6 @@ function showMainMenu() {
     extraBox.style.marginTop = "12px";
     mainMenu.appendChild(extraBox);
   }
-  const topExtra = document.getElementById("main-top-extra");
-
   // Limpieza y cálculo de pendientes reales
   prunePendingGhostIds();
 
@@ -643,26 +1114,41 @@ function showMainMenu() {
   const hist = lsGetJSON(LS_HISTORY, []);
   const last = hist.length ? hist[hist.length - 1] : null;
 
-  if (topExtra) {
-    topExtra.innerHTML = `
-      ${paused ? `<button id="btn-continue-paused" class="secondary">Continuar test pausado</button>` : ""}
-      <button id="btn-review" class="secondary">Repasar pendientes (${pendingCount})</button>
+  const rowTest = document.getElementById("main-row-test");
+  if (rowTest) {
+    rowTest.innerHTML = "";
+    if (startTestBtn) rowTest.appendChild(startTestBtn);
+    const reviewBtn = document.createElement("button");
+    reviewBtn.id = "btn-review";
+    reviewBtn.className = "secondary";
+    reviewBtn.textContent = `Repasar pendientes (${pendingCount})`;
+    rowTest.appendChild(reviewBtn);
+  }
+
+  const rowExam = document.getElementById("main-row-exam");
+  if (rowExam) {
+    rowExam.innerHTML = `
       <button id="btn-exam" class="secondary">Modo examen</button>
       <button id="btn-perfection" class="secondary">Perfeccionamiento</button>
     `;
   }
 
+  const rowPaused = document.getElementById("main-row-paused");
+  if (rowPaused) {
+    rowPaused.innerHTML = paused
+      ? `
+        <button id="btn-continue-paused" class="secondary">Continuar test pausado</button>
+        <button id="btn-cancel-paused" class="secondary">Cancelar test pausado</button>
+      `
+      : "";
+  }
+
   extraBox.innerHTML = `
     <div class="row" id="main-row-1">
       <button id="btn-bank" class="secondary">Banco de preguntas</button>
+      <button id="btn-stats" class="secondary">Estadísticas</button>
     </div>
     <div class="row" id="main-row-2">
-      <button id="btn-trash" class="secondary">Papelera</button>
-      <button id="btn-backup-export" class="secondary">Exportar backup</button>
-      <button id="btn-backup-import" class="secondary">Importar backup</button>
-    </div>
-    <div class="row" id="main-row-3">
-      <button id="btn-reset-stats" class="danger">Resetear estadísticas</button>
     </div>
     <div class="small" id="main-db-pill" style="margin-top:8px;"></div>
     ${
@@ -676,8 +1162,7 @@ function showMainMenu() {
 
   const row1 = document.getElementById("main-row-1");
   if (row1) {
-    if (openImportBtn) row1.appendChild(openImportBtn);
-    if (exportJsonBtn) row1.appendChild(exportJsonBtn);
+    // Botones extra retirados del menú principal
   }
 
   const dbPillTarget = document.getElementById("main-db-pill");
@@ -688,42 +1173,17 @@ function showMainMenu() {
 
   if (paused) {
     document.getElementById("btn-continue-paused").onclick = () => resumePausedTest();
+    document.getElementById("btn-cancel-paused").onclick = () => {
+      clearPausedTest();
+      showMainMenu();
+    };
   }
 
   document.getElementById("btn-review").onclick = () => startReviewPending();
   document.getElementById("btn-exam").onclick = () => showExamMenu();
   document.getElementById("btn-perfection").onclick = () => showTemaSelectionScreen("perfection");
   document.getElementById("btn-bank").onclick = () => showQuestionBank();
-  document.getElementById("btn-trash").onclick = () => showTrashScreen();
-
-  // BACKUP
-  document.getElementById("btn-backup-export").onclick = () => exportFullBackup();
-
-  document.getElementById("btn-backup-import").onclick = () => {
-    const input = document.createElement("input");
-    input.type = "file";
-    input.accept = "application/json";
-
-    input.onchange = () => {
-      const file = input.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = () => {
-        importFullBackupFromText(reader.result);
-      };
-      reader.readAsText(file);
-    };
-
-    input.click();
-  };
-
-  document.getElementById("btn-reset-stats").onclick = () => {
-    if (confirm("¿Seguro que quieres resetear estadísticas, historial y pendientes? (No borra preguntas)")) {
-      resetStatsHistory();
-      showMainMenu();
-    }
-  };
+  document.getElementById("btn-stats").onclick = () => showStatsScreen();
 
   refreshDbCountPill();
 
@@ -739,17 +1199,152 @@ function showTestMenuScreen() {
   testMenu.style.display = "block";
 }
 
+function showVoiceSettingsScreen() {
+  hideAll();
+  voiceSettingsContainer.style.display = "block";
+  ttsApplyUIState();
+}
+
 function showTestScreen() {
   hideAll();
   testContainer.style.display = "block";
   ensurePauseAndFinishUI();
   updateModePill();
+  ttsApplyUIState();
 }
 
 function showResultsScreen() {
   stopTimer();
+  ttsStop();
   hideAll();
   resultsContainer.style.display = "block";
+}
+
+function showReviewScreen() {
+  hideAll();
+  reviewContainer.style.display = "block";
+
+  if (!lastSessionAnswers || !lastSessionAnswers.length) {
+    reviewText.innerHTML = "<p>No hay preguntas para repasar.</p>";
+    return;
+  }
+
+  const blocks = lastSessionAnswers.map((a, idx) => {
+    const optionsHtml = (a.opciones || []).map(opt => {
+      const isChosen = a.elegida && opt === a.elegida;
+      const isCorrect = a.correcta && opt === a.correcta;
+      let style = "padding:8px;border:1px solid #b8d8ff;border-radius:10px;margin:6px 0;background:white;";
+      if (isCorrect) style += "background:#e9f7ee;border-color:#9ad3b0;";
+      if (isChosen && !isCorrect) style += "background:#ffe8e8;border-color:#ffb3b3;";
+      return `<div style="${style}">${escapeHtml(opt)}</div>`;
+    }).join("");
+
+    return `
+      <div class="card" style="margin:12px 0;text-align:left;">
+        <div class="small" style="margin-bottom:6px;">${idx + 1}. ${escapeHtml(a.tema || "")}</div>
+        <div style="font-weight:700;margin-bottom:8px;">${escapeHtml(a.pregunta || "")}</div>
+        ${optionsHtml}
+      </div>
+    `;
+  }).join("");
+
+  reviewText.innerHTML = blocks;
+}
+
+function showStatsScreen() {
+  hideAll();
+  statsContainer.style.display = "block";
+
+  const stats = getStats();
+  const hist = asArray(lsGetJSON(LS_HISTORY, []));
+
+  let totalAnswered = 0;
+  let totalCorrect = 0;
+  let totalWrong = 0;
+  let totalNoSe = 0;
+  let totalSeen = 0;
+  let uniqueAnswered = 0;
+
+  Object.values(stats).forEach(s => {
+    const seen = Number(s?.seen) || 0;
+    const correct = Number(s?.correct) || 0;
+    const wrong = Number(s?.wrong) || 0;
+    const noSe = Number(s?.noSe) || 0;
+    totalSeen += seen;
+    totalCorrect += correct;
+    totalWrong += wrong;
+    totalNoSe += noSe;
+    if (correct + wrong + noSe > 0) uniqueAnswered += 1;
+  });
+
+  totalAnswered = totalCorrect + totalWrong + totalNoSe;
+  const accuracy = totalAnswered ? (totalCorrect / totalAnswered) * 100 : 0;
+
+  const totalTests = hist.length;
+  const lastTest = totalTests ? hist[totalTests - 1] : null;
+
+  const byDay = new Map();
+  hist.forEach(h => {
+    const d = h?.date ? new Date(h.date) : null;
+    if (!d || isNaN(d)) return;
+    const dayKey = d.toISOString().slice(0, 10);
+    const item = byDay.get(dayKey) || { tests: 0, correct: 0, wrong: 0, noSe: 0, total: 0 };
+    item.tests += 1;
+    item.correct += Number(h.correct) || 0;
+    item.wrong += Number(h.wrong) || 0;
+    item.noSe += Number(h.noSe) || 0;
+    item.total += Number(h.total) || 0;
+    byDay.set(dayKey, item);
+  });
+
+  const dayRows = Array.from(byDay.entries())
+    .sort((a, b) => b[0].localeCompare(a[0]))
+    .map(([day, v]) => {
+      const pct = v.total ? (v.correct / v.total) * 100 : 0;
+      const dateLabel = new Date(`${day}T00:00:00`).toLocaleDateString("es-ES");
+      return `
+        <div class="small" style="margin:6px 0;">
+          <strong>${dateLabel}:</strong> ${v.tests} tests · ${v.correct} aciertos · ${v.wrong} fallos · ${v.noSe} no lo sé · ${pct.toFixed(1)}%
+        </div>
+      `;
+    })
+    .join("");
+
+  statsContent.innerHTML = `
+    <div class="card">
+      <div><strong>Preguntas contestadas:</strong> ${totalAnswered}</div>
+      <div><strong>Preguntas distintas contestadas:</strong> ${uniqueAnswered}</div>
+      <div><strong>Vistas totales:</strong> ${totalSeen}</div>
+      <div><strong>Aciertos:</strong> ${totalCorrect}</div>
+      <div><strong>Fallos:</strong> ${totalWrong}</div>
+      <div><strong>No lo sé:</strong> ${totalNoSe}</div>
+      <div><strong>Porcentaje de acierto:</strong> ${accuracy.toFixed(1)}%</div>
+      <div><strong>Tests realizados:</strong> ${totalTests}</div>
+      ${lastTest ? `<div><strong>Último test:</strong> ${new Date(lastTest.date).toLocaleString("es-ES")}</div>` : ""}
+    </div>
+
+    <div class="card">
+      <h3>Historial de días</h3>
+      ${dayRows || `<div class="small">No hay historial todavía.</div>`}
+    </div>
+  `;
+
+  statsActions.innerHTML = `
+    <button id="btn-stats-back" class="secondary">Volver</button>
+    <button id="btn-reset-stats" class="secondary">Resetear estadísticas</button>
+  `;
+
+  document.getElementById("btn-stats-back").onclick = showMainMenu;
+  document.getElementById("btn-reset-stats").onclick = async () => {
+    const ok = await showConfirm(
+      "¿Seguro que quieres resetear estadísticas, historial y pendientes? (No borra preguntas)",
+      { danger: true }
+    );
+    if (ok) {
+      resetStatsHistory();
+      showStatsScreen();
+    }
+  };
 }
 
 function showImportScreen() {
@@ -762,8 +1357,8 @@ function showImportScreen() {
 // =======================
 function ensurePauseAndFinishUI() {
   // buscamos la primera row del test container (timer + mode pill)
-  const headerRow = testContainer.querySelector(".row");
-  if (!headerRow) return;
+  const controlsRow = document.getElementById("test-controls-row");
+  if (!controlsRow) return;
 
   // pausa
   if (!document.getElementById("pause-btn")) {
@@ -771,10 +1366,10 @@ function ensurePauseAndFinishUI() {
     pauseBtn.id = "pause-btn";
     pauseBtn.className = "secondary";
     pauseBtn.textContent = "Pausar";
-    pauseBtn.style.width = "120px";
+    pauseBtn.style.width = "80px";
     pauseBtn.style.margin = "0";
     pauseBtn.onclick = () => pauseTestToMenu();
-    headerRow.appendChild(pauseBtn);
+    controlsRow.appendChild(pauseBtn);
   }
 
   // terminar
@@ -783,13 +1378,25 @@ function ensurePauseAndFinishUI() {
     finishBtn.id = "finish-btn";
     finishBtn.className = "danger";
     finishBtn.textContent = "Terminar";
-    finishBtn.style.width = "120px";
+    finishBtn.style.width = "80px";
     finishBtn.style.margin = "0";
-    finishBtn.onclick = () => {
-      if (confirm("¿Terminar el test ahora?")) finishTest("manual");
+    finishBtn.onclick = async () => {
+      const ok = await showConfirm("¿Terminar el test ahora?");
+      if (ok) finishTest("manual");
     };
-    headerRow.appendChild(finishBtn);
+    controlsRow.appendChild(finishBtn);
   }
+}
+
+function updateProgressUI() {
+  const textEl = document.getElementById("progress-text");
+  const barEl = document.getElementById("progress-bar-fill");
+  if (!textEl || !barEl) return;
+  const total = currentTest.length || 0;
+  const current = Math.min(currentIndex + 1, total);
+  textEl.textContent = `${current}/${total}`;
+  const pct = total ? (current / total) * 100 : 0;
+  barEl.style.width = `${pct}%`;
 }
 
 function updateModePill() {
@@ -811,6 +1418,7 @@ function updateModePill() {
 
 function pauseTestToMenu() {
   stopTimer();
+  ttsStop();
 
   if (!currentTest || !currentTest.length) {
     showMainMenu();
@@ -844,10 +1452,10 @@ function pauseTestToMenu() {
   showMainMenu();
 }
 
-function resumePausedTest() {
+async function resumePausedTest() {
   const saved = lsGetJSON(LS_ACTIVE_PAUSED_TEST, null);
   if (!saved) {
-    alert("No hay ningún test pausado.");
+    await showAlert("No hay ningún test pausado.");
     showMainMenu();
     return;
   }
@@ -858,7 +1466,7 @@ function resumePausedTest() {
     .filter(Boolean);
 
   if (!pool.length) {
-    alert("No se pudo reconstruir el test pausado (puede que hayas borrado preguntas).");
+    await showAlert("No se pudo reconstruir el test pausado (puede que hayas borrado preguntas).");
     localStorage.removeItem(LS_ACTIVE_PAUSED_TEST);
     showMainMenu();
     return;
@@ -958,62 +1566,66 @@ function showTemaSelectionScreen(targetMode) {
 
   showTestMenuScreen();
 
+  const stats = getStats();
+  const temaCounts = new Map();
+  for (const q of questions) {
+    const temaKey = normalizeTemaKey(q.tema || "Sin tema");
+    if (!temaCounts.has(temaKey)) temaCounts.set(temaKey, { total: 0, seen: 0 });
+    const entry = temaCounts.get(temaKey);
+    entry.total++;
+    if ((stats[String(q.id)]?.seen || 0) > 0) entry.seen++;
+  }
+
   const grouped = groupTemasByBloque();
   const totalQuestions = questions.length;
 
   testMenu.innerHTML = `
-    <h2>Selecciona temas</h2>
-    <div class="small" style="margin-bottom:10px;">Selecciona bloques o temas sueltos. El contador se actualiza en tiempo real.</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+      <h2 style="margin:0;">Personaliza el test</h2>
+      <button id="btn-start-practice-top" class="success">${targetMode === "perfection" ? "Iniciar perfeccionamiento" : "Comenzar test"}</button>
+    </div>
+    <div class="small" style="margin-bottom:10px;"></div>
 
-    <div id="tema-select-wrap"></div>
-
-    <div style="margin:12px 0;">
-      <div style="font-weight:700;margin-bottom:6px;">Filtrar por fuente</div>
+    <div style="margin:12px 0;text-align:center;">
+      <div style="font-weight:700;margin-bottom:6px;">Filtrar</div>
       <div id="fuente-select-wrap" class="small"></div>
     </div>
 
-    <div style="margin:12px 0;">
-      <label style="display:block;margin:8px 0;">
-        <input type="checkbox" id="less-used-checkbox">
-        Solo preguntas menos usadas
-      </label>
-
-      <label style="display:block;margin:8px 0;">
-        <input type="checkbox" id="all-questions-checkbox">
-        Todas las preguntas (ignora selección)
-      </label>
-      <button id="btn-clear-selection" class="secondary" style="margin:6px 0 10px 0;">Desmarcar todas</button>
-
-      <label style="display:block;margin:8px 0;">
-        Nº preguntas:
-        <select id="num-questions-select">
-          <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="50">50</option>
-          <option value="100">100</option>
-          <option value="0">Todas (sin límite)</option>
-        </select>
-      </label>
-
-      <label style="display:block;margin:8px 0;">
-        Tiempo:
-        <select id="time-mode-select">
-          <option value="perq30">30s por pregunta</option>
-          <option value="perq45">45s por pregunta</option>
-          <option value="perq" selected>1 min por pregunta</option>
-          <option value="perq75">1min 15s por pregunta</option>
-          <option value="perq90">1min 30s por pregunta</option>
-          <option value="perq120">2min por pregunta</option>
-          <option value="manual">Fijar minutos</option>
-        </select>
-        <input id="manual-minutes" type="number" min="1" value="15" style="width:70px; display:none; margin-left:8px;">
-      </label>
-
-      <div id="selected-count" style="margin-top:8px;"><strong>Preguntas seleccionadas:</strong> 0</div>
+    <div style="margin:12px 0;text-align:center;">
+      <div class="row" style="justify-content:center;margin:8px 0;">
+        <button id="btn-toggle-all" class="secondary">Marcar todas</button>
+        <button id="btn-less-used">Solo preguntas menos usadas</button>
+      </div>
     </div>
 
-    <button id="btn-start-practice">${targetMode === "perfection" ? "Iniciar perfeccionamiento" : "Comenzar test"}</button>
-    <button id="btn-back-main" class="secondary">Volver</button>
+    <div id="tema-select-wrap"></div>
+
+    <div style="margin:12px 0;text-align:center;">
+      <div style="font-weight:700;margin:8px 0 6px 0;">Nº de preguntas</div>
+      <div class="row" id="num-questions-buttons" style="justify-content:center;margin-bottom:6px;">
+        <button class="secondary numq-btn" data-value="10">10</button>
+        <button class="secondary numq-btn" data-value="20">20</button>
+        <button class="secondary numq-btn" data-value="50">50</button>
+        <button class="secondary numq-btn" data-value="100">100</button>
+      </div>
+
+      <div style="font-weight:700;margin:8px 0 6px 0;">Tiempo</div>
+      <div class="row" id="time-mode-buttons" style="justify-content:center;margin-bottom:6px;">
+        <button class="secondary time-btn" data-value="perq30">30s</button>
+        <button class="secondary time-btn" data-value="perq45">45s</button>
+        <button class="success time-btn" data-value="perq">1 min</button>
+        <button class="secondary time-btn" data-value="perq75">1:15</button>
+        <button class="secondary time-btn" data-value="perq90">1:30</button>
+        <button class="secondary time-btn" data-value="perq120">2 min</button>
+      </div>
+
+      <div id="selected-count" style="margin-top:8px;text-align:center;"><strong>Preguntas seleccionadas:</strong> 0</div>
+    </div>
+
+    <div id="tema-bottom-actions" style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:12px;">
+      <button id="btn-start-practice" class="success">${targetMode === "perfection" ? "Iniciar perfeccionamiento" : "Comenzar test"}</button>
+      <button id="btn-back-main" class="secondary">Volver</button>
+    </div>
   `;
 
   const wrap = document.getElementById("tema-select-wrap");
@@ -1037,15 +1649,36 @@ function showTemaSelectionScreen(targetMode) {
     temas.forEach(t => {
       const temaKey = normalizeTemaKey(t);
       const temaDisplay = formatTemaDisplay(t);
+      const counts = temaCounts.get(temaKey) || { total: 0, seen: 0 };
+      const rawTema = String(t || "").trim();
+      let temaNum = "";
+      let temaText = "";
+      const rawMatch = rawTema.match(/^(?:tema\s*)?(\d+)(?:\s*[\.\-:])?\s*(.*)$/i);
+      if (rawMatch) {
+        temaNum = `${rawMatch[1]}.`;
+        temaText = rawMatch[2] ? rawMatch[2].trim() : "";
+      }
+      if (!temaText) {
+        const displayMatch = temaDisplay.match(/^(\d+)\.\s*(.*)$/);
+        if (displayMatch) {
+          temaNum = `${displayMatch[1]}.`;
+          temaText = displayMatch[2].trim();
+        } else {
+          temaText = temaDisplay;
+        }
+      }
       const line = document.createElement("label");
-      line.style.display = "flex";
-      line.style.alignItems = "center";
-      line.style.gap = "8px";
-      line.style.margin = "6px 0";
+      line.style.display = "grid";
+      line.style.gridTemplateColumns = "36px 28px 44px 1fr";
+      line.style.alignItems = "start";
+      line.style.columnGap = "4px";
+      line.style.margin = "10px 0";
       line.style.cursor = "pointer";
       line.innerHTML = `
-        <input type="checkbox" class="tema-checkbox" data-bloque="${escapeHtml(bloque)}" data-tema-key="${escapeHtml(temaKey)}" value="${escapeHtml(t)}">
-        ${escapeHtml(temaDisplay)}
+        <span class="small" style="color:#4b5b74;text-align:right;line-height:1.2;">${counts.seen}/${counts.total}</span>
+        <input type="checkbox" class="tema-checkbox" data-bloque="${escapeHtml(bloque)}" data-tema-key="${escapeHtml(temaKey)}" value="${escapeHtml(t)}" style="margin-top:2px;width:18px;height:18px;justify-self:center;">
+        <span style="display:block;line-height:1.35;text-align:left;">${escapeHtml(temaNum)}</span>
+        <span style="display:block;line-height:1.35;text-align:justify;text-justify:inter-word;">${escapeHtml(temaText)}</span>
       `;
       temasList.appendChild(line);
     });
@@ -1057,31 +1690,47 @@ function showTemaSelectionScreen(targetMode) {
   if (fuentes.length === 0) {
     fuenteWrap.innerHTML = "<em>No hay fuentes disponibles</em>";
   } else {
+    fuenteWrap.className = "row";
+    fuenteWrap.style.justifyContent = "center";
+    fuenteWrap.style.gap = "10px";
     fuentes.forEach(f => {
-      const line = document.createElement("label");
-      line.style.display = "flex";
-      line.style.alignItems = "center";
-      line.style.gap = "8px";
-      line.style.margin = "6px 0";
-      line.style.cursor = "pointer";
-      line.innerHTML = `
-        <input type="checkbox" class="fuente-checkbox" value="${escapeHtml(f)}">
-        ${escapeHtml(f)}
-      `;
-      fuenteWrap.appendChild(line);
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "success fuente-btn";
+      btn.setAttribute("data-fuente", f);
+      btn.textContent = f;
+      btn.onclick = () => {
+        btn.className = btn.className.includes("success")
+          ? "fuente-btn"
+          : "success fuente-btn";
+        applyFuenteFilterToTemas();
+        updateSelectedCount();
+      };
+      fuenteWrap.appendChild(btn);
     });
   }
 
-  const lessUsedCb = document.getElementById("less-used-checkbox");
-  const allCb = document.getElementById("all-questions-checkbox");
-  const numSel = document.getElementById("num-questions-select");
-  const timeModeSel = document.getElementById("time-mode-select");
+  const lessUsedBtn = document.getElementById("btn-less-used");
+  const toggleAllBtn = document.getElementById("btn-toggle-all");
+  const numButtonsWrap = document.getElementById("num-questions-buttons");
+  let lessUsedActive = false;
+  let numQuestionsValue = null;
+  const timeButtonsWrap = document.getElementById("time-mode-buttons");
+  let timeModeValue = "perq";
   const manualMinutes = document.getElementById("manual-minutes");
-  const btnClear = document.getElementById("btn-clear-selection");
 
-  timeModeSel.onchange = () => {
-    manualMinutes.style.display = timeModeSel.value === "manual" ? "inline-block" : "none";
-  };
+  if (timeButtonsWrap) {
+    timeButtonsWrap.querySelectorAll(".time-btn").forEach(btn => {
+      btn.onclick = () => {
+        timeModeValue = btn.getAttribute("data-value") || "perq";
+        timeButtonsWrap.querySelectorAll(".time-btn").forEach(b => {
+          b.className = b === btn ? "success time-btn" : "secondary time-btn";
+        });
+        if (manualMinutes) manualMinutes.style.display = "none";
+        updateSelectedCount();
+      };
+    });
+  }
 
   wrap.querySelectorAll(".bloque-toggle").forEach(cb => {
     cb.addEventListener("change", () => {
@@ -1096,31 +1745,96 @@ function showTemaSelectionScreen(targetMode) {
 
   wrap.querySelectorAll(".tema-checkbox").forEach(tcb => {
     tcb.addEventListener("change", () => {
+      if (tcb.dataset.auto === "1") {
+        tcb.dataset.auto = "0";
+      }
       syncBloqueToggleState(tcb.getAttribute("data-bloque"));
       updateSelectedCount();
     });
   });
-  fuenteWrap.querySelectorAll(".fuente-checkbox").forEach(fcb => {
-    fcb.addEventListener("change", updateSelectedCount);
-  });
+  fuenteWrap.querySelectorAll(".fuente-btn").forEach(() => {});
 
-  lessUsedCb.onchange = updateSelectedCount;
-  allCb.onchange = () => {
-    const disabled = allCb.checked;
-    wrap.querySelectorAll("input").forEach(i => (i.disabled = disabled));
-    lessUsedCb.disabled = false;
-    updateSelectedCount();
-  };
-  numSel.onchange = updateSelectedCount;
-  btnClear.onclick = () => {
-    allCb.checked = false;
+  if (lessUsedBtn) {
+    lessUsedBtn.onclick = () => {
+      lessUsedActive = !lessUsedActive;
+      if (lessUsedActive) {
+        lessUsedBtn.className = "success";
+        lessUsedBtn.style.background = "";
+        lessUsedBtn.style.borderColor = "";
+      } else {
+        lessUsedBtn.className = "";
+        lessUsedBtn.style.background = "white";
+        lessUsedBtn.style.borderColor = "#b8d8ff";
+      }
+      if (lessUsedActive) {
+        markAutoTemasForLessUsed();
+      } else {
+        clearAutoTemaMarks();
+      }
+      updateSelectedCount();
+    };
+  }
+
+  if (toggleAllBtn) {
+    toggleAllBtn.onclick = () => {
+      const anyChecked = wrap.querySelectorAll(".tema-checkbox:checked").length > 0;
+      if (!anyChecked) {
+        wrap.querySelectorAll(".bloque-toggle").forEach(cb => {
+          cb.checked = true;
+          cb.indeterminate = false;
+        });
+        wrap.querySelectorAll(".tema-checkbox").forEach(cb => (cb.checked = true));
+        toggleAllBtn.textContent = "Desmarcar todas";
+      } else {
+        wrap.querySelectorAll(".bloque-toggle").forEach(cb => {
+          cb.checked = false;
+          cb.indeterminate = false;
+        });
+        wrap.querySelectorAll(".tema-checkbox").forEach(cb => (cb.checked = false));
+        toggleAllBtn.textContent = "Marcar todas";
+      }
+      updateSelectedCount();
+    };
+  }
+
+  if (numButtonsWrap) {
+    numButtonsWrap.querySelectorAll(".numq-btn").forEach(btn => {
+      btn.onclick = () => {
+        const isActive = btn.className.includes("success");
+        if (isActive) {
+          numQuestionsValue = null;
+          btn.className = "secondary numq-btn";
+        } else {
+          numQuestionsValue = parseInt(btn.getAttribute("data-value") || "0", 10);
+          numButtonsWrap.querySelectorAll(".numq-btn").forEach(b => {
+            b.className = b === btn ? "success numq-btn" : "secondary numq-btn";
+          });
+        }
+        updateSelectedCount();
+      };
+    });
+  }
+  const clearAllSelections = () => {
+    lessUsedActive = false;
+    if (lessUsedBtn) lessUsedBtn.className = "";
+    if (toggleAllBtn) toggleAllBtn.textContent = "Marcar todas";
     wrap.querySelectorAll("input").forEach(i => (i.disabled = false));
     wrap.querySelectorAll(".bloque-toggle").forEach(cb => {
       cb.checked = false;
       cb.indeterminate = false;
     });
     wrap.querySelectorAll(".tema-checkbox").forEach(cb => (cb.checked = false));
-    fuenteWrap.querySelectorAll(".fuente-checkbox").forEach(cb => (cb.checked = false));
+    wrap.querySelectorAll(".tema-checkbox").forEach(cb => (cb.dataset.auto = "0"));
+    fuenteWrap.querySelectorAll(".fuente-btn").forEach(btn => {
+      btn.className = "success fuente-btn";
+    });
+    if (numButtonsWrap) {
+      numQuestionsValue = 10;
+      numButtonsWrap.querySelectorAll(".numq-btn").forEach(b => {
+        b.className = b.getAttribute("data-value") === "10" ? "success numq-btn" : "secondary numq-btn";
+      });
+    }
+    applyFuenteFilterToTemas();
     updateSelectedCount();
   };
 
@@ -1130,8 +1844,13 @@ function showTemaSelectionScreen(targetMode) {
     const config = buildSelectionConfigFromUI();
     startTestWithConfig(config);
   };
+  document.getElementById("btn-start-practice-top").onclick = () => {
+    const config = buildSelectionConfigFromUI();
+    startTestWithConfig(config);
+  };
 
   updateSelectedCount();
+  applyFuenteFilterToTemas();
 
   function syncBloqueToggleState(bloque) {
     const bloqueCb = wrap.querySelector(`.bloque-toggle[data-bloque="${cssEscape(bloque)}"]`);
@@ -1151,20 +1870,22 @@ function showTemaSelectionScreen(targetMode) {
 
   function buildSelectionConfigFromUI() {
     const temasChecked = Array.from(wrap.querySelectorAll(".tema-checkbox:checked"))
+      .filter(cb => cb.dataset.auto !== "1")
       .map(cb => cb.getAttribute("data-tema-key"))
       .filter(Boolean);
-    const fuentesChecked = Array.from(fuenteWrap.querySelectorAll(".fuente-checkbox:checked"))
-      .map(cb => cb.value);
+    const fuentesChecked = Array.from(fuenteWrap.querySelectorAll(".fuente-btn.success"))
+      .map(btn => btn.getAttribute("data-fuente"));
 
     return {
       mode: targetMode,
-      allQuestions: allCb.checked,
-      lessUsed: lessUsedCb.checked,
+      allQuestions: false,
+      lessUsed: lessUsedActive,
       temas: temasChecked,
       fuentes: fuentesChecked,
-      numQuestions: parseInt(numSel.value, 10),
-      timeMode: timeModeSel.value,
-      manualMinutes: Math.max(1, parseInt(manualMinutes.value || "15", 10))
+      fuentesActiveCount: fuentesChecked.length,
+      numQuestions: numQuestionsValue,
+      timeMode: timeModeValue,
+      manualMinutes: 15
     };
   }
 
@@ -1173,6 +1894,66 @@ function showTemaSelectionScreen(targetMode) {
     const pool = buildPoolFromConfig(config);
     document.getElementById("selected-count").innerHTML =
       `<strong>Preguntas seleccionadas:</strong> ${pool.length} / ${totalQuestions}`;
+  }
+
+  function applyFuenteFilterToTemas() {
+    const fuentesChecked = Array.from(fuenteWrap.querySelectorAll(".fuente-btn.success"))
+      .map(btn => btn.getAttribute("data-fuente"));
+    const fuenteSet = new Set(fuentesChecked);
+
+    wrap.querySelectorAll(".tema-checkbox").forEach(cb => {
+      const temaKey = cb.getAttribute("data-tema-key");
+      const label = cb.closest("label");
+      if (!label) return;
+      if (fuenteSet.size === 0) {
+        label.style.display = "none";
+        return;
+      }
+      const hasMatch = questions.some(q =>
+        normalizeTemaKey(q.tema) === temaKey && fuenteSet.has(q.fuente || "Sin fuente")
+      );
+      label.style.display = hasMatch ? "grid" : "none";
+    });
+  }
+
+  function getActiveFuenteSet() {
+    const fuentesChecked = Array.from(fuenteWrap.querySelectorAll(".fuente-btn.success"))
+      .map(btn => btn.getAttribute("data-fuente"));
+    return new Set(fuentesChecked);
+  }
+
+  function markAutoTemasForLessUsed() {
+    clearAutoTemaMarks();
+    const fuenteSet = getActiveFuenteSet();
+    const candidates = questions.filter(q => fuenteSet.has(q.fuente || "Sin fuente"));
+    const neverSeen = candidates.filter(q => getSeenCount(q.id) === 0);
+
+    let selected = [];
+    if (neverSeen.length > 0) {
+      selected = neverSeen;
+    } else {
+      const sorted = candidates.slice().sort((a, b) => getSeenCount(a.id) - getSeenCount(b.id));
+      const takeCount = Math.max(1, Math.ceil(sorted.length * 0.2));
+      selected = sorted.slice(0, takeCount);
+    }
+
+    const temaKeys = new Set(selected.map(q => normalizeTemaKey(q.tema)));
+    wrap.querySelectorAll(".tema-checkbox").forEach(cb => {
+      const temaKey = cb.getAttribute("data-tema-key");
+      if (temaKeys.has(temaKey)) {
+        cb.checked = true;
+        cb.dataset.auto = "1";
+      }
+    });
+  }
+
+  function clearAutoTemaMarks() {
+    wrap.querySelectorAll(".tema-checkbox").forEach(cb => {
+      if (cb.dataset.auto === "1") {
+        cb.checked = false;
+        cb.dataset.auto = "0";
+      }
+    });
   }
 }
 
@@ -1183,25 +1964,42 @@ function buildPoolFromConfig(config) {
     pool = [...questions];
   } else {
     if (!config.temas || config.temas.length === 0) {
-      pool = [...questions];
+      pool = config.lessUsed ? [...questions] : [];
     } else {
       const temaSet = new Set(config.temas);
       pool = questions.filter(q => temaSet.has(normalizeTemaKey(q.tema)));
     }
   }
 
-  if (config.fuentes && config.fuentes.length > 0) {
+  if (config.fuentesActiveCount === 0) {
+    pool = [];
+  } else if (config.fuentes && config.fuentes.length > 0) {
     const fuenteSet = new Set(config.fuentes);
     pool = pool.filter(q => fuenteSet.has(q.fuente || "Sin fuente"));
   }
 
   if (config.lessUsed) {
-    const seenList = pool.map(q => getSeenCount(q.id)).sort((a, b) => a - b);
-    const median = seenList.length ? seenList[Math.floor(seenList.length / 2)] : 0;
-    pool = pool.filter(q => getSeenCount(q.id) <= median);
+    const baseSet = new Set(pool.map(q => String(q.id)));
+    const neverSeen = questions.filter(q => getSeenCount(q.id) === 0);
+
+    if (neverSeen.length > 0) {
+      for (const q of neverSeen) {
+        if (!baseSet.has(String(q.id))) {
+          pool.push(q);
+          baseSet.add(String(q.id));
+        }
+      }
+      const seenList = pool.map(q => getSeenCount(q.id)).sort((a, b) => a - b);
+      const median = seenList.length ? seenList[Math.floor(seenList.length / 2)] : 0;
+      pool = pool.filter(q => getSeenCount(q.id) <= median || getSeenCount(q.id) === 0);
+    } else {
+      const sorted = pool.slice().sort((a, b) => getSeenCount(a.id) - getSeenCount(b.id));
+      const takeCount = Math.max(1, Math.ceil(sorted.length * 0.2));
+      pool = sorted.slice(0, takeCount);
+    }
   }
 
-  if (config.numQuestions && config.numQuestions > 0) {
+  if (typeof config.numQuestions === "number" && config.numQuestions > 0) {
     shuffleArray(pool);
     pool = pool.slice(0, config.numQuestions);
   } else {
@@ -1332,7 +2130,7 @@ function startReviewPending() {
   const pool = (questions || []).filter(q => idSet.has(String(q.id)));
 
   if (pool.length === 0) {
-    alert("No tienes preguntas pendientes de repaso 🎉");
+    showAlert("No tienes preguntas pendientes de repaso");
     return;
   }
 
@@ -1353,7 +2151,7 @@ function startReviewPending() {
 function startTestWithConfig(config) {
   const pool = buildPoolFromConfig(config);
   if (!pool.length) {
-    alert("No has seleccionado ninguna pregunta. Selecciona al menos un tema o usa 'Todas las preguntas'.");
+    showAlert("No has seleccionado ninguna pregunta. Selecciona al menos un tema o usa 'Todas las preguntas'.");
     return;
   }
 
@@ -1386,6 +2184,25 @@ function startTestWithConfig(config) {
     timeSeconds,
     countNonAnsweredAsWrongOnFinish: config.numQuestions > 0 ? true : false,
     meta: {}
+  });
+}
+
+function startQuickTest(numQuestions, minutes) {
+  if (!questions || questions.length === 0) {
+    showAlert("No hay preguntas cargadas.");
+    return;
+  }
+
+  const pool = questions.slice();
+  shuffleArray(pool);
+  const selected = pool.slice(0, Math.min(numQuestions, pool.length));
+
+  mode = "practice";
+  startSession(selected, {
+    mode: "practice",
+    timeSeconds: minutes * 60,
+    countNonAnsweredAsWrongOnFinish: true,
+    meta: { quick: true, count: numQuestions, minutes }
   });
 }
 
@@ -1436,13 +2253,24 @@ function renderQuestionWithOptions(q, opcionesOrdenadas) {
 
   currentShuffledOptions = opcionesOrdenadas.slice();
 
-  opcionesOrdenadas.forEach(opt => {
+  const letters = ["A", "B", "C", "D"];
+  opcionesOrdenadas.forEach((opt, idx) => {
     const btn = document.createElement("button");
-    btn.textContent = opt;
+    const letter = letters[idx] || String(idx + 1);
+    btn.innerHTML = `
+      <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border:1px solid #b8d8ff;border-radius:6px;margin-right:8px;font-weight:700;">${letter}</span>
+      <span style="text-align:left;flex:1;">${escapeHtml(opt)}</span>
+    `;
     btn.className = "answer-btn";
+    btn.dataset.optionText = opt;
+    btn.style.display = "flex";
+    btn.style.alignItems = "center";
     btn.onclick = () => checkAnswer(opt, q);
     answersContainer.appendChild(btn);
   });
+
+  updateProgressUI();
+  ttsMaybeAutoRead(q);
 }
 
 function showQuestion() {
@@ -1474,6 +2302,7 @@ function showQuestion() {
 }
 
 function checkAnswer(selectedText, q) {
+  ttsUserInteracted = true;
   const correctText = q.opciones[q.respuesta_correcta];
   const isCorrect = selectedText === correctText;
 
@@ -1514,6 +2343,7 @@ function checkAnswer(selectedText, q) {
 }
 
 function onNoSe() {
+  ttsUserInteracted = true;
   const q = currentTest[currentIndex];
 
   // ✅ answeredIds siempre strings
@@ -1553,10 +2383,11 @@ function showAnswer(q, selectedTextOrNull) {
   const buttons = answersContainer.querySelectorAll(".answer-btn");
 
   buttons.forEach(btn => {
-    const t = btn.textContent;
+    const t = (btn.dataset.optionText || "").toString();
     if (t === correctText) btn.style.backgroundColor = "lightgreen";
     else if (selectedTextOrNull !== null && t === selectedTextOrNull) btn.style.backgroundColor = "salmon";
-    btn.disabled = true;
+    btn.disabled = false;
+    btn.style.cursor = "pointer";
   });
 
   const exp = document.createElement("p");
@@ -1567,14 +2398,23 @@ function showAnswer(q, selectedTextOrNull) {
 
   continueBtn.style.display = "inline-block";
   continueBtn.onclick = () => {
+    ttsUserInteracted = true;
     if (answersContainer.contains(exp)) answersContainer.removeChild(exp);
     buttons.forEach(btn => (btn.style.backgroundColor = ""));
+    buttons.forEach(btn => {
+      btn.onclick = null;
+      btn.style.cursor = "";
+    });
 
     currentIndex++;
     viewState = "question";
     showQuestion();
     startTimer();
   };
+
+  buttons.forEach(btn => {
+    btn.onclick = () => continueBtn.click();
+  });
 }
 
 function buildAnswerRecord(q, selectedText, correctText, result) {
@@ -1632,6 +2472,7 @@ function finalizeUnansweredAsPendingIfNeeded() {
 
 function finishTest(reason = "manual") {
   stopTimer();
+  ttsStop();
   finalizeUnansweredAsPendingIfNeeded();
 
   addHistoryEntry({
@@ -1652,16 +2493,17 @@ function finishTest(reason = "manual") {
     <p><strong>Fallos:</strong> ${wrongCount}</p>
     <p><strong>No lo sé:</strong> ${noSeCount}</p>
 
-    <div style="margin-top:12px;">
-      <button id="btn-export-test-text" class="secondary">Exportar último test (texto)</button>
-      <button id="btn-copy-test-text" class="secondary">Copiar último test (texto)</button>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:12px;">
+      <button id="btn-copy-test-text">Copiar test en portapapeles</button>
+      <button id="btn-review-test">Repasar test</button>
     </div>
   `;
 
-  document.getElementById("btn-export-test-text").onclick = () => exportLastTestText("download");
   document.getElementById("btn-copy-test-text").onclick = () => exportLastTestText("copy");
+  document.getElementById("btn-review-test").onclick = () => showReviewScreen();
 
   backToMenuBtnResults.onclick = showMainMenu;
+  if (backToResultsBtn) backToResultsBtn.onclick = showResultsScreen;
 }
 
 // =======================
@@ -1695,8 +2537,8 @@ function exportLastTestText(modeExport) {
 
   if (modeExport === "copy") {
     navigator.clipboard.writeText(text)
-      .then(() => alert("Texto copiado al portapapeles ✅"))
-      .catch(() => alert("No se pudo copiar automáticamente."));
+      .then(() => showAlert("Texto copiado al portapapeles."))
+      .catch(() => showAlert("No se pudo copiar automáticamente."));
     return;
   }
 
@@ -1908,8 +2750,9 @@ function clearImportTextarea() {
   importStatus.innerHTML = "";
 }
 
-function clearAddedQuestions() {
-  if (!confirm("¿Seguro que quieres borrar TODAS las preguntas añadidas desde la app?")) return;
+async function clearAddedQuestions() {
+  const ok = await showConfirm("¿Seguro que quieres borrar TODAS las preguntas añadidas desde la app?", { danger: true });
+  if (!ok) return;
 
   localStorage.removeItem(LS_EXTRA_QUESTIONS);
   // Nota: no tocamos deletedIds ni estadísticas
@@ -1937,8 +2780,9 @@ function showQuestionBank() {
   testMenu.innerHTML = `
     <h2>Banco de preguntas</h2>
 
-    <div style="margin:10px 0;">
-      <input id="bank-search" type="text" placeholder="Buscar texto..." style="width:100%;max-width:520px;padding:8px;border-radius:10px;border:1px solid #b8d8ff;">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin:10px 0;">
+      <input id="bank-search" type="text" placeholder="Buscar texto..." style="flex:1;max-width:520px;padding:8px;border-radius:10px;border:1px solid #b8d8ff;">
+      <button id="bank-back" class="secondary">Volver</button>
     </div>
 
     <div style="display:flex;gap:10px;flex-wrap:wrap;margin:10px 0;">
@@ -1956,19 +2800,13 @@ function showQuestionBank() {
         </select>
       </label>
 
-      <label>Modelo:
-        <select id="bank-filter-modelo">
-          <option value="">(Todos)</option>
-          <option value="A">A</option>
-          <option value="B">B</option>
-        </select>
-      </label>
     </div>
 
-    <div class="row" style="margin:10px 0;">
-      <button id="bank-refresh" class="secondary">Buscar</button>
-      <button id="bank-export-json" class="secondary">Exportar preguntas (JSON)</button>
-      <button id="bank-back" class="secondary">Volver</button>
+    <div class="row" style="margin:10px 0;justify-content:center;width:100%;">
+      <button id="bank-refresh" class="secondary" style="flex:1;min-width:160px;">Buscar</button>
+      <button id="bank-import-questions" class="secondary" style="flex:1;min-width:160px;">Importar preguntas</button>
+      <button id="bank-export-json" class="secondary" style="flex:1;min-width:200px;">Exportar preguntas (JSON)</button>
+      <button id="bank-trash" class="secondary" style="flex:1;min-width:140px;">Papelera</button>
     </div>
 
     <div id="bank-results" style="margin-top:12px;"></div>
@@ -1976,18 +2814,22 @@ function showQuestionBank() {
 
   document.getElementById("bank-back").onclick = showMainMenu;
   document.getElementById("bank-export-json").onclick = exportQuestionsJSON;
+  document.getElementById("bank-import-questions").onclick = () => {
+    clearImportTextarea();
+    showImportScreen();
+  };
+  document.getElementById("bank-trash").onclick = () => showTrashScreen();
 
   const runSearch = () => {
     const term = (document.getElementById("bank-search").value || "").trim().toLowerCase();
     const fb = document.getElementById("bank-filter-bloque").value;
     const ff = document.getElementById("bank-filter-fuente").value;
-    const fm = document.getElementById("bank-filter-modelo").value;
+    const fm = "";
 
     let res = [...questions];
 
     if (fb) res = res.filter(q => (q.bloque || "Sin bloque") === fb);
     if (ff) res = res.filter(q => (q.fuente || "Sin fuente") === ff);
-    if (fm) res = res.filter(q => (q.modelo || "") === fm);
 
     if (term) {
       res = res.filter(q => {
@@ -2055,7 +2897,10 @@ function renderBankResults(list) {
 function openEditQuestionModal(id) {
   const idStr = String(id);
   const q = questions.find(x => String(x.id) === idStr);
-  if (!q) return alert("No encontrada.");
+  if (!q) {
+    showAlert("No encontrada.");
+    return;
+  }
 
   const overlay = document.createElement("div");
   overlay.style.position = "fixed";
@@ -2147,7 +2992,10 @@ function openEditQuestionModal(id) {
 
     const corr = card.querySelector("#edit-correcta").value.trim().toUpperCase();
     const idx = { A: 0, B: 1, C: 2, D: 3 }[corr];
-    if (idx === undefined) return alert("Correcta inválida. Usa A/B/C/D.");
+    if (idx === undefined) {
+      showAlert("Correcta inválida. Usa A/B/C/D.");
+      return;
+    }
 
     const exp = card.querySelector("#edit-exp").value.trim();
 
@@ -2175,9 +3023,13 @@ function openEditQuestionModal(id) {
   };
 }
 
-function deleteQuestion(id) {
+async function deleteQuestion(id) {
   const idStr = String(id);
-  if (!confirm(`¿Eliminar la pregunta #${idStr}? (Podrás restaurarla desde "Papelera")`)) return;
+  const ok = await showConfirm(
+    `¿Eliminar la pregunta #${idStr}? (Podrás restaurarla desde "Papelera")`,
+    { danger: true }
+  );
+  if (!ok) return;
 
   const deletedRaw = lsGetJSON(LS_DELETED_IDS, []);
   const deleted = new Set(normalizeIdArray(deletedRaw));
@@ -2296,12 +3148,14 @@ function restoreDeletedQuestion(id) {
   showTrashScreen();
 }
 
-function purgeDeletedQuestion(id) {
+async function purgeDeletedQuestion(id) {
   const idStr = String(id);
 
-  if (!confirm(`¿Borrar DEFINITIVAMENTE la pregunta #${idStr}? Esta acción no se puede deshacer.`)) {
-    return;
-  }
+  const ok = await showConfirm(
+    `¿Borrar DEFINITIVAMENTE la pregunta #${idStr}? Esta acción no se puede deshacer.`,
+    { danger: true }
+  );
+  if (!ok) return;
 
   // 1) Eliminar de deletedIds
   const deletedRaw = lsGetJSON(LS_DELETED_IDS, []);
@@ -2383,23 +3237,23 @@ function exportFullBackup() {
   URL.revokeObjectURL(url);
 }
 
-function importFullBackupFromText(rawText) {
+async function importFullBackupFromText(rawText) {
   let parsed;
 
   try {
     parsed = JSON.parse(rawText);
   } catch {
-    alert("El archivo no es un JSON válido.");
+    showAlert("El archivo no es un JSON válido.");
     return;
   }
 
   if (!parsed || parsed.app !== "chari-oposiciones") {
-    alert("Este archivo no parece un backup válido de la app.");
+    showAlert("Este archivo no parece un backup válido de la app.");
     return;
   }
 
   if (parsed.version !== BACKUP_VERSION) {
-    alert(
+    showAlert(
       `Versión de backup no compatible.\n` +
       `Esperada: ${BACKUP_VERSION}\n` +
       `Encontrada: ${parsed.version}`
@@ -2408,11 +3262,11 @@ function importFullBackupFromText(rawText) {
   }
 
   if (!parsed.data || typeof parsed.data !== "object") {
-    alert("El backup está corrupto (data inválida).");
+    showAlert("El backup está corrupto (data inválida).");
     return;
   }
 
-  if (!confirm(
+  const ok = await showConfirm(
     "⚠️ IMPORTANTE ⚠️\n\n" +
     "Este proceso SOBRESCRIBIRÁ TODOS los datos actuales:\n" +
     "- preguntas añadidas\n" +
@@ -2421,10 +3275,10 @@ function importFullBackupFromText(rawText) {
     "- papelera\n" +
     "- purgadas definitivas\n" +
     "- test pausado\n\n" +
-    "¿Seguro que quieres continuar?"
-  )) {
-    return;
-  }
+    "¿Seguro que quieres continuar?",
+    { danger: true }
+  );
+  if (!ok) return;
 
   const d = parsed.data;
 
@@ -2465,7 +3319,7 @@ function importFullBackupFromText(rawText) {
     lsSetJSON(LS_ACTIVE_PAUSED_TEST, d.pausedTest);
   }
 
-  alert("✅ Backup importado correctamente.\nLa aplicación se reiniciará.");
+  await showAlert("Backup importado correctamente.\nLa aplicación se reiniciará.");
 
   // Recarga total para garantizar estado limpio
   location.reload();
@@ -2568,9 +3422,37 @@ function ensureDarkModeStyleTag() {
       border-color: rgba(120,170,255,0.30);
     }
 
+    body.chari-dark button.success {
+      background: rgba(120,170,255,0.18);
+      border-color: rgba(120,170,255,0.30);
+    }
+
     body.chari-dark button.danger {
       background: rgba(255,90,90,0.18);
       border-color: rgba(255,90,90,0.35);
+    }
+
+    body.chari-dark .answer-btn[style*="lightgreen"] {
+      background: rgba(70, 160, 110, 0.28) !important;
+    }
+    body.chari-dark .answer-btn[style*="salmon"] {
+      background: rgba(190, 90, 90, 0.28) !important;
+    }
+
+    body.chari-dark #no-btn {
+      background: rgba(255,255,255,0.10) !important;
+      border: 1px solid rgba(255,255,255,0.14) !important;
+    }
+
+    body.chari-dark .modal,
+    body.chari-dark .modal * {
+      color: #000 !important;
+    }
+
+    body.chari-dark .modal button {
+      background: rgba(120,170,255,0.22) !important;
+      border-color: rgba(120,170,255,0.35) !important;
+      color: #000 !important;
     }
 
     /* Pills / badges (por si usan fondo claro) */
@@ -2603,7 +3485,7 @@ function injectDarkModeToggleIntoMainMenu() {
   // Evitar duplicados
   if (document.getElementById("btn-darkmode-toggle")) return;
 
-  const row = document.getElementById("main-row-3") || extraBox.querySelector(".row");
+  const row = document.getElementById("main-row-2") || extraBox.querySelector(".row");
   if (!row) return;
 
   const btn = document.createElement("button");
@@ -2617,6 +3499,15 @@ function injectDarkModeToggleIntoMainMenu() {
   };
 
   row.appendChild(btn);
+
+  if (!document.getElementById("btn-voice-settings")) {
+    const voiceBtn = document.createElement("button");
+    voiceBtn.id = "btn-voice-settings";
+    voiceBtn.className = "secondary";
+    voiceBtn.textContent = "Voz";
+    voiceBtn.onclick = showVoiceSettingsScreen;
+    row.appendChild(voiceBtn);
+  }
 }
 
 // Aplicar el modo al cargar la app (por si el usuario ya lo tenía activado)
@@ -2680,6 +3571,23 @@ function cssEscape(val) {
     const key = e.key.toLowerCase();
 
     // =======================
+    // ATAJOS TTS
+    // =======================
+    if (key === "l") {
+      e.preventDefault();
+      ttsUserInteracted = true;
+      const q = currentTest[currentIndex];
+      ttsSpeakQuestion(q, currentIndex + 1, currentTest.length);
+      return;
+    }
+    if (key === "s") {
+      e.preventDefault();
+      ttsUserInteracted = true;
+      ttsStop();
+      return;
+    }
+
+    // =======================
     // ESTADO: PREGUNTA
     // =======================
     if (viewState === "question") {
@@ -2737,6 +3645,9 @@ function cssEscape(val) {
 // EVENTS (HTML)
 // =======================
 startTestBtn.onclick = () => showTemaSelectionScreen("practice");
+quickTest10Btn.onclick = () => startQuickTest(10, 10);
+quickTest20Btn.onclick = () => startQuickTest(20, 20);
+if (voiceSettingsBtn) voiceSettingsBtn.onclick = showVoiceSettingsScreen;
 openImportBtn.onclick = () => {
   // ✅ al entrar, vacío para pruebas (como pediste)
   clearImportTextarea();
@@ -2752,10 +3663,64 @@ btnImportQuestions.onclick = importQuestionsFromTextarea;
 btnClearImport.onclick = clearImportTextarea;
 btnClearAdded.onclick = clearAddedQuestions;
 btnBackFromImport.onclick = showMainMenu;
+if (voiceSettingsBackBtn) voiceSettingsBackBtn.onclick = showMainMenu;
 
 // =======================
 // INIT
 // =======================
+function isVisibleEl(el) {
+  return !!(el && el.offsetParent !== null);
+}
+
+function handleEscBack() {
+  const finishBtn = document.getElementById("finish-btn");
+  if (isVisibleEl(finishBtn)) {
+    finishBtn.click();
+    return;
+  }
+
+  const candidates = [
+    document.getElementById("back-to-results-btn"),
+    document.getElementById("back-to-menu-btn"),
+    document.getElementById("btn-back-main"),
+    document.getElementById("bank-back"),
+    document.getElementById("btn-back-from-import"),
+    document.getElementById("btn-stats-back"),
+    document.getElementById("btn-voice-back")
+  ];
+
+  for (const btn of candidates) {
+    if (isVisibleEl(btn)) {
+      btn.click();
+      return;
+    }
+  }
+}
+
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") {
+    handleEscBack();
+  }
+});
+
+fetch("frases_motivadoras.json")
+  .then(res => {
+    if (!res.ok) throw new Error(`HTTP ${res.status} cargando frases_motivadoras.json`);
+    return res.json();
+  })
+  .then(data => {
+    const list = data && Array.isArray(data["Frases motivadoras"])
+      ? data["Frases motivadoras"].filter(Boolean)
+      : [];
+    if (list.length) motivationalPhrases = list;
+    if (mainMenu && mainMenu.style.display !== "none") {
+      renderMotivationalPhrase();
+    }
+  })
+  .catch(err => {
+    console.warn("No se pudieron cargar las frases motivadoras", err);
+  });
+
 fetch("questions.json")
   .then(res => {
     if (!res.ok) throw new Error(`HTTP ${res.status} cargando questions.json`);
@@ -2769,7 +3734,7 @@ fetch("questions.json")
     showMainMenu();
   })
   .catch(err => {
-    alert("Error cargando questions.json");
+    showAlert("Error cargando questions.json");
     console.error(err);
     questionsBase = [];
     mergeQuestions();
