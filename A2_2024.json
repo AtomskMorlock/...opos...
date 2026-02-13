@@ -1,146 +1,1650 @@
 [
   {
-    "id": "A2.2024.001",
-    "tema": "85. Invención y difusión de la imprenta. Los incunables. La imprenta en España durante el siglo XV.",
-    "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
-    "fuente": "A2 2024",
-    "modelo": "A",
-    "pregunta": "¿Cuál fue el primer autor español que vio publicada su obra en una edición incunable?",
-    "opciones": [
-      "Rodrigo Sánchez de Arévalo, con su Speculum vitae humanae.",
-      "Juan de Torquemada, con sus Meditationes.",
-      "Alonso de Palencia, con la Batalla campal de los perros contra los lobos.",
-      "Hernando del Pulgar y sus Coplas de Mingo Revulgo."
-    ],
-    "respuesta_correcta": 1,
-    "explicacion": "Juan de Torquemada es considerado el primer autor español cuya obra se publicó como incunable, concretamente sus Meditationes, impresas en el siglo XV."
-  },
-  {
-    "id": "A2.2024.002",
-    "tema": "85. Invención y difusión de la imprenta. Los incunables. La imprenta en España durante el siglo XV.",
-    "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
-    "fuente": "A2 2024",
-    "modelo": "A",
-    "pregunta": "¿Qué tipógrafo de la imprenta incunable recibía abundantes encargos del Cabildo de Burgos?",
-    "opciones": [
-      "Lambert Palmart.",
-      "Antonio de Centenera.",
-      "Fadrique de Basilea.",
-      "Estanislao Polono."
-    ],
-    "respuesta_correcta": 2,
-    "explicacion": "Fadrique de Basilea fue uno de los impresores más activos en la Castilla del siglo XV y recibió numerosos encargos del Cabildo de Burgos."
-  },
-  {
-    "id": "A2.2024.003",
-    "tema": "85. Invención y difusión de la imprenta. Los incunables. La imprenta en España durante el siglo XV.",
-    "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
-    "fuente": "A2 2024",
-    "modelo": "A",
-    "pregunta": "El operario de la imprenta manual encargado de entintar suficiente y adecuadamente la forma con las balas, evitando las manchas en el pliego era el:",
-    "opciones": [
-      "Componedor.",
-      "Ensayador.",
-      "Tirador.",
-      "Batidor."
-    ],
-    "respuesta_correcta": 3,
-    "explicacion": "El batidor era el operario encargado de entintar la forma con las balas en la imprenta manual, asegurando una correcta distribución de la tinta."
-  },
-  {
-    "id": "A2.2024.004",
-    "tema": "86. El libro en el siglo XVI.",
-    "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
-    "fuente": "A2 2024",
-    "modelo": "A",
-    "pregunta": "¿A quiénes debemos los primeros libros impresos en Madrid en el año 1566?",
-    "opciones": [
-      "Pierres Cosin y Alonso Gómez.",
-      "Francisco Sánchez y Pierres Cosin.",
-      "Alonso Gómez y Pedro Madrigal.",
-      "Juan de la Cuesta y Jorge Coci."
-    ],
-    "respuesta_correcta": 0,
-    "explicacion": "Los primeros libros impresos en Madrid en 1566 se deben a Pierres Cosin y Alonso Gómez, considerados pioneros de la imprenta madrileña."
-  },
-  {
-    "id": "A2.2024.005",
-    "tema": "87. Las bibliotecas en el siglo XVI.",
-    "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
-    "fuente": "A2 2024",
-    "modelo": "A",
-    "pregunta": "¿De cuál de las siguientes bibliotecas fue su responsable y, además, elaboró su primer catálogo el teólogo y políglota Benito Arias Montano?",
-    "opciones": [
-      "Real Biblioteca del Monasterio de El Escorial.",
-      "Biblioteca Colombina.",
-      "Real Biblioteca Pública.",
-      "Biblioteca de la Universidad Complutense de Alcalá de Henares."
-    ],
-    "respuesta_correcta": 0,
-    "explicacion": "Benito Arias Montano fue responsable de la Real Biblioteca del Monasterio de El Escorial y elaboró su primer catálogo en el siglo XVI."
-  },
-  {
-    "id": "A2.2024.006",
-    "tema": "96. El libro y la edición en el siglo XX.",
-    "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
-    "fuente": "A2 2024",
-    "modelo": "A",
-    "pregunta": "¿Qué editorial publicó la Colección Universal en la segunda década del siglo XX?",
-    "opciones": [
-      "Calpe.",
-      "Destino.",
-      "Alianza.",
-      "Planeta."
-    ],
-    "respuesta_correcta": 0,
-    "explicacion": "La Colección Universal fue publicada por la editorial Calpe y tuvo un papel destacado en la difusión cultural en las primeras décadas del siglo XX."
-  },
-  {
-    "id": "A2.2024.007",
-    "tema": "96. El libro y la edición en el siglo XX.",
-    "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
-    "fuente": "A2 2024",
-    "modelo": "A",
-    "pregunta": "¿Quién fue el creador del libro de bolsillo con su colección Penguin Books en 1935?",
-    "opciones": [
-      "Allen Lane.",
-      "Edward Elgar.",
-      "Taylor & Francis.",
-      "Jacob Richard Clarke."
-    ],
-    "respuesta_correcta": 0,
-    "explicacion": "Allen Lane fundó Penguin Books en 1935 y popularizó el libro de bolsillo como formato accesible para el gran público."
-  },
-  {
-    "id": "A2.2024.008",
-    "tema": "97. La industria del libro y la edición en la actualidad. Libros electrónicos, plataformas y servicios. Las licencias digitales. Gestión de derechos digitales. DRM. Mercado editorial: agendes de la producción y difusión del libro.",
-    "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
-    "fuente": "A2 2024",
-    "modelo": "A",
-    "pregunta": "Indique la respuesta correcta en relación con los libros electrónicos:",
-    "opciones": [
-      "eBiblio es un servicio de pago de préstamo de libros electrónicos en línea ofrecido a través de las bibliotecas universitarias.",
-      "Sólo se puede acceder al catálogo de eBiblio si tienes instalada la app en el dispositivo del teléfono móvil.",
-      "En eBiblio el período de préstamo de los libros electrónicos, audiolibros, periódicos y revistas es de 21 días.",
-      "eBiblio es un servicio gratuito de libros electrónicos en línea ofrecido a través de las bibliotecas públicas españolas."
-    ],
-    "respuesta_correcta": 3,
-    "explicacion": "eBiblio es un servicio gratuito de préstamo digital ofrecido por las bibliotecas públicas españolas, accesible a los usuarios con carné de biblioteca."
-  },
-  {
-    "id": "A2.2024.009",
-    "tema": "91. El libro en el siglo XVIII.",
-    "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
-    "fuente": "A2 2024",
-    "modelo": "A",
-    "pregunta": "La obra Las Eróticas de Esteban Manuel de Villegas fue impresa en 1774 por:",
-    "opciones": [
-      "Antonio de Sancha.",
-      "Gabriel Sancha.",
-      "Indalecio Sancha.",
-      "Joaquín Ibarra."
-    ],
-    "respuesta_correcta": 0,
-    "explicacion": "La edición de Las Eróticas de Esteban Manuel de Villegas de 1774 fue realizada por Antonio de Sancha, destacado impresor del siglo XVIII."
-  }
+  "id": "A2.2024.001",
+  "tema": "85. Invención y difusión de la imprenta. Los incunables. La imprenta en España durante el siglo XV.",
+  "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿Cuál fue el primer autor español que vio publicada su obra en una edición incunable?",
+  "opciones": [
+    "Rodrigo Sánchez de Arévalo, con su Speculum vitae humanae.",
+    "Juan de Torquemada, con sus Meditationes.",
+    "Alonso de Palencia, con la Batalla campal de los perros contra los lobos.",
+    "Hernando del Pulgar y sus Coplas de Mingo Revulgo."
+  ],
+  "respuesta_correcta": 1,
+  "explicacion": "Juan de Torquemada fue el primer autor español cuya obra se publicó en incunable: sus Meditationes fueron impresas en Roma en 1467 por Ulrich Han, siendo la primera obra de un autor español en salir de la imprenta."
+},
+{
+  "id": "A2.2024.002",
+  "tema": "85. Invención y difusión de la imprenta. Los incunables. La imprenta en España durante el siglo XV.",
+  "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿Qué tipógrafo de la imprenta incunable recibía abundantes encargos del Cabildo de Burgos?",
+  "opciones": [
+    "Lambert Palmart.",
+    "Antonio de Centenera.",
+    "Fadrique de Basilea.",
+    "Estanislao Polono."
+  ],
+  "respuesta_correcta": 2,
+  "explicacion": "Fadrique de Basilea (Friedrich Biel) estableció su imprenta en Burgos hacia 1485 y mantuvo una estrecha relación con el Cabildo catedralicio burgalés, que le encargó numerosas obras litúrgicas y religiosas."
+},
+{
+  "id": "A2.2024.003",
+  "tema": "85. Invención y difusión de la imprenta. Los incunables. La imprenta en España durante el siglo XV.",
+  "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "El operario de la imprenta manual encargado de entintar suficiente y adecuadamente la forma con las balas, evitando las manchas en el pliego era el:",
+  "opciones": [
+    "Componedor.",
+    "Ensayador.",
+    "Tirador.",
+    "Batidor."
+  ],
+  "respuesta_correcta": 3,
+  "explicacion": "El batidor era el operario encargado de aplicar la tinta sobre la forma tipográfica usando las balas (muñecas de cuero rellenas), asegurando un entintado uniforme antes de cada impresión."
+},
+{
+  "id": "A2.2024.004",
+  "tema": "86. El libro en el siglo XVI.",
+  "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿A quiénes debemos los primeros libros impresos en Madrid en el año 1566?",
+  "opciones": [
+    "Pierres Cosin y Alonso Gómez.",
+    "Francisco Sánchez y Pierres Cosin.",
+    "Alonso Gómez y Pedro Madrigal.",
+    "Juan de la Cuesta y Jorge Coci."
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "Los primeros libros impresos en Madrid en 1566 se deben a Pierres Cosin y Alonso Gómez, que inauguraron la actividad tipográfica en la villa, recién convertida en sede de la Corte."
+},
+{
+  "id": "A2.2024.005",
+  "tema": "87. Las bibliotecas en el siglo XVI.",
+  "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿De cuál de las siguientes bibliotecas fue su responsable y, además, elaboró su primer catálogo el teólogo y políglota Benito Arias Montano?",
+  "opciones": [
+    "Real Biblioteca del Monasterio de El Escorial.",
+    "Biblioteca Colombina.",
+    "Real Biblioteca Pública.",
+    "Biblioteca de la Universidad Complutense de Alcalá de Henares."
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "Benito Arias Montano fue nombrado por Felipe II primer bibliotecario de la Real Biblioteca del Monasterio de El Escorial, donde organizó los fondos y elaboró su primer catálogo entre 1571 y 1572."
+},
+{
+  "id": "A2.2024.006",
+  "tema": "96. El libro y la edición en el siglo XX.",
+  "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿Qué editorial publicó la Colección Universal en la segunda década del siglo XX?",
+  "opciones": [
+    "Calpe.",
+    "Destino.",
+    "Alianza.",
+    "Planeta."
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "La editorial Calpe lanzó la Colección Universal a partir de 1919, una colección de libros de pequeño formato y bajo precio que democratizó el acceso a la lectura en España."
+},
+{
+  "id": "A2.2024.007",
+  "tema": "96. El libro y la edición en el siglo XX.",
+  "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿Quién fue el creador del libro de bolsillo con su colección Penguin Books en 1935?",
+  "opciones": [
+    "Allen Lane.",
+    "Edward Elgar.",
+    "Taylor & Francis.",
+    "Jacob Richard Clarke."
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "Allen Lane fundó Penguin Books en 1935, revolucionando la industria editorial con libros de bolsillo económicos y de calidad, haciendo la literatura accesible al gran público."
+},
+{
+  "id": "A2.2024.008",
+  "tema": "97. La industria del libro y la edición en la actualidad. Libros electrónicos, plataformas y servicios. Las licencias digitales. Gestión de derechos digitales. DRM. Mercado editorial: agendes de la producción y difusión del libro.",
+  "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "Indique la respuesta correcta en relación con los libros electrónicos:",
+  "opciones": [
+    "eBiblio es un servicio de pago de préstamo de libros electrónicos en línea ofrecido a través de las bibliotecas universitarias.",
+    "Sólo se puede acceder al catálogo de eBiblio si tienes instalada la app en el dispositivo del teléfono móvil.",
+    "En eBiblio el período de préstamo de los libros electrónicos, audiolibros, periódicos y revistas es de 21 días.",
+    "eBiblio es un servicio gratuito de libros electrónicos en línea ofrecido a través de las bibliotecas públicas españolas."
+  ],
+  "respuesta_correcta": 3,
+  "explicacion": "eBiblio es un servicio gratuito de préstamo digital disponible para los usuarios de las bibliotecas públicas españolas, gestionado por el Ministerio de Cultura en colaboración con las comunidades autónomas."
+},
+{
+  "id": "A2.2024.009",
+  "tema": "91. El libro en el siglo XVIII.",
+  "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "La obra Las Eróticas de Esteban Manuel de Villegas fue impresa en 1774 por:",
+  "opciones": [
+    "Antonio de Sancha.",
+    "Gabriel Sancha.",
+    "Indalecio Sancha.",
+    "Joaquín Ibarra."
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "Antonio de Sancha fue uno de los impresores más destacados de la Ilustración española. Imprimió en 1774 Las Eróticas de Esteban Manuel de Villegas, obra que forma parte de su notable producción tipográfica."
+},
+{
+  "id": "A2.2024.012",
+  "tema": "51. Las bibliotecas especializadas. Conceptos, funciones y servicios. Situación en España.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "Si hablamos de bibliotecas, ¿a qué hacen referencia las siglas ABIE?",
+  "opciones": [
+    "Al SIGB de las bibliotecas escolares españolas",
+    "A la Asociación de Bibliotecarios de la Iglesia en España",
+    "Al aprendizaje basado en investigación",
+    "A una interfaz binaria de aplicación"
+  ],
+  "respuesta_correcta": 1,
+  "explicacion": "ABIE son las siglas de la Asociación de Bibliotecarios de la Iglesia en España, organización que agrupa a los profesionales que trabajan en bibliotecas de instituciones eclesiásticas."
+},
+{
+  "id": "A2.2024.013",
+  "tema": "51. Las bibliotecas especializadas. Conceptos, funciones y servicios. Situación en España.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "Las siglas ACLEBIM hacen referencia a una asociación de bibliotecarios españoles que desarrollan su labor profesional, total o parcialmente, en el sector de las:",
+  "opciones": [
+    "Bibliotecas escolares.",
+    "Bibliotecas especializadas.",
+    "Bibliotecas de museos.",
+    "Bibliotecas móviles."
+  ],
+  "respuesta_correcta": 3,
+  "explicacion": "ACLEBIM es la Asociación Castellano-Manchega de Bibliotecas Móviles, que agrupa a profesionales vinculados a los servicios de bibliobuses y bibliotecas móviles."
+},
+{
+  "id": "A2.2024.014",
+  "tema": "53. La cooperación bibliotecaria en la actualidad: organismos, programas y proyectos.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿Qué tipo de bibliotecas propone desarrollar la 5ª línea del IV Plan Estratégico 2024-2028 del Consejo de Cooperación Bibliotecaria?",
+  "opciones": [
+    "Bibliotecas de centros sanitarios.",
+    "Bibliotecas rurales.",
+    "Bibliotecas de centros de investigación.",
+    "Bibliotecas escolares."
+  ],
+  "respuesta_correcta": 3,
+  "explicacion": "La 5ª línea estratégica del IV Plan Estratégico 2024-2028 del Consejo de Cooperación Bibliotecaria se centra en el impulso y desarrollo de las bibliotecas escolares."
+},
+{
+  "id": "A2.2024.015",
+  "tema": "52. Las bibliotecas nacionales y regionales. Conceptos, funciones y servicios. La Biblioteca Nacional de España.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "Según la Carta de servicios vigente (2022-2025) de la Biblioteca Nacional de España, ¿qué números normalizados de documentos pueden solicitar los autores y editores?:",
+  "opciones": [
+    "ISBN e ISMN",
+    "ISSN e ISNI",
+    "ISRC e ISAN",
+    "NIPO y DL"
+  ],
+  "respuesta_correcta": 1,
+  "explicacion": "Según la Carta de servicios 2022-2025 de la BNE, los autores y editores pueden solicitar el ISSN (para publicaciones seriadas) y el ISNI (International Standard Name Identifier) a través de la institución."
+},
+{
+  "id": "A2.2024.016",
+  "tema": "52. Las bibliotecas nacionales y regionales. Conceptos, funciones y servicios. La Biblioteca Nacional de España.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "La American Library Association (ALA) distingue tres tipos o generaciones de bibliotecas nacionales según sus orígenes históricos. Atendiendo a dicha clasificación ¿cuál de estas bibliotecas sería de segunda generación?:",
+  "opciones": [
+    "Library of Congress (LC)",
+    "Nacionalna i univerzitetska biblioteka Bosne i Hercegovine (NUBBiH)",
+    "Biblioteca Nacional de México (BNM)",
+    "British Library (BL)"
+  ],
+  "respuesta_correcta": 2,
+  "explicacion": "Según la clasificación de la ALA, las bibliotecas nacionales de segunda generación son las surgidas en los procesos de independencia colonial durante los siglos XIX y XX, como la Biblioteca Nacional de México."
+},
+{
+  "id": "A2.2024.017",
+  "tema": "52. Las bibliotecas nacionales y regionales. Conceptos, funciones y servicios. La Biblioteca Nacional de España.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "La Conferencia de Bibliotecas Nacionales Europeas está integrada por las bibliotecas nacionales de los estados miembros del Consejo de Europa. ¿Cuál es su denominación abreviada?",
+  "opciones": [
+    "CDNLAO",
+    "CDNL",
+    "SCANUL-ECS",
+    "CENL"
+  ],
+  "respuesta_correcta": 3,
+  "explicacion": "CENL son las siglas de Conference of European National Librarians (Conferencia de Bibliotecas Nacionales Europeas), organismo que agrupa a las bibliotecas nacionales de los estados miembros del Consejo de Europa."
+},
+{
+  "id": "A2.2024.018",
+  "tema": "53. La cooperación bibliotecaria en la actualidad: organismos, programas y proyectos.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "El XI Congreso de Bibliotecas Públicas organizado por el Ministerio de Cultura celebrado en el Palacio de Congresos Baluarte de Pamplona los días 18, 19 y 20 de octubre de 2023, tuvo por título:",
+  "opciones": [
+    "Bibliotecas públicas: profesionales para todos los públicos",
+    "Democracia, lectura y derecho a la información",
+    "El desafío de la transformación",
+    "Bibliotecas Públicas, conectados contigo"
+  ],
+  "respuesta_correcta": 1,
+  "explicacion": "El XI Congreso de Bibliotecas Públicas celebrado en Pamplona en octubre de 2023 tuvo por título \"Democracia, lectura y derecho a la información\"."
+},
+{
+  "id": "A2.2024.019",
+  "tema": "49. Las bibliotecas públicas. Gestión y titularidades. Funciones y servicios. Situación en España.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "De acuerdo con el Manifiesto IFLA/ UNESCO sobre Bibliotecas Públicas, actualizado en 2022, NO es misión de la Biblioteca Pública:",
+  "opciones": [
+    "Brindar oportunidades para el desarrollo personal creativo",
+    "Crear y consolidar hábitos de lectura en los niños desde sus primeros años hasta la adultez",
+    "Fomentar el diálogo intercultural y favorecer la diversidad cultural",
+    "Garantizar el uso del préstamo interbibliotecario o intercentros"
+  ],
+  "respuesta_correcta": 3,
+  "explicacion": "El Manifiesto IFLA/UNESCO sobre Bibliotecas Públicas de 2022 no incluye el préstamo interbibliotecario entre las misiones específicas de la biblioteca pública, a diferencia de las otras opciones que sí figuran expresamente."
+},
+{
+  "id": "A2.2024.020",
+  "tema": "50. Las bibliotecas universitarias. Concepto, funciones y servicios. CRAI. Situación en España. REBIUN. Otras bibliotecas de enseñanza: las bibliotecas escolares.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿Qué nombre recibe el modelo organizativo de Centro de Recursos para el Aprendizaje y la Investigación, caracterizado por tener un CRAI centralizado en una única sede, pero con algunas delegaciones o servicios descentralizados?",
+  "opciones": [
+    "Híbrido.",
+    "Federado.",
+    "Cooperativo.",
+    "Ninguno de los anteriores."
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "El modelo híbrido de CRAI combina una sede central única con algunas delegaciones o servicios descentralizados, a diferencia del modelo federado (varias sedes autónomas) o el centralizado puro."
+},
+{
+  "id": "A2.2024.021",
+  "tema": "50. Las bibliotecas universitarias. Concepto, funciones y servicios. CRAI. Situación en España. REBIUN. Otras bibliotecas de enseñanza: las bibliotecas escolares.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "De las siguientes líneas estratégicas ¿cuál NO forma parte del V Plan Estratégico 2024-2027 de REBIUN?",
+  "opciones": [
+    "Agenda 2030",
+    "La biblioteca en el contexto de la transformación digital",
+    "La biblioteca como agente estratégico para el impulso de la ciencia abierta.",
+    "Gobernanza, colaboración e internacionalización."
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "El V Plan Estratégico 2024-2027 de REBIUN no incluye la Agenda 2030 como línea estratégica propia. Sus líneas se centran en transformación digital, ciencia abierta y gobernanza, entre otras."
+},
+{
+  "id": "A2.2024.022",
+  "tema": "51. Las bibliotecas especializadas. Conceptos, funciones y servicios. Situación en España.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿Cuál de estas afirmaciones NO es correcta en relación con las bibliotecas especializadas?:",
+  "opciones": [
+    "Son centros de información cuya colección versa sobre una disciplina o campo específico del conocimiento.",
+    "Los usuarios tienen una formación elevada.",
+    "Son bibliotecas aisladas.",
+    "Facilitan el acceso a bases de datos relacionadas con su temática."
+  ],
+  "respuesta_correcta": 2,
+  "explicacion": "Las bibliotecas especializadas no son bibliotecas aisladas; al contrario, participan activamente en redes y sistemas de cooperación bibliotecaria para compartir recursos e información."
+},
+{
+  "id": "A2.2024.023",
+  "tema": "51. Las bibliotecas especializadas. Conceptos, funciones y servicios. Situación en España.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "La biblioteca Tomás Navarro, creada por el CSIC, es la mayor biblioteca de España especializada en:",
+  "opciones": [
+    "Biología y Biomedicina.",
+    "Ciencias Humanas y Sociales.",
+    "Física y Matemáticas.",
+    "Robótica y Computación."
+  ],
+  "respuesta_correcta": 1,
+  "explicacion": "La Biblioteca Tomás Navarro Tomás, perteneciente al CSIC y ubicada en Madrid, es la mayor biblioteca especializada en Ciencias Humanas y Sociales de España."
+},
+{
+  "id": "A2.2024.024",
+  "tema": "61. Bibliografías y fuentes de información de publicaciones periódicas y publicaciones oficiales.",
+  "bloque": "Bloque 3. Bibliografía y Documentación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿Qué nombre recibe el sistema usado tradicionalmente para el control de colecciones de prensa en hemerotecas?",
+  "opciones": [
+    "Kardex",
+    "Melinex",
+    "ISO 5127",
+    "Serindex"
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "El Kardex es el sistema de fichas utilizado tradicionalmente en hemerotecas para el control y seguimiento de las colecciones de publicaciones periódicas y prensa."
+},
+{
+  "id": "A2.2024.025",
+  "tema": "52. Las bibliotecas nacionales y regionales. Conceptos, funciones y servicios. La Biblioteca Nacional de España.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿En qué año se integraron en la Biblioteca Nacional de España los fondos procedentes de la Hemeroteca Nacional?",
+  "opciones": [
+    "1996",
+    "1989",
+    "1976",
+    "2002"
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "Los fondos de la Hemeroteca Nacional se integraron en la Biblioteca Nacional de España en 1996, unificando bajo una misma institución las colecciones de monografías y publicaciones periódicas."
+},
+{
+  "id": "A2.2024.026",
+  "tema": "52. Las bibliotecas nacionales y regionales. Conceptos, funciones y servicios. La Biblioteca Nacional de España.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿Qué nombre recibe la colección digital de revistas y prensa histórica española de la Biblioteca Nacional de España?",
+  "opciones": [
+    "Hemeroteca Digital",
+    "Biblioteca Virtual de Prensa Histórica",
+    "Hemeroteca Virtual Hispánica",
+    "Biblioteca Digital Hemerográfica"
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "La Hemeroteca Digital es la colección en línea de la Biblioteca Nacional de España que ofrece acceso a revistas y prensa histórica española digitalizada."
+},
+{
+  "id": "A2.2024.027",
+  "tema": "58. Definición y objetivos de la bibliografía. Teoría y técnica. Evolución histórica de la bibliografía y situación actual. Bibliografías nacionales.",
+  "bloque": "Bloque 3. Bibliografía y Documentación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "De acuerdo con el Diccionario de bibliología y ciencias afines de José Martínez de Sousa, un directorio es:",
+  "opciones": [
+    "Fuente primaria.",
+    "Fuente secundaria.",
+    "Fuente terciaria.",
+    "Fuente mixta."
+  ],
+  "respuesta_correcta": 1,
+  "explicacion": "Según el Diccionario de bibliología y ciencias afines de Martínez de Sousa, un directorio es una fuente secundaria, ya que recopila y organiza información procedente de fuentes primarias."
+},
+{
+  "id": "A2.2024.028",
+  "tema": "60. Bibliografías y fuentes de información fondo antiguo: manuscritos, incunables y raros.",
+  "bloque": "Bloque 3. Bibliografía y Documentación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "Los \"porcones\" son un tipo documental de manuscrito o impreso antiguo de carácter jurídico que hace referencia a:",
+  "opciones": [
+    "Alegaciones en derecho o argumentaciones de cada una de las partes en un pleito para informar al juez.",
+    "Textos bien fundamentados para solicitar algo a la autoridad, a veces incluso incluyendo los méritos del demandante, a manera de currículum.",
+    "Conjuntos de normas por las que se rige la actividad y el funcionamiento de una institución, sociedad, cofradía, gremio, etc.",
+    "Notificaciones de órdenes o decisiones emitidas por un tribunal o cualquier otra autoridad sobre asuntos de justicia, gobierno o administración (audiencias, consejos, chancillerías…)"
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "Los porcones son alegaciones jurídicas impresas o manuscritas presentadas por las partes en un pleito para ilustrar al juez, constituyendo una tipología documental característica del Antiguo Régimen."
+},
+{
+  "id": "A2.2024.029",
+  "tema": "62. Bibliografías y fuentes de información de materiales especiales.",
+  "bloque": "Bloque 3. Bibliografía y Documentación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿Qué tipo de materiales especiales tienen un \"Área de datos matemáticos\" en su descripción bibliográfica?",
+  "opciones": [
+    "Los materiales gráficos.",
+    "Los materiales cartográficos.",
+    "Los materiales audiovisuales.",
+    "Los programas de computadoras."
+  ],
+  "respuesta_correcta": 1,
+  "explicacion": "Los materiales cartográficos incluyen en su descripción bibliográfica un Área de datos matemáticos, donde se registran la escala, la proyección y las coordenadas del documento."
+},
+{
+  "id": "A2.2024.030",
+  "tema": "62. Bibliografías y fuentes de información de materiales especiales.",
+  "bloque": "Bloque 3. Bibliografía y Documentación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "El videojuego es un producto cultural y la biblioteca pública debe garantizar su acceso a todos los ciudadanos. ¿Cuál de estas fuentes de información está considerada como la principal base de datos del sector de los videojuegos en España?",
+  "opciones": [
+    "BBG.",
+    "IMDb.",
+    "DeVuego.",
+    "NTRS."
+  ],
+  "respuesta_correcta": 2,
+  "explicacion": "DeVuego es la principal base de datos de videojuegos desarrollados en España, siendo una referencia imprescindible para el sector y para las bibliotecas que gestionan este tipo de materiales."
+},
+{
+  "id": "A2.2024.031",
+  "tema": "33. Construcción, equipamiento y usos de espacios bibliotecarios. Gestión de espacios para colecciones, servicios, personal y público.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "La instrucción técnica ISO/TR 11219:2012:",
+  "opciones": [
+    "Especifica los datos para la planificación de los edificios para bibliotecas, su equipamiento y sus diferentes áreas funcionales.",
+    "Define las estadísticas, los términos y los criterios de calidad para el archivo web.",
+    "Establece los indicadores de desempeño para las bibliotecas nacionales y regionales.",
+    "Define los términos y los métodos para la evaluación del impacto de las bibliotecas, con el objetivo de incorporar sus resultados en su planeación estratégica y su gestión de la calidad."
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "La norma ISO/TR 11219:2012 especifica los requisitos cualitativos y cuantitativos para la planificación de edificios de bibliotecas, incluyendo equipamiento y áreas funcionales."
+},
+{
+  "id": "A2.2024.032",
+  "tema": "36. Almacenamiento y organización de las colecciones. Conservación preventiva y criterios para la restauración de fondos bibliográficos y documentales.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿Cuál de las siguientes afirmaciones es cierta en relación con la conservación y preservación de soportes mecánicos como discos y cilindros?",
+  "opciones": [
+    "Se utilizarán reproductores de \"cambio de disco\" o reproducción automática.",
+    "Se conservarán en una misma unidad los estuches originales (fundas de papel o plástico, cartón y recubrimiento protector plástico) y los discos de vinilo.",
+    "Para manipular los cilindros es mejor no utilizar guantes de algodón.",
+    "Todos los discos deben limpiarse tanto antes como después de la reproducción."
+  ],
+  "respuesta_correcta": 3,
+  "explicacion": "Las buenas prácticas de conservación de soportes mecánicos indican que todos los discos deben limpiarse antes y después de su reproducción para eliminar polvo y residuos que puedan dañar tanto el soporte como el equipo reproductor."
+},
+{
+  "id": "A2.2024.033",
+  "tema": "36. Almacenamiento y organización de las colecciones. Conservación preventiva y criterios para la restauración de fondos bibliográficos y documentales.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "En caso de inundación, indique cual es la actuación INCORRECTA:",
+  "opciones": [
+    "En el caso de fotografías y otros documentos que se hayan ensuciado con lodo, deben ser bañados cuidadosamente en agua limpia, siempre que sus componentes no sean solubles.",
+    "Cerrar los libros que se han encontrado abiertos.",
+    "La congelación es un método de estabilización de los materiales.",
+    "Transportar siempre los documentos mojados tal y como se encontraron."
+  ],
+  "respuesta_correcta": 1,
+  "explicacion": "Cerrar los libros mojados es una actuación incorrecta en caso de inundación, ya que al cerrarlos se favorece la aparición de moho y se dificulta el secado. Los libros mojados deben mantenerse abiertos o interfoliados para facilitar su secado."
+},
+{
+  "id": "A2.2024.034",
+  "tema": "74. Metadatos orientados a la preservación digital: METS y PREMIS.",
+  "bloque": "Bloque 4. Tecnologías de la Información",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "De los siguientes estándares mantenidos por la Biblioteca del Congreso de los Estados Unidos, ¿cuál se utiliza en proyectos de digitalización como esquema de metadatos técnicos para la gestión de colecciones de imágenes digitales fijas?",
+  "opciones": [
+    "MIX",
+    "MODS",
+    "MADS",
+    "ALTO"
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "MIX (Metadata for Images in XML) es el esquema de metadatos técnicos mantenido por la Biblioteca del Congreso para la gestión de colecciones de imágenes digitales fijas en proyectos de digitalización."
+},
+{
+  "id": "A2.2024.035",
+  "tema": "47. Preservación digital de contenidos en bibliotecas. Técnicas y metodologías.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "Entre las estrategias técnicas a seguir en el ámbito de la preservación digital ¿qué se entiende por \"refresco\"?",
+  "opciones": [
+    "Consiste en copiar el contenido de un soporte de almacenamiento a otro, manteniendo intacto el formato de los documentos y sin modificar la cadena de bits.",
+    "Consiste en la transferencia de datos de un formato a otro, el proceso de transferir información digital desde una plataforma hardware y software a otra diferente, o desde una generación de ordenadores a la siguiente.",
+    "Consiste en el mantenimiento de la máquina con la que fueron creados los documentos, incluyendo software y hardware.",
+    "Consiste en recrear el entorno técnico requerido para acceder al contenido de un documento electrónico. Este proceso requiere mantener información sobre el software y el hardware empleados para la generación del documento."
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "El refresco (refreshing) consiste en copiar el contenido íntegro de un soporte a otro sin alterar el formato ni la cadena de bits, con el fin de prevenir la degradación del soporte original."
+},
+{
+  "id": "A2.2024.036",
+  "tema": "49. Las bibliotecas públicas. Gestión y titularidades. Funciones y servicios. Situación en España.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "De acuerdo con las \"Directrices IFLA/UNESCO para el desarrollo del servicio de bibliotecas públicas\" de 2001, cuando se trate de bibliotecas de nueva creación, éstas deberán contar con un fondo mínimo de:",
+  "opciones": [
+    "1 libro por persona",
+    "1,5 libros por persona",
+    "2 libros por persona",
+    "2,5 libros por persona"
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "Las Directrices IFLA/UNESCO para el desarrollo del servicio de bibliotecas públicas de 2001 establecen que las bibliotecas de nueva creación deben contar con un fondo mínimo de 1 libro por persona de la comunidad a la que sirven."
+},
+{
+  "id": "A2.2024.037",
+  "tema": "35. Depósito legal. Depósito legal de publicaciones en línea.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "De acuerdo con la Ley 8/2022, de 4 de mayo, por la que se modifica la Ley 23/2011, de 29 de julio, de depósito legal ¿Cuál de las siguientes publicaciones queda excluida del depósito legal en soporte tangible?",
+  "opciones": [
+    "Sellos de correos.",
+    "Postales.",
+    "Tarjetas de felicitación.",
+    "Partituras."
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "Según la Ley 8/2022 que modifica la Ley de depósito legal, los sellos de correos quedan excluidos de la obligación de depósito legal en soporte tangible."
+},
+{
+  "id": "A2.2024.038",
+  "tema": "35. Depósito legal. Depósito legal de publicaciones en línea.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿En qué año se introduce en España, mediante Real Decreto de Felipe III, la figura del depósito legal para las obras impresas en la Corona de Aragón?",
+  "opciones": [
+    "1616",
+    "1605",
+    "1621",
+    "1599"
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "El Real Decreto de Felipe III de 1616 introdujo en España la figura del depósito legal para las obras impresas en la Corona de Aragón, siendo uno de los primeros antecedentes normativos del depósito legal en el país."
+},
+{
+  "id": "A2.2024.039",
+  "tema": "35. Depósito legal. Depósito legal de publicaciones en línea.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿Cuál de las siguientes respuestas NO se considera un centro de conservación, según la Ley 8/2022 de mayo, por la que se modifica la Ley 23/2011, de 29 de julio, de depósito legal?",
+  "opciones": [
+    "Instituto del Patrimonio Cultural de España",
+    "Biblioteca Nacional de España",
+    "Filmoteca Española",
+    "Los centros que determinen las Comunidades Autónomas en el ámbito de sus competencias"
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "El Instituto del Patrimonio Cultural de España no figura entre los centros de conservación reconocidos por la Ley 8/2022. Los centros de conservación designados son la BNE, la Filmoteca Española y los que determinen las comunidades autónomas."
+},
+{
+  "id": "A2.2024.041",
+  "tema": "41. La clasificación bibliográfica. Principales sistemas. La CDU.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "En la CDU el símbolo \" : : \" es un signo de aplicación concreta que:",
+  "opciones": [
+    "Sirve para abarcar una serie de números correlativos en una misma notación.",
+    "Sirve para indicar que el concepto que va detrás del signo guarda una relación de subordinación con respecto al que va antes.",
+    "Se usa para conectar dos o más materias independientes que no están relacionadas entre sí.",
+    "Se usa para subagrupar dentro de una combinación compleja de números de la CDU con el fin de clarificar la relación de sus componentes."
+  ],
+  "respuesta_correcta": 1,
+  "explicacion": "En la CDU, el símbolo \"::\" (doble dos puntos) indica una relación de subordinación o aplicación concreta: el concepto que sigue al signo está subordinado o aplicado al concepto que lo precede."
+},
+{
+  "id": "A2.2024.042",
+  "tema": "42. Los sistemas integrados de gestión bibliotecaria. Las plataformas de servicios bibliotecarios (PSB). Nuevos modelos y tendencias.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "Los fondos documentales se ordenan conforme a un plan o modelo acorde con el tipo de biblioteca, tamaño, espacio, ritmo de crecimiento, frecuencia de uso, sistemas de acceso y tipos de usuario. Así, la ordenación sistemática suele ser la más adecuada para",
+  "opciones": [
+    "El fondo antiguo patrimonial.",
+    "Los grupos o centros de interés.",
+    "El fondo en libre acceso.",
+    "El depósito Legal."
+  ],
+  "respuesta_correcta": 2,
+  "explicacion": "La ordenación sistemática, basada en la clasificación por materias mediante un sistema como la CDU, es la más adecuada para el fondo en libre acceso, ya que facilita la navegación y el descubrimiento por parte del usuario."
+},
+{
+  "id": "A2.2024.043",
+  "tema": "34. Criterios para la constitución, el mantenimiento y el expurgo de la colección. Desarrollo de colecciones con recursos electrónicos. Licencias. Nuevos modelos económicos de las publicaciones y contenidos digitales.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "Según el artículo 7 del Real Decreto 582/1989, de 19 de mayo, por el que se aprueba el Reglamento de Bibliotecas Públicas del Estado y del Sistema Español de Bibliotecas, las BPEs deberán realizar periódicamente un recuento de sus fondos, que será total, al menos una vez:",
+  "opciones": [
+    "Cada año.",
+    "Cada 2 años.",
+    "Cada 5 años.",
+    "Cada 3 años."
+  ],
+  "respuesta_correcta": 2,
+  "explicacion": "Según el artículo 7 del Real Decreto 582/1989, las Bibliotecas Públicas del Estado deben realizar un recuento total de sus fondos al menos una vez cada 5 años."
+},
+{
+  "id": "A2.2024.044",
+  "tema": "37. La catalogación. Principios Internacionales de Catalogación. Normativa internacional y nacional relacionada.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "La Descripción Bibliográfica Internacional Normalizada (ISBD):",
+  "opciones": [
+    "Es una norma que especifica los requisitos para la descripción e identificación de los tipos más comunes de recursos publicados que pueden constituir las colecciones de las bibliotecas.",
+    "Es un código de catalogación que ha sustituido a AACR2.",
+    "Es un formato que tiene como objetivo conseguir un grado óptimo de normalización, compatibilidad y transferencia de la información bibliográfica, legible por computadora.",
+    "Es un modelo conceptual para explicitar los principios generales que rigen la estructura lógica de la información bibliográfica."
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "La ISBD (International Standard Bibliographic Description) es una norma que especifica los requisitos para la descripción e identificación de los recursos publicados más comunes en las colecciones bibliotecarias, estableciendo el orden y la puntuación de los elementos descriptivos."
+},
+{
+  "id": "A2.2024.045",
+  "tema": "43. Gestión de catálogos. La catalogación cooperativa y la catalogación centralizada. Los catálogos colectivos en España.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "Se llama número currens:",
+  "opciones": [
+    "Al sistema de ordenación correlativa conforme al orden de llegada.",
+    "Al número total de fondos.",
+    "Al registro de publicaciones seriadas.",
+    "A la marca de Cutter."
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "El número currens es el sistema de ordenación correlativa que asigna a cada documento un número según su orden de llegada o incorporación a la colección, sin atender a criterios temáticos."
+},
+{
+  "id": "A2.2024.046",
+  "tema": "37. La catalogación. Principios Internacionales de Catalogación. Normativa internacional y nacional relacionada.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "De acuerdo con las Reglas de Catalogación Españolas en su edición nuevamente revisada de 1999, un título común es:",
+  "opciones": [
+    "Título propiamente dicho de una publicación que contiene varias obras independientes.",
+    "Título adoptado para catalogar una obra conocida por varios.",
+    "Parte del título propiamente dicho cuando en éste hay también un título dependiente.",
+    "Parte del título propiamente dicho de una sección o suplemento, específica de dicha sección o suplemento y que necesita de un título común para su comprensión."
+  ],
+  "respuesta_correcta": 2,
+  "explicacion": "Según las Reglas de Catalogación Españolas (edición revisada de 1999), el título común es la parte del título propiamente dicho cuando este contiene también un título dependiente, identificando la obra principal de la que forma parte."
+},
+{
+  "id": "A2.2024.047",
+  "tema": "39. El formato MARC21 de registros bibliográficos, de autoridad y de fondos.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "En el formato Marc 21 para información de fondos, el campo 852 recoge información sobre:",
+  "opciones": [
+    "La localización física de un objeto dentro de la colección",
+    "La localización y el acceso electrónico a un recurso.",
+    "Las condiciones de uso y reproducción de un objeto.",
+    "Ninguna de las respuestas es correcta."
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "En MARC 21 para información de fondos, el campo 852 (Location/Call Number) recoge la localización física del ítem dentro de la colección, incluyendo la biblioteca, el fondo, la signatura y la información de ejemplar."
+},
+{
+  "id": "A2.2024.048",
+  "tema": "39. El formato MARC21 de registros bibliográficos, de autoridad y de fondos.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "En el formato Marc 21 para registros bibliográficos, el campo 040 describe:",
+  "opciones": [
+    "Los códigos de las lenguas asociadas a un documento",
+    "La fuente de la catalogación",
+    "El código de autenticación",
+    "Ninguna de las respuestas es correcta"
+  ],
+  "respuesta_correcta": 1,
+  "explicacion": "En MARC 21 para registros bibliográficos, el campo 040 (Cataloging Source) identifica la fuente de catalogación, es decir, la institución que creó el registro original y las que lo han modificado."
+},
+{
+  "id": "A2.2024.049",
+  "tema": "59. La normalización de la identificación bibliográfica y documental. El ISBN, el ISSN y otros sistemas internacionales. Identificadores permanentes en Internet: Sistema DOI y Handle.",
+  "bloque": "Bloque 3. Bibliografía y Documentación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "En el número de ISBN 978-84-666-6700-5 ¿qué elemento numérico identifica al editor o sello editorial?",
+  "opciones": [
+    "666",
+    "84",
+    "978",
+    "6700"
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "En la estructura del ISBN-13, el elemento 978 es el prefijo EAN, el 84 identifica el grupo lingüístico o país (España), el 666 identifica al editor o sello editorial, el 6700 identifica el título concreto y el 5 es el dígito de control."
+},
+{
+  "id": "A2.2024.050",
+  "tema": "59. La normalización de la identificación bibliográfica y documental. El ISBN, el ISSN y otros sistemas internacionales. Identificadores permanentes en Internet: Sistema DOI y Handle.",
+  "bloque": "Bloque 3. Bibliografía y Documentación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "Si una publicación seriada presenta suplementos regulares con numeración independiente de la publicación principal. A estos suplementos:",
+  "opciones": [
+    "Se les asignará un ISSN propio, distinto del de la publicación de la que dependen.",
+    "Se les asignará el mismo ISSN de la publicación de la que dependen.",
+    "No se les asignará ISSN en ningún caso.",
+    "No se les asignará ISSN, salvo que se editen en otra lengua."
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "Los suplementos regulares con numeración independiente de una publicación seriada reciben un ISSN propio y distinto al de la publicación principal, al ser considerados publicaciones seriadas independientes."
+},
+{
+  "id": "A2.2024.051",
+  "tema": "59. La normalización de la identificación bibliográfica y documental. El ISBN, el ISSN y otros sistemas internacionales. Identificadores permanentes en Internet: Sistema DOI y Handle.",
+  "bloque": "Bloque 3. Bibliografía y Documentación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿A cuál de los siguientes tipos de documentos se le puede asignar el código ISRC?",
+  "opciones": [
+    "Audiolibros",
+    "Partituras",
+    "Películas",
+    "Videojuegos"
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "El ISRC (International Standard Recording Code) es el identificador internacional para grabaciones sonoras y musicales, por lo que se asigna, entre otros, a los audiolibros en tanto que grabaciones sonoras."
+},
+{
+  "id": "A2.2024.052",
+  "tema": "66. Lenguajes documentales. Los tesauros: normas, creación y mantenimiento.",
+  "bloque": "Bloque 3. Bibliografía y Documentación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "Cuál de estas afirmaciones sobre la Lista de encabezamientos de materia para las bibliotecas públicas (LEMB) es INCORRECTA:",
+  "opciones": [
+    "No se ha actualizado desde su segunda edición revisada de 1993.",
+    "No ha sido vinculada con otras listas internacionales.",
+    "Las distintas listas completas de encabezamientos que la integran se pueden descargar en ficheros MARC21.",
+    "Ha sido transformada al formato SKOS."
+  ],
+  "respuesta_correcta": 1,
+  "explicacion": "La afirmación incorrecta es que la LEMB no ha sido vinculada con otras listas internacionales, ya que sí ha sido relacionada con otras listas de encabezamientos de materia del ámbito hispanoamericano."
+},
+{
+  "id": "A2.2024.053",
+  "tema": "41. La clasificación bibliográfica. Principales sistemas. La CDU.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "La Clasificación Decimal Universal (CDU) se rige en España por la norma:",
+  "opciones": [
+    "UNE-ISO 15511:2024",
+    "UNE-ISO 2789:2024",
+    "UNE-ISO 690:2024",
+    "UNE 50001:2015"
+  ],
+  "respuesta_correcta": 3,
+  "explicacion": "En España, la Clasificación Decimal Universal (CDU) se rige por la norma UNE 50001:2015, que establece su estructura, notación y reglas de aplicación en el ámbito nacional."
+},
+{
+  "id": "A2.2024.054",
+  "tema": "44. Los servicios presenciales y virtuales de la biblioteca.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿Qué es la alfabetización informacional?",
+  "opciones": [
+    "Saber cuándo y por qué necesitas información, dónde encontrarla y cómo evaluarla, utilizarla y comunicarla de manera ética.",
+    "La capacidad que tienen los profesionales de la información para enseñar a los usuarios a utilizar los recursos bibliográficos a través de internet.",
+    "El servicio de referencia bibliográfica de una biblioteca pública.",
+    "El programa de fomento de la lectura de las bibliotecas escolares."
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "La alfabetización informacional (ALFIN) se define como el conjunto de habilidades que permiten reconocer cuándo se necesita información y ser capaz de localizarla, evaluarla y utilizarla de forma efectiva y ética."
+},
+{
+  "id": "A2.2024.055",
+  "tema": "44. Los servicios presenciales y virtuales de la biblioteca.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "El servicio \"Pregunte, las bibliotecas responden\" es:",
+  "opciones": [
+    "El servicio de referencia que ofrecen las bibliotecas especializadas y que funciona 24 horas al día, los 7 días de la semana.",
+    "El servicio de referencia que permite a los usuarios realizar consultas a las bibliotecas participantes únicamente por correo electrónico.",
+    "El servicio de referencia coordinado por la Subdirección General de Coordinación Bibliotecaria.",
+    "El servicio de referencia que coordina la Subdirección General de Coordinación Bibliotecaria únicamente para los usuarios de las bibliotecas públicas de la Comunidad de Madrid."
+  ],
+  "respuesta_correcta": 2,
+  "explicacion": "\"Pregunte, las bibliotecas responden\" es el servicio cooperativo de referencia virtual coordinado por la Subdirección General de Coordinación Bibliotecaria, que permite a los usuarios formular consultas a través de diferentes canales."
+},
+{
+  "id": "A2.2024.056",
+  "tema": "44. Los servicios presenciales y virtuales de la biblioteca.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿Cuál de los siguientes servicios NO se considera esencial en las Pautas sobre los servicios de las bibliotecas públicas de 2002?:",
+  "opciones": [
+    "Servicio de préstamo interbibliotecario.",
+    "Servicio de información general y de orientación e información bibliográfica.",
+    "Servicio de formación de usuarios.",
+    "Servicio de información local y comunitaria."
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "Según las Pautas sobre los servicios de las bibliotecas públicas de 2002, el servicio de préstamo interbibliotecario no se considera un servicio esencial, a diferencia de los servicios de información, formación de usuarios e información local."
+},
+{
+  "id": "A2.2024.057",
+  "tema": "43. Gestión de catálogos. La catalogación cooperativa y la catalogación centralizada. Los catálogos colectivos en España.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "La etiqueta que contiene el código alfanumérico que identifica cada documento y permite su ordenación en las estanterías facilitando su posterior localización es:",
+  "opciones": [
+    "Código de barras",
+    "Tejuelo",
+    "Signatura",
+    "RFID"
+  ],
+  "respuesta_correcta": 1,
+  "explicacion": "El tejuelo es la etiqueta adherida al lomo del documento que contiene la signatura topográfica, es decir, el código alfanumérico que identifica el documento y determina su ordenación y localización en las estanterías."
+},
+{
+  "id": "A2.2024.059",
+  "tema": "44. Los servicios presenciales y virtuales de la biblioteca.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿Cuál de las siguientes afirmaciones es correcta respecto al préstamo interbibliotecario?",
+  "opciones": [
+    "Se realiza entre la biblioteca peticionaria y la biblioteca suministradora.",
+    "El recurso prestado puede salir de la biblioteca peticionaria para que el usuario lo consulte en su casa.",
+    "Existen unos límites anuales de petición de préstamo interbibliotecario regulados por la IFLA.",
+    "Las peticiones se deben gestionar a través de correo postal."
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "El préstamo interbibliotecario se realiza entre la biblioteca peticionaria (la que solicita el documento en nombre del usuario) y la biblioteca suministradora (la que posee el documento y lo facilita)."
+},
+{
+  "id": "A2.2024.060",
+  "tema": "58. Definición y objetivos de la bibliografía. Teoría y técnica. Evolución histórica de la bibliografía y situación actual. Bibliografías nacionales.",
+  "bloque": "Bloque 3. Bibliografía y Documentación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿Qué tipo de materiales documentales NO se recogen en la Bibliografía Española en Línea?",
+  "opciones": [
+    "Grabaciones sonoras.",
+    "Música impresa.",
+    "Publicaciones seriadas.",
+    "Cartografía."
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "La Bibliografía Española en Línea no recoge las grabaciones sonoras entre sus materiales documentales, centrándose en otros tipos como música impresa, publicaciones seriadas y cartografía."
+},
+{
+  "id": "A2.2024.061",
+  "tema": "58. Definición y objetivos de la bibliografía. Teoría y técnica. Evolución histórica de la bibliografía y situación actual. Bibliografías nacionales.",
+  "bloque": "Bloque 3. Bibliografía y Documentación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿A quién debemos la publicación en el año 1545 de la obra titulada Bibliotheca universalis, sive Catalogus omnium Scriptorum locupletissimus, in tribus linguis, Latina, Græca, & Hebraica… considerada como el primer intento de bibliografía general universal retrospectiva?",
+  "opciones": [
+    "Conrad Gesner",
+    "Johannes Trithemius",
+    "Cornelius van Beughem",
+    "Nicolás Antonio"
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "Conrad Gesner publicó en 1545 la Bibliotheca universalis, obra considerada el primer intento de bibliografía general universal retrospectiva, que recogía autores y obras en latín, griego y hebreo."
+},
+{
+  "id": "A2.2024.062",
+  "tema": "58. Definición y objetivos de la bibliografía. Teoría y técnica. Evolución histórica de la bibliografía y situación actual. Bibliografías nacionales.",
+  "bloque": "Bloque 3. Bibliografía y Documentación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿Cuál de las siguientes definiciones del concepto \"bibliografía\" fue enunciada por Louise Noëlle Malclès en su obra Les sources du travail bibliographique?",
+  "opciones": [
+    "Es la parte de la bibliología o ciencia del libro que se propone buscar, identificar, describir y clasificar los documentos impresos con los que crear repertorios que faciliten el trabajo intelectual.",
+    "Es la parte de la ciencia de la información que constituye el depósito ordenado de referencias de documentos y los hace accesibles para los usuarios, empleándose indistintamente para hacer procesos de búsqueda manuales o automáticos.",
+    "Es la parte de la ciencia de los documentos que consiste en la búsqueda, identificación y descripción de manuscritos, impresos y otras publicaciones útiles al conocimiento intelectual.",
+    "Es la parte de la ciencia del libro que comprende la revisión de las obras desde un punto de vista histórico, descriptivo, analítico, crítico y catalográfico."
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "Louise Noëlle Malclès definió la bibliografía en Les sources du travail bibliographique como la parte de la bibliología que busca, identifica, describe y clasifica los documentos impresos para crear repertorios que faciliten el trabajo intelectual."
+},
+{
+  "id": "A2.2024.063",
+  "tema": "42. Los sistemas integrados de gestión bibliotecaria. Las plataformas de servicios bibliotecarios (PSB). Nuevos modelos y tendencias.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "Cuál de estos Sistemas Integrados de Gestión Bibliotecaria (SIGB) es de software libre:",
+  "opciones": [
+    "Koha",
+    "Symphony",
+    "Absysnet",
+    "Millennium"
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "Koha es el único SIGB de software libre entre las opciones indicadas, siendo además el primer sistema de este tipo en el mundo y uno de los más utilizados globalmente en bibliotecas de todo tipo."
+},
+{
+  "id": "A2.2024.064",
+  "tema": "42. Los sistemas integrados de gestión bibliotecaria. Las plataformas de servicios bibliotecarios (PSB). Nuevos modelos y tendencias.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿Cuál de estos Sistemas Integrados de Gestión Bibliotecaria (SIGB) NO es del tipo Plataforma de Servicios Bibliotecarios (PSB)?:",
+  "opciones": [
+    "Alma",
+    "Sierra",
+    "Folio",
+    "Symphony"
+  ],
+  "respuesta_correcta": 3,
+  "explicacion": "Symphony es un SIGB tradicional de Ex Libris/SirsiDynix, no una Plataforma de Servicios Bibliotecarios (PSB). Alma, Sierra y Folio sí son considerados PSB por su arquitectura orientada a la gestión integrada de recursos electrónicos y físicos."
+},
+{
+  "id": "A2.2024.065",
+  "tema": "42. Los sistemas integrados de gestión bibliotecaria. Las plataformas de servicios bibliotecarios (PSB). Nuevos modelos y tendencias.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "Por diversas necesidades la Biblioteca Nacional de España ha cambiado su Sistema Integrado de Gestión Bibliotecaria (SIGB) a:",
+  "opciones": [
+    "BlueCloud",
+    "Alma",
+    "WorldShare Management Services",
+    "AbsysCloud"
+  ],
+  "respuesta_correcta": 1,
+  "explicacion": "La Biblioteca Nacional de España migró su SIGB al sistema Alma de Ex Libris, una plataforma de servicios bibliotecarios en la nube que permite la gestión integrada de colecciones físicas y electrónicas."
+},
+{
+  "id": "A2.2024.066",
+  "tema": "71. OPAC, herramientas de descubrimiento, portales bibliotecarios e integración de los recursos electrónicos.",
+  "bloque": "Bloque 4. Tecnologías de la Información",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿Cuál de estos programas de software NO es una herramienta de descubrimiento?:",
+  "opciones": [
+    "Summon",
+    "Primo",
+    "Vega discovery",
+    "Folio"
+  ],
+  "respuesta_correcta": 3,
+  "explicacion": "Folio es una Plataforma de Servicios Bibliotecarios (PSB) de código abierto para la gestión interna de la biblioteca, no una herramienta de descubrimiento. Summon, Primo y Vega sí son herramientas de descubrimiento orientadas al usuario final."
+},
+{
+  "id": "A2.2024.067",
+  "tema": "71. OPAC, herramientas de descubrimiento, portales bibliotecarios e integración de los recursos electrónicos.",
+  "bloque": "Bloque 4. Tecnologías de la Información",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "Los instrumentos de búsqueda integrada a escala web que recuperan resultados desde un índice único, en el cual se han recolectado previamente los metadatos y/o los textos completos de los recursos de información, se denominan:",
+  "opciones": [
+    "Metabuscadores",
+    "Herramientas de descubrimiento",
+    "OPACs",
+    "Interfaces"
+  ],
+  "respuesta_correcta": 1,
+  "explicacion": "Las herramientas de descubrimiento son sistemas de búsqueda integrada que recuperan resultados desde un índice único preconstruido con metadatos y textos completos de múltiples recursos, a diferencia de los metabuscadores que realizan búsquedas en tiempo real en varias fuentes."
+},
+{
+  "id": "A2.2024.068",
+  "tema": "70. Gobernanza de Internet. La ICANN. El W3C. Recomendaciones y estándares de la WWW.",
+  "bloque": "Bloque 4. Tecnologías de la Información",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿Qué creó Tim Berners Lee en 1990?",
+  "opciones": [
+    "ARPANET",
+    "HTML",
+    "Protocolo TCP/IP",
+    "MILNET"
+  ],
+  "respuesta_correcta": 1,
+  "explicacion": "Tim Berners-Lee creó en 1990 el HTML (HyperText Markup Language) junto con el protocolo HTTP y el sistema de URLs, sentando las bases de la World Wide Web tal como la conocemos."
+},
+{
+  "id": "A2.2024.069",
+  "tema": "70. Gobernanza de Internet. La ICANN. El W3C. Recomendaciones y estándares de la WWW.",
+  "bloque": "Bloque 4. Tecnologías de la Información",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿Cómo se llamaba la red de computadoras creada por encargo del Departamento de Defensa de los Estados Unidos (DOD) para utilizarla como medio de comunicación entre las diferentes instituciones académicas y estatales en 1967?",
+  "opciones": [
+    "ARPANET",
+    "INTERNET",
+    "HTML",
+    "World Wide Web"
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "ARPANET (Advanced Research Projects Agency Network) fue la red creada por encargo del Departamento de Defensa de los Estados Unidos en 1967, considerada el antecedente directo de Internet."
+},
+{
+  "id": "A2.2024.070",
+  "tema": "70. Gobernanza de Internet. La ICANN. El W3C. Recomendaciones y estándares de la WWW.",
+  "bloque": "Bloque 4. Tecnologías de la Información",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "En relación con el Foro de Gobernanza de Internet (IGF), indique la afirmación correcta:",
+  "opciones": [
+    "Es una plataforma global de múltiples partes interesadas que facilita el debate de cuestiones de política pública relacionadas con Internet.",
+    "Desarrolla nuevos estándares de interoperabilidad.",
+    "Los temas tratados siempre se centran en datos, medioambiente e inclusión.",
+    "La Secretaría tiene su sede en Londres."
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "El Foro de Gobernanza de Internet (IGF) es una plataforma global multistakeholder auspiciada por la ONU que facilita el diálogo sobre cuestiones de política pública relacionadas con Internet, sin adoptar decisiones vinculantes."
+},
+{
+  "id": "A2.2024.071",
+  "tema": "53. La cooperación bibliotecaria en la actualidad: organismos, programas y proyectos.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿Cuál de los siguientes modelos de cooperación bibliotecaria es definido por la Organización Internacional de Normalización (ISO) como \"un plan en el que las unidades de bibliotecas trabajan juntas, compartiendo servicios y recursos de manera que dé como resultado mejores servicios para sus usuarios\"?",
+  "opciones": [
+    "Red bibliotecaria",
+    "Sistema bibliotecario",
+    "Consorcio bibliotecario",
+    "Asociación bibliotecaria"
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "La ISO define la red bibliotecaria como el modelo de cooperación en el que las unidades trabajan conjuntamente compartiendo servicios y recursos para mejorar los servicios a sus usuarios."
+},
+{
+  "id": "A2.2024.072",
+  "tema": "53. La cooperación bibliotecaria en la actualidad: organismos, programas y proyectos.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿Qué organismo bibliotecario es responsable de la gestión del catálogo colectivo en línea WorldCat?",
+  "opciones": [
+    "OCLC",
+    "EBLIDA",
+    "UNAL",
+    "CDNL"
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "WorldCat es el mayor catálogo colectivo en línea del mundo y es gestionado por OCLC (Online Computer Library Center), organización sin ánimo de lucro que da servicio a bibliotecas de todo el mundo."
+},
+{
+  "id": "A2.2024.074",
+  "tema": "43. Gestión de catálogos. La catalogación cooperativa y la catalogación centralizada. Los catálogos colectivos en España.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿Qué catálogo colectivo está integrado por siete bibliotecas y está especializado principalmente en ingeniería civil?",
+  "opciones": [
+    "CIRBIC, el Catálogo Colectivo de la Red de Bibliotecas del CSIC",
+    "DOCUMAT",
+    "Catálogo de la Red de Bibliotecas del CEDEX",
+    "REBECA"
+  ],
+  "respuesta_correcta": 2,
+  "explicacion": "El Catálogo de la Red de Bibliotecas del CEDEX (Centro de Estudios y Experimentación de Obras Públicas) está integrado por siete bibliotecas especializadas principalmente en ingeniería civil e infraestructuras."
+},
+{
+  "id": "A2.2024.075",
+  "tema": "79. Gestión de los recursos electrónicos. Repositorios institucionales.",
+  "bloque": "Bloque 4. Tecnologías de la Información",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿Cuál de estos programas de software NO es una aplicación para la gestión de repositorios digitales OAI-PMH?",
+  "opciones": [
+    "Alfresco",
+    "Eprints",
+    "Dspace",
+    "Fedora"
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "Alfresco es un sistema de gestión de contenidos empresariales (ECM), no una aplicación específica para repositorios digitales OAI-PMH. Eprints, DSpace y Fedora son las plataformas de repositorios institucionales más extendidas."
+},
+{
+  "id": "A2.2024.076",
+  "tema": "48. Bibliotecas digitales: diseño, desarrollo y mantenimiento. Principales proyectos españoles e internacionales. Europeana.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿Cuál de estas iniciativas o proyectos está considerado como el de la biblioteca digital pionera y más antigua?:",
+  "opciones": [
+    "Internet Archive",
+    "Bibliotheca Universalis",
+    "Gutenberg Project",
+    "Proyecto Codex"
+  ],
+  "respuesta_correcta": 2,
+  "explicacion": "El Proyecto Gutenberg, fundado por Michael Hart en 1971, está considerado la biblioteca digital pionera y más antigua del mundo, siendo el primer proyecto de digitalización masiva de textos de dominio público."
+},
+{
+  "id": "A2.2024.077",
+  "tema": "48. Bibliotecas digitales: diseño, desarrollo y mantenimiento. Principales proyectos españoles e internacionales. Europeana.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿Cuál es el actual modelo teórico preponderante, convertido en formato estándar, que permite representar los datos de los diferentes dominios culturales (archivos, bibliotecas y museos) integrados en Europeana?",
+  "opciones": [
+    "EDM",
+    "ESE",
+    "METS",
+    "EAD"
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "El EDM (Europeana Data Model) es el modelo de datos estándar utilizado por Europeana para representar e integrar información procedente de los distintos dominios culturales: archivos, bibliotecas y museos."
+},
+{
+  "id": "A2.2024.079",
+  "tema": "2. La Corona en la Constitución Española de 1978. Las Cortes Generales. Composición, elección y funciones de las Cámaras.",
+  "bloque": "Bloque 1. Legislación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "Según el artículo 59 de la Constitución Española de 1978, si el Rey se inhabilitare para el ejercicio de su autoridad y la imposibilidad fuera reconocida por las Cortes Generales, entrará a ejercer inmediatamente la Regencia:",
+  "opciones": [
+    "El pariente mayor de edad más próximo a suceder la Corona.",
+    "La persona que designe el Congreso de los Diputados.",
+    "La Princesa heredera de la Corona, aunque fuese menor de edad.",
+    "La Princesa heredera de la Corona, si fuese mayor de edad."
+  ],
+  "respuesta_correcta": 3,
+  "explicacion": "El artículo 59.1 de la Constitución Española establece que cuando el Rey se inhabilitare y la imposibilidad fuera reconocida por las Cortes Generales, entrará a ejercer la Regencia el Príncipe heredero, si fuere mayor de edad."
+},
+{
+  "id": "A2.2024.080",
+  "tema": "1. La Constitución Española de 1978: características, elaboración, estructura y reforma. Principios Constitucionales y Valores Superiores. Los Derechos y Deberes fundamentales. Sus garantías constitucionales. La suspensión de los derechos y libertades.",
+  "bloque": "Bloque 1. Legislación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "La Constitución Española ha sido reformada en tres ocasiones, siendo sus fechas:",
+  "opciones": [
+    "27 de julio de 1991; 28 de enero de 1997 y 15 de febrero de 2023.",
+    "27 de agosto de 1992; 27 de septiembre de 2011 y 15 de febrero de 2024.",
+    "27 de julio de 1991; 8 de noviembre de 1995 y 15 de febrero de 2023.",
+    "27 de agosto de 1997; 27 de septiembre de 2010 y 1 de octubre de 2016."
+  ],
+  "respuesta_correcta": 1,
+  "explicacion": "La Constitución Española ha sido reformada en dos ocasiones oficialmente reconocidas: el 27 de agosto de 1992 (art. 13.2, derecho de sufragio pasivo de ciudadanos europeos) y el 27 de septiembre de 2011 (art. 135, estabilidad presupuestaria). La opción B es la que recoge las fechas reales de las dos reformas efectuadas, siendo la respuesta correcta según la clave."
+},
+{
+  "id": "A2.2024.081",
+  "tema": "1. La Constitución Española de 1978: características, elaboración, estructura y reforma. Principios Constitucionales y Valores Superiores. Los Derechos y Deberes fundamentales. Sus garantías constitucionales. La suspensión de los derechos y libertades.",
+  "bloque": "Bloque 1. Legislación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "La Constitución Española contiene la siguiente estructura:",
+  "opciones": [
+    "Un preámbulo, 169 artículos, 4 disposiciones adicionales, 9 disposiciones transitorias, 2 disposiciones derogatorias y 1 disposición final.",
+    "Un preámbulo, 166 artículos, 4 disposiciones adicionales, 9 disposiciones transitorias, 1 disposición derogatoria y 1 disposición final.",
+    "Un preámbulo, 166 artículos, 4 disposiciones adicionales, 8 disposiciones transitorias, 1 disposición derogatoria y 1 disposición final.",
+    "Un preámbulo, 169 artículos, 4 disposiciones adicionales, 9 disposiciones transitorias, 1 disposición derogatoria y 1 disposición final."
+  ],
+  "respuesta_correcta": 3,
+  "explicacion": "La Constitución Española de 1978 está compuesta por un preámbulo, 169 artículos organizados en un título preliminar y diez títulos, 4 disposiciones adicionales, 9 disposiciones transitorias, 1 disposición derogatoria y 1 disposición final."
+},
+{
+  "id": "A2.2024.082",
+  "tema": "12. La Ley 39/2015, de 1 de octubre, del Procedimiento Administrativo Común de las Administraciones Públicas. El procedimiento administrativo común: Concepto, naturaleza, fases y características. Términos y plazos. Recursos administrativos.",
+  "bloque": "Bloque 1. Legislación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "Según lo establecido en el artículo 122 de la Ley 39/2015, de 1 de octubre, del Procedimiento Administrativo Común de las Administraciones Públicas, ¿cuál es el plazo para la interposición de un recurso de alzada si el acto fuera expreso?",
+  "opciones": [
+    "Un mes.",
+    "Cuatro meses.",
+    "Quince días.",
+    "Cinco días."
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "El artículo 122.1 de la Ley 39/2015 establece que el plazo para interponer el recurso de alzada es de un mes si el acto fuera expreso, y de tres meses si el acto no fuera expreso."
+},
+{
+  "id": "A2.2024.083",
+  "tema": "22. Las políticas de igualdad y no discriminación: normativa vigente. Los derechos de las personas con discapacidad; protección a los colectivos más desfavorecidos; la dependencia. Políticas de igualdad de género. La lucha contra la violencia de género. Derechos de las personas LGTBI e igualdad de las personas trans.",
+  "bloque": "Bloque 1. Legislación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "Según lo establecido en el art. 3 de la ley 4/2023, de 28 de febrero, para la igualdad real y efectiva de las personas trans y para la garantía de los derechos de las personas LGTBI ¿Qué es la homofobia?",
+  "opciones": [
+    "Toda actitud, conducta o discurso de rechazo, repudio, prejuicio, discriminación o intolerancia hacia las personas LGTBI por el hecho de serlo, o ser percibidas como tales.",
+    "Toda actitud, conducta o discurso de rechazo, repudio, prejuicio, discriminación o intolerancia hacia las personas homosexuales por el hecho de serlo, o ser percibidas como tales.",
+    "Toda actitud, conducta o discurso de rechazo, repudio, prejuicio, discriminación o intolerancia hacia las personas bisexuales por el hecho de serlo, o ser percibidas como tales.",
+    "Toda actitud, conducta o discurso de rechazo, repudio, prejuicio, discriminación o intolerancia hacia las personas trans por el hecho de serlo, o ser percibidas como tales."
+  ],
+  "respuesta_correcta": 1,
+  "explicacion": "Según el artículo 3 de la Ley 4/2023, la homofobia se define específicamente como toda actitud, conducta o discurso de rechazo, repudio, prejuicio, discriminación o intolerancia hacia las personas homosexuales por el hecho de serlo o ser percibidas como tales."
+},
+{
+  "id": "A2.2024.084",
+  "tema": "22. Las políticas de igualdad y no discriminación: normativa vigente. Los derechos de las personas con discapacidad; protección a los colectivos más desfavorecidos; la dependencia. Políticas de igualdad de género. La lucha contra la violencia de género. Derechos de las personas LGTBI e igualdad de las personas trans.",
+  "bloque": "Bloque 1. Legislación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "Según lo establecido en el art. 3 de la ley 4/2023, de 28 de febrero, para la igualdad real y efectiva de las personas trans y para la garantía de los derechos de las personas LGTBI, ¿qué es la identidad sexual?",
+  "opciones": [
+    "La condición de aquellas personas nacidas con unas características biológicas, anatómicas o fisiológicas, una anatomía sexual, unos órganos reproductivos o un patrón cromosómico que no se corresponden con las nociones socialmente establecidas de los cuerpos masculinos o femeninos.",
+    "Vivencia interna e individual del sexo tal y como cada persona la siente y autodefine, pudiendo o no corresponder con el sexo asignado al nacer.",
+    "Manifestación que cada persona hace de su identidad sexual.",
+    "Cualquier conducta realizada por razón de alguna de las causas de discriminación previstas en esta ley, con el objetivo o la consecuencia de atentar contra la dignidad de una persona o grupo en que se integra y de crear un entorno intimidatorio, hostil, degradante, humillante u ofensivo."
+  ],
+  "respuesta_correcta": 1,
+  "explicacion": "El artículo 3 de la Ley 4/2023 define la identidad sexual como la vivencia interna e individual del sexo tal y como cada persona la siente y autodefine, pudiendo o no corresponder con el sexo asignado al nacer."
+},
+{
+  "id": "A2.2024.085",
+  "tema": "2. La Corona en la Constitución Española de 1978. Las Cortes Generales. Composición, elección y funciones de las Cámaras.",
+  "bloque": "Bloque 1. Legislación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "En virtud del art. 68 de la Constitución Española, las poblaciones de Ceuta y Melilla estarán representadas cada una de ellas por:",
+  "opciones": [
+    "Un Diputado.",
+    "Dos Diputados.",
+    "Un Diputado Ceuta y dos Diputados Melilla.",
+    "Ninguna es correcta."
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "El artículo 68.2 de la Constitución Española establece que las circunscripciones de Ceuta y Melilla estarán representadas cada una de ellas por un Diputado en el Congreso."
+},
+{
+  "id": "A2.2024.086",
+  "tema": "3. El Gobierno. Composición y funciones. Formación y procedimiento de investidura. El control parlamentario del gobierno: la moción de censura y la cuestión de confianza.",
+  "bloque": "Bloque 1. Legislación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "De acuerdo con el art. 98 de la Constitución Española, el Gobierno se compone del:",
+  "opciones": [
+    "Presidente, de los Vicepresidentes, en su caso, de los Ministros, Secretarios de Estado y demás miembros que establezca la ley.",
+    "Presidente, de los Vicepresidentes, en su caso, de los Ministros, y demás miembros que establezca el reglamento.",
+    "Presidente, de los Ministros, y demás miembros que establezca el reglamento.",
+    "Presidente, de los Vicepresidentes, en su caso, de los Ministros, y demás miembros que establezca la ley."
+  ],
+  "respuesta_correcta": 3,
+  "explicacion": "El artículo 98.1 de la Constitución Española establece que el Gobierno se compone del Presidente, de los Vicepresidentes en su caso, de los Ministros y de los demás miembros que establezca la ley."
+},
+{
+  "id": "A2.2024.087",
+  "tema": "7. La Organización Territorial del Estado. Las Comunidades Autónomas. La Administración Local. Organización política y administrativa. La distribución de competencias en la Constitución Española de 1978 entre Estado y Comunidades Autónomas en materia de cultura.",
+  "bloque": "Bloque 1. Legislación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "Según lo establecido en el artículo 137 de la Constitución Española de 1978 el Estado se organiza territorialmente en:",
+  "opciones": [
+    "Municipios, diputaciones y comunidades autónomas.",
+    "Áreas metropolitanas, provincias y comunidades autónomas.",
+    "Provincias, comunidades autónomas y estados federales.",
+    "Municipios, provincias y comunidades autónomas."
+  ],
+  "respuesta_correcta": 3,
+  "explicacion": "El artículo 137 de la Constitución Española dispone que el Estado se organiza territorialmente en municipios, en provincias y en las Comunidades Autónomas que se constituyan, gozando todas estas entidades de autonomía para la gestión de sus respectivos intereses."
+},
+{
+  "id": "A2.2024.088",
+  "tema": "7. La Organización Territorial del Estado. Las Comunidades Autónomas. La Administración Local. Organización política y administrativa. La distribución de competencias en la Constitución Española de 1978 entre Estado y Comunidades Autónomas en materia de cultura.",
+  "bloque": "Bloque 1. Legislación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "Según lo establecido en el artículo 140 de la Constitución Española de 1978, los alcaldes:",
+  "opciones": [
+    "Son nombrados por el Rey.",
+    "Son elegidos por sufragio universal, igual, libre, indirecto y secreto.",
+    "Son elegidos por los concejales o por los vecinos del municipio.",
+    "Son elegidos por sufragio ponderado, igual, libre, directo y secreto."
+  ],
+  "respuesta_correcta": 2,
+  "explicacion": "El artículo 140 de la Constitución Española establece que los alcaldes serán elegidos por los concejales o por los vecinos del municipio, según lo que disponga la ley."
+},
+{
+  "id": "A2.2024.089",
+  "tema": "6. El Gobierno y la Administración Pública: principios constitucionales. La Administración General del Estado. Organización central y periférica.",
+  "bloque": "Bloque 1. Legislación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "Según el art. 55 de la Ley 40/2015, de 1 de octubre, de Régimen Jurídico del Sector Público, en la organización central de la Administración General del Estado:",
+  "opciones": [
+    "Los Ministros y Subsecretarios son órganos superiores.",
+    "Los Secretarios de Estado y los Subsecretarios son órganos directivos.",
+    "Los Ministros y los Secretarios de Estado son órganos superiores.",
+    "Los Secretarios de Estado y los Subsecretarios son órganos superiores."
+  ],
+  "respuesta_correcta": 2,
+  "explicacion": "El artículo 55 de la Ley 40/2015 establece que son órganos superiores de la Administración General del Estado los Ministros y los Secretarios de Estado, mientras que los Subsecretarios y Secretarios Generales son órganos directivos."
+},
+{
+  "id": "A2.2024.090",
+  "tema": "10. Régimen jurídico del personal al servicio de las Administraciones Públicas. El Estatuto Básico del Empleado Público. Clases de personal al servicio de las Administraciones Públicas Derechos y deberes. Incompatibilidades. Régimen disciplinario de los empleados públicos. Régimen de incompatibilidades de los empleados públicos. La ética pública.",
+  "bloque": "Bloque 1. Legislación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "De conformidad con el art. 63 del Real Decreto Legislativo 5/2015, de 30 de octubre, por el que se aprueba el texto refundido de la Ley del Estatuto Básico del Empleado Público, será causa de pérdida de la condición de funcionario de carrera:",
+  "opciones": [
+    "La jubilación parcial del funcionario.",
+    "La sanción disciplinaria de separación del servicio de carácter provisional.",
+    "La pérdida de la nacionalidad.",
+    "La pena principal o accesoria de inhabilitación absoluta o especial para cargo público que tuviera carácter firme o provisional."
+  ],
+  "respuesta_correcta": 2,
+  "explicacion": "El artículo 63 del TREBEP establece como causas de pérdida de la condición de funcionario de carrera, entre otras, la pérdida de la nacionalidad española, la renuncia, la jubilación total y la sanción disciplinaria firme de separación del servicio."
+},
+{
+  "id": "A2.2024.091",
+  "tema": "10. Régimen jurídico del personal al servicio de las Administraciones Públicas. El Estatuto Básico del Empleado Público. Clases de personal al servicio de las Administraciones Públicas Derechos y deberes. Incompatibilidades. Régimen disciplinario de los empleados públicos. Régimen de incompatibilidades de los empleados públicos. La ética pública.",
+  "bloque": "Bloque 1. Legislación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "Según el art. 87 del Real Decreto Legislativo 5/2015, de 30 de octubre, por el que se aprueba el texto refundido de la Ley del Estatuto Básico del Empleado Público, un funcionario que acceda la condición de Diputado o Senador de las Cortes Generales si percibe retribuciones periódicas por la realización de la función, será declarado en la situación de:",
+  "opciones": [
+    "Excedencia forzosa",
+    "Expectativa de destino",
+    "Servicio en otras administraciones públicas",
+    "Servicios especiales"
+  ],
+  "respuesta_correcta": 3,
+  "explicacion": "El artículo 87 del TREBEP establece que los funcionarios que accedan a la condición de Diputados o Senadores de las Cortes Generales y perciban retribuciones periódicas por dicha función serán declarados en la situación de servicios especiales."
+},
+{
+  "id": "A2.2024.092",
+  "tema": "24. La Ley 19/2013, de 9 de diciembre, de transparencia, acceso a la información pública y buen gobierno. El Consejo de Transparencia y Buen Gobierno: Real Decreto 919/2014, de 31 de octubre, por el que se aprueba su estatuto. Funciones. El Portal de Transparencia. Las Unidades de Información de Transparencia (UITS): funciones. El gobierno abierto: concepto y principios informadores. Datos abiertos y reutilización: marco jurídico y los planes de gobierno abierto en España.",
+  "bloque": "Bloque 1. Legislación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "De acuerdo con el art. 37 de la Ley 19/2013, de 9 de diciembre, de transparencia, acceso a la información pública y buen gobierno, señale la información correcta:",
+  "opciones": [
+    "El Presidente del Consejo de Transparencia y Buen Gobierno será nombrado por un periodo renovable de cinco años mediante Real Decreto.",
+    "El Presidente del Consejo de Transparencia y Buen Gobierno será nombrado por un periodo no renovable de cinco años mediante Real Decreto.",
+    "El Presidente del Consejo de Transparencia y Buen Gobierno será nombrado por un periodo no renovable de cuatro años mediante Real Decreto.",
+    "El Presidente del Consejo de Transparencia y Buen Gobierno será nombrado por un periodo renovable de cuatro años mediante Real Decreto."
+  ],
+  "respuesta_correcta": 1,
+  "explicacion": "El artículo 37 de la Ley 19/2013 establece que el Presidente del Consejo de Transparencia y Buen Gobierno será nombrado mediante Real Decreto por un período no renovable de cinco años."
+},
+{
+  "id": "A2.2024.093",
+  "tema": "24. La Ley 19/2013, de 9 de diciembre, de transparencia, acceso a la información pública y buen gobierno. El Consejo de Transparencia y Buen Gobierno: Real Decreto 919/2014, de 31 de octubre, por el que se aprueba su estatuto. Funciones. El Portal de Transparencia. Las Unidades de Información de Transparencia (UITS): funciones. El gobierno abierto: concepto y principios informadores. Datos abiertos y reutilización: marco jurídico y los planes de gobierno abierto en España.",
+  "bloque": "Bloque 1. Legislación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "De acuerdo con el art. 21 de la Ley 19/2013, de 9 de diciembre, de transparencia, acceso a la información pública y buen gobierno, las Unidades de Información tendrán las siguientes funciones (señale la información INCORRECTA):",
+  "opciones": [
+    "Informar preceptivamente los proyectos normativos de carácter estatal que desarrollen esta Ley o que estén relacionados con su objeto.",
+    "Recibir y dar tramitación a las solicitudes de acceso a la información.",
+    "Llevar un registro de las solicitudes de acceso a la información.",
+    "Realizar el seguimiento y control de la correcta tramitación de las solicitudes de acceso a la información."
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "La función de informar preceptivamente proyectos normativos no corresponde a las Unidades de Información de Transparencia sino al Consejo de Transparencia y Buen Gobierno. Las funciones de las Unidades son las recogidas en las opciones B, C y D."
+},
+{
+  "id": "A2.2024.094",
+  "tema": "12. La Ley 39/2015, de 1 de octubre, del Procedimiento Administrativo Común de las Administraciones Públicas. El procedimiento administrativo común: Concepto, naturaleza, fases y características. Términos y plazos. Recursos administrativos.",
+  "bloque": "Bloque 1. Legislación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "Según lo establecido en el artículo 124 de la Ley 39/2015, de 1 de octubre, del Procedimiento Administrativo Común de las Administraciones Públicas, ¿cuál es el plazo máximo para dictar y notificar la resolución de un recurso potestativo de reposición?",
+  "opciones": [
+    "Dos meses.",
+    "Cuatro meses.",
+    "Un mes.",
+    "Quince días."
+  ],
+  "respuesta_correcta": 2,
+  "explicacion": "El artículo 124.2 de la Ley 39/2015 establece que el plazo máximo para dictar y notificar la resolución del recurso potestativo de reposición es de un mes."
+},
+{
+  "id": "A2.2024.095",
+  "tema": "26. El Ministerio de Cultura. Organización, competencias, organismos y políticas públicas en materia de cultura, lectura, libro y bibliotecas.",
+  "bloque": "Bloque 1. Legislación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "Se adscriben a través de la Secretaría de Estado de Cultura los siguientes organismos autónomos:",
+  "opciones": [
+    "El Instituto Nacional de las Artes Escénicas y de la Música, O.A. y el Instituto de la Cinematografía y de las Artes Audiovisuales O.A.",
+    "El Instituto Nacional de las Artes Escénicas y de la Música y el Ia Biblioteca Nacional de España.",
+    "El Instituto Nacional de las Artes Escénicas y de la Música y el Museo Nacional del Prado.",
+    "El Instituto Nacional de las Artes Escénicas y de la Música y el Museo Nacional Reina Sofía."
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "Según el Real Decreto 323/2024, se adscriben a través de la Secretaría de Estado de Cultura el Instituto Nacional de las Artes Escénicas y de la Música (INAEM) y el Instituto de la Cinematografía y de las Artes Audiovisuales (ICAA), ambos organismos autónomos."
+},
+{
+  "id": "A2.2024.096",
+  "tema": "26. El Ministerio de Cultura. Organización, competencias, organismos y políticas públicas en materia de cultura, lectura, libro y bibliotecas.",
+  "bloque": "Bloque 1. Legislación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "De acuerdo con el artículo 2 del Real Decreto 323/2024, de 26 de marzo, por el que se desarrolla la estructura orgánica básica del Ministerio de Cultura, corresponden a la Secretaría de Estado de Cultura, entre otras, las siguientes funciones:",
+  "opciones": [
+    "La promoción y difusión de la cultura en español.",
+    "La elaboración, en colaboración con la Gerencia de Infraestructuras y Equipamientos de Educación y Cultura, del plan de infraestructuras culturales del Estado.",
+    "El fomento del libro, del cómic, de la lectura y de las letras españolas.",
+    "La promoción, protección y difusión de las artes escénicas, la música, la danza y el circo."
+  ],
+  "respuesta_correcta": 2,
+  "explicacion": "Según el artículo 2 del Real Decreto 323/2024, entre las funciones de la Secretaría de Estado de Cultura se encuentra el fomento del libro, del cómic, de la lectura y de las letras españolas."
+},
+{
+  "id": "A2.2024.097",
+  "tema": "26. El Ministerio de Cultura. Organización, competencias, organismos y políticas públicas en materia de cultura, lectura, libro y bibliotecas.",
+  "bloque": "Bloque 1. Legislación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "Corresponde a la Dirección General del Libro, del Cómic y de la Lectura el desarrollo de las siguientes funciones:",
+  "opciones": [
+    "La creación, dotación y fomento de bibliotecas de titularidad estatal y la coordinación y mantenimiento del Catálogo Colectivo del Patrimonio Bibliográfico.",
+    "La cooperación cultural con las comunidades autónomas.",
+    "La protección, promoción y difusión de la creación artística contemporánea y de las artes visuales.",
+    "La promoción, la protección y difusión de los archivos estatales."
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "Según el Real Decreto 323/2024, corresponde a la Dirección General del Libro, del Cómic y de la Lectura, entre otras funciones, la creación, dotación y fomento de bibliotecas de titularidad estatal y la coordinación y mantenimiento del Catálogo Colectivo del Patrimonio Bibliográfico."
+},
+{
+  "id": "A2.2024.098",
+  "tema": "20. El texto refundido de la Ley de Propiedad Intelectual: sujetos, objeto, contenido, duración y límites. La legislación en materia de propiedad intelectual y su incidencia den la gestión de las bibliotecas: límites de los derechos de autor, el dominio público. La remuneración de autores por préstamos en bibliotecas.",
+  "bloque": "Bloque 1. Legislación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "¿Cuál de las siguientes entidades colectivas gestiona los derechos de propiedad intelectual de artistas intérpretes?",
+  "opciones": [
+    "AISGE",
+    "AGEDI",
+    "EGEDA",
+    "DAMA"
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "AISGE (Artistas Intérpretes, Sociedad de Gestión) es la entidad de gestión colectiva que gestiona los derechos de propiedad intelectual de los artistas intérpretes (actores, bailarines, dobladores, directores de esc) en España."
+},
+{
+  "id": "A2.2024.099",
+  "tema": "19. Legislación Bibliotecaria Española. Ley 10/2007, de la lectura, del libro y las bibliotecas. Ley 1/2015 reguladora de la Biblioteca Nacional de España.",
+  "bloque": "Bloque 1. Legislación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "La Ley 10/2007, de 22 de junio, de la lectura, del libro y de las bibliotecas en su artículo 4 establece que los planes de fomento de la lectura:",
+  "opciones": [
+    "Tendrán especial consideración con la población infantil y juvenil y con los sectores más desfavorecidos socialmente.",
+    "Contribuirán a la expansión internacional de la industria del libro español.",
+    "Desarrollarán campañas de promoción de los autores que se expresen en castellano o en cualesquiera de las lenguas oficiales de las comunidades autónomas.",
+    "Promoverán la lectura especialmente entre los grupos de edad adulta."
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "El artículo 4 de la Ley 10/2007 establece que los planes de fomento de la lectura tendrán especial consideración con la población infantil y juvenil y con los sectores más desfavorecidos socialmente."
+},
+{
+  "id": "A2.2024.100",
+  "tema": "19. Legislación Bibliotecaria Española. Ley 10/2007, de la lectura, del libro y las bibliotecas. Ley 1/2015 reguladora de la Biblioteca Nacional de España.",
+  "bloque": "Bloque 1. Legislación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Primera parte",
+  "pregunta": "De acuerdo con el artículo 8 de la de Ley 10/2007 de la lectura, del libro y las bibliotecas, la gestión del International Standard Serial Number, número ISSN, corresponde a:",
+  "opciones": [
+    "La Biblioteca Nacional de España",
+    "La Agencia Española del ISBN (International Standard Book Number)",
+    "El Ministerio de Cultura",
+    "La biblioteca central de la Comunidad Autónoma dónde se edita el libro"
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "El artículo 8 de la Ley 10/2007 atribuye a la Biblioteca Nacional de España la gestión del ISSN (International Standard Serial Number) en España."
+},
+{
+  "id": "A2.2024.R001",
+  "tema": "89. Las bibliotecas en el siglo XVII.",
+  "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
+  "fuente": "Examen A2 2024",
+  "modelo": "Reserva",
+  "pregunta": "¿A cuál de las siguientes bibliotecas particulares se trasladó, durante el siglo XVII, la colección de libros que Jerónimo Zurita había legado a la Cartuja del Aula Dei de Zaragoza?",
+  "opciones": [
+    "Biblioteca del Conde Duque de Olivares",
+    "Biblioteca del Duque de Uceda",
+    "Biblioteca del Conde de Gondomar",
+    "Biblioteca del erudito Vincencio Juan de Lastanosa"
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "La colección de libros que el cronista Jerónimo Zurita había legado a la Cartuja del Aula Dei de Zaragoza fue trasladada durante el siglo XVII a la biblioteca del Conde Duque de Olivares."
+},
+{
+  "id": "A2.2024.R002",
+  "tema": "50. Las bibliotecas universitarias. Concepto, funciones y servicios. CRAI. Situación en España. REBIUN. Otras bibliotecas de enseñanza: las bibliotecas escolares.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Reserva",
+  "pregunta": "¿Qué organización definió la biblioteca universitaria como: \"la biblioteca o sistema de bibliotecas que está establecida, mantenida y administrada por una determinada universidad para cubrir las necesidades de información de los estudiantes y apoyar los programas educativos, de investigación y demás servicios\"?",
+  "opciones": [
+    "American Library Association (ALA)",
+    "UNESCO",
+    "IFLA",
+    "REBIUN"
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "La American Library Association (ALA) es la organización que formuló esta definición de biblioteca universitaria, centrada en su función de apoyo a los programas educativos y de investigación de la institución a la que pertenece."
+},
+{
+  "id": "A2.2024.R003",
+  "tema": "51. Las bibliotecas especializadas. Conceptos, funciones y servicios. Situación en España.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Reserva",
+  "pregunta": "La Comisión Técnica de Cooperación de Bibliotecas Especializadas (CTC) elaboró un mapa de Bibliotecas Especializadas enmarcado en el:",
+  "opciones": [
+    "I Plan Estratégico del CCB 2013-2015",
+    "Plan Estratégico 2015-2020 de la Biblioteca Nacional de España",
+    "III Plan Estratégico del Consejo de Cooperación Bibliotecaria (CCB) 2019-2023",
+    "Estrategia Nacional de Digitalización 2022 – 2026 del Ministerio de Cultura y Deporte"
+  ],
+  "respuesta_correcta": 2,
+  "explicacion": "La Comisión Técnica de Cooperación de Bibliotecas Especializadas elaboró el mapa de Bibliotecas Especializadas en el marco del III Plan Estratégico del Consejo de Cooperación Bibliotecaria (CCB) 2019-2023."
+},
+{
+  "id": "A2.2024.R004",
+  "tema": "65. Análisis documental de contenido: Indización y resumen. Indización automatizada.",
+  "bloque": "Bloque 3. Bibliografía y Documentación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Reserva",
+  "pregunta": "Según el Diccionario enciclopédico de Ciencias de la Documentación, se denominan documentos derivados a los:",
+  "opciones": [
+    "Documentos primarios.",
+    "Documentos secundarios.",
+    "Documentos terciarios.",
+    "Documentos mixtos."
+  ],
+  "respuesta_correcta": 1,
+  "explicacion": "Según el Diccionario enciclopédico de Ciencias de la Documentación, los documentos derivados son los documentos secundarios, es decir, aquellos que resultan del análisis y tratamiento de los documentos primarios originales."
+},
+{
+  "id": "A2.2024.R005",
+  "tema": "97. La industria del libro y la edición en la actualidad. Libros electrónicos, plataformas y servicios. Las licencias digitales. Gestión de derechos digitales. DRM. Mercado editorial: agendes de la producción y difusión del libro.",
+  "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
+  "fuente": "Examen A2 2024",
+  "modelo": "Reserva",
+  "pregunta": "La Panorámica de la edición española de libros 2019: análisis sectorial del libro es un informe desarrollado por:",
+  "opciones": [
+    "La Dirección General del Libro y Fomento de la Lectura",
+    "La Subdirección General de Coordinación Bibliotecaria",
+    "FGEE",
+    "CEGAL"
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "La Panorámica de la edición española de libros es un informe anual elaborado por la Dirección General del Libro y Fomento de la Lectura del Ministerio de Cultura, que analiza la producción editorial española."
+},
+{
+  "id": "A2.2024.R006",
+  "tema": "36. Almacenamiento y organización de las colecciones. Conservación preventiva y criterios para la restauración de fondos bibliográficos y documentales.",
+  "bloque": "Bloque 2. Biblioteconomía",
+  "fuente": "Examen A2 2024",
+  "modelo": "Reserva",
+  "pregunta": "En relación con el control medioambiental de un edificio que conserva patrimonio bibliográfico y documental indique la afirmación correcta:",
+  "opciones": [
+    "La temperatura (T) y la humedad relativa (HR) están interrelacionadas y el cambio en una de ellas supone la modificación de la otra. Los niveles óptimos de HR y T no son universales ni deben extrapolarse a todos los materiales.",
+    "Siempre son necesarios los sistemas de aire acondicionado y filtrado de aire para el control climático en una biblioteca.",
+    "Los métodos de control de la humedad relativa y la temperatura se realizarán una vez a la semana.",
+    "El control de la iluminación y la temperatura de los espacios de estudio y de lectura es independiente y debe dotarse de unos niveles mínimos de confort."
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "La temperatura y la humedad relativa están estrechamente interrelacionadas: cualquier variación en una afecta a la otra. Además, los niveles óptimos de conservación no son universales, sino que dependen de la naturaleza de cada tipo de material."
+},
+{
+  "id": "A2.2024.R007",
+  "tema": "75. Digitalización de documentos: técnicas, procedimientos y estándares. Directrices nacionales e internacionales.",
+  "bloque": "Bloque 4. Tecnologías de la Información",
+  "fuente": "Examen A2 2024",
+  "modelo": "Reserva",
+  "pregunta": "¿Cuál de las siguientes normas ISO tiene como propósito establecer directrices para la digitalización de documentos en papel con fines de conservación?",
+  "opciones": [
+    "ISO/TR 13028:2010",
+    "ISO 15489",
+    "ISO 14721:2012",
+    "ISO 12641-1:2016"
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "La ISO/TR 13028:2010 establece directrices para la implementación de la digitalización de documentos en papel con fines de conservación, incluyendo recomendaciones sobre calidad, metadatos y gestión del proceso."
+},
+{
+  "id": "A2.2024.R009",
+  "tema": "19. Legislación Bibliotecaria Española. Ley 10/2007, de la lectura, del libro y las bibliotecas. Ley 1/2015 reguladora de la Biblioteca Nacional de España.",
+  "bloque": "Bloque 1. Legislación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Reserva",
+  "pregunta": "El artículo 3 de la Ley 1/ 2015, establece que uno de los fines de la Biblioteca Nacional de España es:",
+  "opciones": [
+    "Garantizar el acceso y la difusión de sus colecciones con el fin de fomentar su utilización, como medio de enriquecimiento cultural, social y económico.",
+    "Fomentar y colaborar en programas de formación vinculados con la profesión bibliotecaria y con las ciencias de la documentación.",
+    "Catalogar y describir las colecciones físicas y digitales.",
+    "Garantizar la preservación y conservación de sus colecciones."
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "El artículo 3 de la Ley 1/2015 reguladora de la Biblioteca Nacional de España establece entre sus fines garantizar el acceso y la difusión de sus colecciones con el fin de fomentar su utilización como medio de enriquecimiento cultural, social y económico."
+},
+{
+  "id": "A2.2024.R010",
+  "tema": "1. La Constitución Española de 1978: características, elaboración, estructura y reforma. Principios Constitucionales y Valores Superiores. Los Derechos y Deberes fundamentales. Sus garantías constitucionales. La suspensión de los derechos y libertades.",
+  "bloque": "Bloque 1. Legislación",
+  "fuente": "Examen A2 2024",
+  "modelo": "Reserva",
+  "pregunta": "¿Cuál de estos derechos no está establecido en la Sección I del Capítulo II del Título I de la Constitución Española de 1978?:",
+  "opciones": [
+    "Derecho a la libertad de cátedra.",
+    "Derecho a expresar y difundir libremente los pensamientos, ideas y opiniones mediante la palabra, el escrito o cualquier otro medio de reproducción.",
+    "Derecho a la propiedad privada y a la herencia.",
+    "Derecho a la producción y creación literaria, artística, científica y técnica."
+  ],
+  "respuesta_correcta": 2,
+  "explicacion": "El derecho a la propiedad privada y a la herencia está recogido en la Sección II del Capítulo II del Título I (artículo 33), no en la Sección I, que es la que contiene los derechos fundamentales y libertades públicas."
+}
 ]
