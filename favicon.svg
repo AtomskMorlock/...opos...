@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <style>
+      .bg { fill: #e8f3ff; stroke: #b8d8ff; stroke-width: 6; }
+      .txt { font: 80px 'Trebuchet MS', 'Verdana', 'Arial', sans-serif; fill: #3c7bd6; font-weight: 700; }
+    </style>
+  </defs>
+  <circle class="bg" cx="64" cy="64" r="58" />
+  <text class="txt" x="64" y="82" text-anchor="middle">B</text>
+</svg>

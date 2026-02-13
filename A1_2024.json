@@ -4,7 +4,6 @@
     "tema": "17. La Ley 16/1985, de 25 de junio, del Patrimonio Histórico Español. El Patrimonio Documental y Bibliográfico. Los Archivos, Bibliotecas y Museos. La declaración de Bienes de Interés Cultural. La protección de los bienes muebles e inmuebles. Las medidas de fomento.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "Los bienes inmuebles integrados en el Patrimonio Histórico Español pueden ser declarados:",
     "opciones": [
       "Monumentos, Parques y Zonas históricas.",
@@ -20,7 +19,6 @@
     "tema": "14. Los presupuestos de las Administraciones Públicas en España. Los Presupuestos Generales del Estado y el ciclo presupuestario. Principales capítulos presupuestarios. La ejecución presupuestaria. Modificaciones presupuestarias. El control del gasto público en España: Fases y órganos competentes. La Intervención General de la Administración del Estado.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "El ciclo presupuestario en las bibliotecas pasa por las siguientes fases:",
     "opciones": [
       "Anteproyectos, proyecto, ejecución y control.",
@@ -36,7 +34,6 @@
     "tema": "31. Evaluación de los procesos y los servicios bibliotecarios. Normas ISO relacionadas. Modelos de evaluación, certificación y acreditación de la gestión y los servicios bibliotecarios.",
     "bloque": "Bloque 2. Biblioteconomía",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Qué novedades introduce la Norma ISO 11.620:2023 sobre Indicadores de rendimiento bibliotecario respecto a la edición de 2014?",
     "opciones": [
       "Elimina indicadores que ya no se utilizaban.",
@@ -52,7 +49,6 @@
     "tema": "60. Bibliografías y fuentes de información fondo antiguo: manuscritos, incunables y raros.",
     "bloque": "Bloque 3. Bibliografía y Documentación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "La descripción de libro antiguo en una bibliografía tradicional se caracteriza por:",
     "opciones": [
       "Descripción exhaustiva pero no de la tipografía utilizada.",
@@ -68,7 +64,6 @@
     "tema": "69. La gestión documental en las organizaciones. ISO 30300.",
     "bloque": "Bloque 3. Bibliografía y Documentación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "La norma ISO 30.300 define “documento fidedigno” como:",
     "opciones": [
       "Documento que posee las características de autenticidad, fiabilidad, integridad y utilidad.",
@@ -84,7 +79,6 @@
     "tema": "53. La cooperación bibliotecaria en la actualidad: organismos, programas y proyectos.",
     "bloque": "Bloque 2. Biblioteconomía",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Qué países forman parte del consorcio bibliotecario SELL (Southern European Libraries Link)?",
     "opciones": [
       "España, Grecia, Italia, Malta, Portugal y Turquía.",
@@ -100,7 +94,6 @@
     "tema": "83. El libro y las bibliotecas en la Edad Media.",
     "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "Los manuscritos se copiaban sobre cuadernos con los bifolios sin coser. ¿Cuál era el modo de indicar la ordenación para la encuadernación posterior?",
     "opciones": [
       "Signatura topográfica formada con un número o una letra.",
@@ -116,7 +109,6 @@
     "tema": "52. Las bibliotecas nacionales y regionales. Conceptos, funciones y servicios. La Biblioteca Nacional de España.",
     "bloque": "Bloque 2. Biblioteconomía",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "La Filmoteca Española tiene en su biblioteca, aparte de monografías y publicaciones periódicas de hace más de un siglo, colecciones especiales de:",
     "opciones": [
       "Guiones, novelizaciones de películas y tesis doctorales.",
@@ -132,7 +124,6 @@
     "tema": "15. La Ley de Contratos del Sector Público. Concepto y tipos contractuales. Elementos de los contratos. Preparación de contratos. Procedimientos de adjudicación. Efectos, cumplimiento y extinción.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Cuál de los siguientes contratos tiene carácter administrativo desde el punto de vista de la Ley de Contratos de las Administraciones Públicas?",
     "opciones": [
       "Los contratos de concesión de obra.",
@@ -145,10 +136,9 @@
   },
   {
     "id": "A1.2024.010",
-    "tema": "40. El control de autoridades. Concepto, objetivos, normativa, tendencias internacionales, principales proyectos.",
+    "tema": "40. El control de autoridades. Concepto, objetivos, normativa, tendencias internacionales, principales proyectos.",
     "bloque": "Bloque 2. Biblioteconomía",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Qué es VIAF?",
     "opciones": [
       "VIAF es un proyecto conjunto de varias bibliotecas nacionales, implementado y alojado por OCLC. El objetivo del proyecto es disminuir el coste e incrementar la utilidad de los ficheros de autoridad de las bibliotecas mediante la comparación y la correspondencia entre los ficheros de autoridades de las bibliotecas nacionales, y poner esa información disponible en Internet.",
@@ -164,7 +154,6 @@
     "tema": "98. Historia de las publicaciones periódicas. Las publicaciones periódicas en la actualidad. Ediciones impresas y digitales.",
     "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "En el siglo XVII aparecen las primeras publicaciones periódicas. ¿Cuál de estas es considerada la primera publicación científica en Europa?:",
     "opciones": [
       "Philosophical Transactions.",
@@ -180,7 +169,6 @@
     "tema": "11. La Administración Pública y el Derecho. Fuentes del ordenamiento jurídico. El principio de jerarquía normativa. La Constitución Española. La Ley: concepto y clases. Las disposiciones del ejecutivo con fuerza de ley: Real Decreto-ley y Real Decreto Legislativo. El reglamento: concepto y clases. La potestad reglamentaria.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "Las fuentes del ordenamiento jurídico español son:",
     "opciones": [
       "La ley, la costumbre y las normas institucionales.",
@@ -196,7 +184,6 @@
     "tema": "87. Las bibliotecas en el siglo XVI.",
     "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿De qué biblioteca fue bibliotecario Hugo Blocio en el siglo XVI?",
     "opciones": [
       "Biblioteca Nacional de Francia.",
@@ -212,7 +199,6 @@
     "tema": "48. Bibliotecas digitales: diseño, desarrollo y mantenimiento. Principales proyectos españoles e internacionales. Europeana.",
     "bloque": "Bloque 2. Biblioteconomía",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Qué es DIGISAM?",
     "opciones": [
       "La Biblioteca Digital de la Universidad de Estocolmo.",
@@ -228,7 +214,6 @@
     "tema": "56. Apertura de la información y de las publicaciones. Reutilización de la información pública. Ciencia abierta. Licencias Creative Commons.",
     "bloque": "Bloque 2. Biblioteconomía",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Cómo se denomina el conjunto de buenas prácticas para organizar los datos y resultados de investigación conforme a lo establecido por el movimiento por la Ciencia Abierta?",
     "opciones": [
       "Principios FAIR",
@@ -244,7 +229,6 @@
     "tema": "1. La Constitución Española de 1978: características, elaboración, estructura y reforma. Principios Constitucionales y Valores Superiores. Los Derechos y Deberes fundamentales. Sus garantías constitucionales. La suspensión de los derechos y libertades.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿En qué supuesto no es necesaria la ratificación mediante referéndum de una reforma constitucional?",
     "opciones": [
       "Cuando lo soliciten una décima parte de los miembros de cualquiera de las Cámaras que componen las Cortes Generales.",
@@ -260,7 +244,6 @@
     "tema": "62. Bibliografías y fuentes de información de materiales especiales.",
     "bloque": "Bloque 3. Bibliografía y Documentación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "La base de datos de información bibliográfica musical “The big R’s of International Music Research” se estructura en cuatro grandes programas, que son:",
     "opciones": [
       "Fuentes musicales, literatura relacionada con el ámbito musical, autores musicales y publicaciones periódicas musicales.",
@@ -276,7 +259,6 @@
     "tema": "90. La imprenta industrial: avances tecnológicos a partir de los siglos XVIII y XIX.",
     "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "Seleccione de entre estas opciones aquella lista que contiene sólo impresores/as españoles/as cuyos talleres estuvieron activos durante el siglo XVIII.",
     "opciones": [
       "Antonio de Sancha, Jacobo Cromberger, María Ruiz y Benito Monfort.",
@@ -292,7 +274,6 @@
     "tema": "66. Lenguajes documentales. Los tesauros: normas, creación y mantenimiento.",
     "bloque": "Bloque 3. Bibliografía y Documentación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Cuál de las siguientes siglas se corresponde con un sistema de organización del conocimiento?",
     "opciones": [
       "SKOS.",
@@ -308,7 +289,6 @@
     "tema": "45. Los servicios de extensión bibliotecaria y cultural. La gestión cultural.",
     "bloque": "Bloque 2. Biblioteconomía",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Cuál de las siguientes acciones es parte de los servicios de extensión cultural?",
     "opciones": [
       "Sólo prestar libros a los usuarios.",
@@ -324,7 +304,6 @@
     "tema": "58. Definición y objetivos de la bibliografía. Teoría y técnica. Evolución histórica de la bibliografía y situación actual. Bibliografías nacionales.",
     "bloque": "Bloque 3. Bibliografía y Documentación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "La obra Manual del librero Hispano-Americano de Palau y Dulcet:",
     "opciones": [
       "recoge la bibliografía española e hispanoamericana desde la época medieval hasta la actualidad.",
@@ -340,7 +319,6 @@
     "tema": "83. El libro y las bibliotecas en la Edad Media.",
     "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿A qué se debió el éxito en la adopción del codex o códice en la Edad Media?. Elija la opción más completa:",
     "opciones": [
       "Dejó de gustar el uso del papiro como materia escriptórea.",
@@ -356,7 +334,6 @@
     "tema": "90. La imprenta industrial: avances tecnológicos a partir de los siglos XVIII y XIX.",
     "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "Señale las principales innovaciones técnicas que mejoraron el procedimiento de fabricación del papel en el siglo XVIII:",
     "opciones": [
       "Uso del cilindro o pila holandesa, invención del papel vitela e introducción de la materia prima vegetal en la fabricación.",
@@ -372,7 +349,6 @@
     "tema": "16. Estructura organizativa y competencias en materia de bibliotecas en la Administración General del Estado, en la Administración de las Comunidades Autónomas y en la Administración Local.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "De acuerdo con el artículo 149.1.28 de la Constitución Española y el artículo 14 de la Ley 10/2007, de 22 de junio, de la lectura, del libro y las bibliotecas:",
     "opciones": [
       "Forman parte del Sistema Español de Bibliotecas exclusivamente: el Ministerio de Cultura, el Consejo de Cooperación Bibliotecaria, la Biblioteca Nacional y el resto de las bibliotecas de titularidad estatal.",
@@ -388,7 +364,6 @@
     "tema": "10. Régimen jurídico del personal al servicio de las Administraciones Públicas. El Estatuto Básico del Empleado Público. Clases de personal al servicio de las Administraciones Públicas Derechos y deberes. Incompatibilidades. Régimen disciplinario de los empleados públicos. Régimen de incompatibilidades de los empleados públicos. La ética pública.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "Los funcionarios interinos son nombrados cuando se dé una de las siguientes circunstancias:",
     "opciones": [
       "Para realizar funciones de asesoramiento especial.",
@@ -404,7 +379,6 @@
     "tema": "17. La Ley 16/1985, de 25 de junio, del Patrimonio Histórico Español. El Patrimonio Documental y Bibliográfico. Los Archivos, Bibliotecas y Museos. La declaración de Bienes de Interés Cultural. La protección de los bienes muebles e inmuebles. Las medidas de fomento.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "Señale la afirmación correcta en relación con la declaración de bienes de interés cultural:",
     "opciones": [
       "La declaración mediante Orden Ministerial requerirá la previa incoación y tramitación de expediente administrativo por el Organismo competente.",
@@ -420,7 +394,6 @@
     "tema": "12. La Ley 39/2015, de 1 de octubre, del Procedimiento Administrativo Común de las Administraciones Públicas. El procedimiento administrativo común: Concepto, naturaleza, fases y características. Términos y plazos. Recursos administrativos.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "Cuál de los siguientes no es un medio de ejecución forzosa:",
     "opciones": [
       "Multa coercitiva.",
@@ -433,10 +406,9 @@
   },
   {
     "id": "A1.2024.028",
-    "tema": "85. Invención y difusión de la imprenta. Los incunables. La imprenta en España durante el siglo XV.",
+    "tema": "96. El libro y la edición en el siglo XX.",
     "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Cuál es considerada como la primera colección específica de libros de bolsillo editada en España en el siglo XX?",
     "opciones": [
       "El Parnaso Español.",
@@ -452,7 +424,6 @@
     "tema": "35. Depósito legal. Depósito legal de publicaciones en línea.",
     "bloque": "Bloque 2. Biblioteconomía",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "Según el Artículo 5. de la Ley 23/2011, de 29 de julio, de depósito legal, texto consolidado, son publicaciones excluidas del depósito legal:",
     "opciones": [
       "Marcapáginas, cromos.",
@@ -468,7 +439,6 @@
     "tema": "65. Análisis documental de contenido: Indización y resumen. Indización automatizada.",
     "bloque": "Bloque 3. Bibliografía y Documentación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "Los métodos de indización automática se dividen en:",
     "opciones": [
       "Métodos intelectuales y métodos conceptuales.",
@@ -484,7 +454,6 @@
     "tema": "100. Promoción de la lectura. Hábitos lectores. Planes de fomento de la lectura.",
     "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Cuál es el desafío 7º incluido por el Ministerio de Cultura en Lectura Infinita, su Plan de Fomento de la Lectura (2021–2024)?",
     "opciones": [
       "Mostrar la bibliodiversidad. Mil lecturas, un lector.",
@@ -500,7 +469,6 @@
     "tema": "26. El Ministerio de Cultura. Organización, competencias, organismos y políticas públicas en materia de cultura, lectura, libro y bibliotecas.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "De acuerdo con el Real Decreto 323/2024, de 26 de marzo, por el que se desarrolla la estructura orgánica básica del Ministerio de Cultura, y se modifica el Real Decreto 1009/2023, de 5 de diciembre, por el que se establece la estructura orgánica básica de los departamentos ministeriales, son competencias de la Dirección General del Libro, del Cómic y de la Lectura:",
     "opciones": [
       "La promoción de políticas de igualdad de género en el ámbito de la cultura a través del Observatorio de Igualdad de Género de la Cultura.",
@@ -513,10 +481,9 @@
   },
   {
     "id": "A1.2024.033",
-    "tema": "92. Las bibliotecas en el siglo XVIII.",
+    "tema": "87. Las bibliotecas en el siglo XVI.",
     "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "Felipe II, para construir la Biblioteca de El Escorial, se basó en los escritos de uno de los siguientes humanistas, autor de Sobre la utilidad de juntar una buena biblioteca:",
     "opciones": [
       "Benito Arias Montano.",
@@ -532,7 +499,6 @@
     "tema": "25. La protección de datos. Régimen jurídico. Ley Orgánica 3/2018, de 5 de diciembre, de Protección de Datos Personales y garantía de los derechos digitales y Reglamento (UE) 2016/679 del Parlamento Europeo y del Consejo, de 27 de abril de 2016, reglamento general de protección de datos. Aplicaciones en bibliotecas. El Delegado de Protección de Datos en las Administraciones públicas. La Agencia Española de Protección de Datos.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "En relación con la admisión a trámite de las reclamaciones que se presenten ante la Agencia Española de Protección de Datos, cuál de las siguientes afirmaciones es correcta:",
     "opciones": [
       "La Agencia Española de Protección de Datos podrá inadmitir la reclamación cuando esta no sea presentada por el responsable o encargado del tratamiento.",
@@ -548,7 +514,6 @@
     "tema": "7. La Organización Territorial del Estado. Las Comunidades Autónomas. La Administración Local. Organización política y administrativa. La distribución de competencias en la Constitución Española de 1978 entre Estado y Comunidades Autónomas en materia de cultura.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "Indique sobre cuál de las siguientes materias no tiene el Estado competencia exclusiva sobre la legislación o normativa básica:",
     "opciones": [
       "Asistencia social.",
@@ -564,7 +529,6 @@
     "tema": "9. La Unión Europea y sus tratados constitutivos. Sistema institucional. Fuentes del Derecho de la Unión y su trasposición al ordenamiento jurídico español. Políticas comunes. Política cultural en el ámbito comunitario.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Cuál es el órgano ejecutivo de la Unión Europea, entre cuyas sus funciones se encuentran las de proponer nuevas leyes y políticas para los Estados miembros, controlar su ejecución o gestionar el presupuesto comunitario?",
     "opciones": [
       "El Parlamento Europeo.",
@@ -580,7 +544,6 @@
     "tema": "90. La imprenta industrial: avances tecnológicos a partir de los siglos XVIII y XIX.",
     "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Quiénes fueron los inventores de la primera máquina de imprimir automática con resultados satisfactorios hacia 1810-1814?",
     "opciones": [
       "Godefroy y Pierre Engelmann de Mulhouse.",
@@ -596,7 +559,6 @@
     "tema": "58. Definición y objetivos de la bibliografía. Teoría y técnica. Evolución histórica de la bibliografía y situación actual. Bibliografías nacionales.",
     "bloque": "Bloque 3. Bibliografía y Documentación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "El control bibliográfico de las publicaciones oficiales españolas se lleva a cabo por:",
     "opciones": [
       "el NIPO en las publicaciones de todas las administraciones públicas.",
@@ -612,7 +574,6 @@
     "tema": "86. El libro en el siglo XVI.",
     "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Qué impulsa la producción del libro en el siglo XVI?:",
     "opciones": [
       "Las ferias, como la de Medina del Campo, y el aumento de la venta del libro.",
@@ -628,7 +589,6 @@
     "tema": "68. Big data. El análisis de los datos masivos.",
     "bloque": "Bloque 3. Bibliografía y Documentación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "La gestión de datos de investigación:",
     "opciones": [
       "Es una tarea que deben asumir los propios investigadores como parte de su labor investigadora.",
@@ -644,7 +604,6 @@
     "tema": "5. El Tribunal Constitucional. El Defensor del Pueblo, el Tribunal de Cuentas y el Consejo de Estado.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "Indique cuál de las siguientes opciones no es correcta. Integran el Consejo de Estado en Pleno:",
     "opciones": [
       "Los Consejeros permanentes.",
@@ -657,10 +616,9 @@
   },
   {
     "id": "A1.2024.042",
-    "tema": "66. Lenguajes documentales. Los tesauros: normas, creación y mantenimiento.",
-    "bloque": "Bloque 3. Bibliografía y Documentación",
+    "tema": "40. El control de autoridades. Concepto, objetivos, normativa, tendencias internacionales, principales proyectos.",
+    "bloque": "Bloque 2. Biblioteconomía",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Cuál es el principal objetivo del Control de Autoridades?",
     "opciones": [
       "Formular encabezamientos normalizados que permitan el acceso a los registros bibliográficos de forma unívoca, mediante la validación de puntos de acceso normalizados.",
@@ -676,7 +634,6 @@
     "tema": "65. Análisis documental de contenido: Indización y resumen. Indización automatizada.",
     "bloque": "Bloque 3. Bibliografía y Documentación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "Se consideran errores técnicos en la indización:",
     "opciones": [
       "Errores en la selección del tema del documento.",
@@ -692,7 +649,6 @@
     "tema": "4. El Poder Judicial. La justicia en la Constitución. El Consejo General del Poder Judicial. La Administración de Justicia. El Ministerio Fiscal.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Cuál de los siguientes órganos no forma parte del Poder Judicial?",
     "opciones": [
       "El Tribunal Supremo.",
@@ -705,10 +661,9 @@
   },
   {
     "id": "A1.2024.045",
-    "tema": "84. Elementos constitutivos de los códices medievales: su identificación bibliográfica.",
+    "tema": "89. Las bibliotecas en el siglo XVII.",
     "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "Cuál de las siguientes bibliotecas es considerada la biblioteca privada más importante del siglo XVII en España:",
     "opciones": [
       "Conde Duque de Olivares.",
@@ -724,7 +679,6 @@
     "tema": "11. La Administración Pública y el Derecho. Fuentes del ordenamiento jurídico. El principio de jerarquía normativa. La Constitución Española. La Ley: concepto y clases. Las disposiciones del ejecutivo con fuerza de ley: Real Decreto-ley y Real Decreto Legislativo. El reglamento: concepto y clases. La potestad reglamentaria.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "El CENDOJ, Centro de Documentación Judicial es:",
     "opciones": [
       "El servicio jurídico electrónico de Aranzadi especializado en jurisprudencia y doctrina.",
@@ -740,7 +694,6 @@
     "tema": "49. Las bibliotecas públicas. Gestión y titularidades. Funciones y servicios. Situación en España.",
     "bloque": "Bloque 2. Biblioteconomía",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Cuándo y dónde se toman las primeras iniciativas para crear unas bibliotecas escolares modernas?",
     "opciones": [
       "En 1835, en Estados Unidos de América.",
@@ -756,7 +709,6 @@
     "tema": "59. La normalización de la identificación bibliográfica y documental. El ISBN, el ISSN y otros sistemas internacionales. Identificadores permanentes en Internet: Sistema DOI y Handle.",
     "bloque": "Bloque 3. Bibliografía y Documentación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "El Digital Object Identifier (DOI) y el sistema Handle:",
     "opciones": [
       "Ambos están descritos en la ISO 26.324:2022.",
@@ -772,7 +724,6 @@
     "tema": "41. La clasificación bibliográfica. Principales sistemas. La CDU.",
     "bloque": "Bloque 2. Biblioteconomía",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Cuál es el antecedente de La Clasificación Decimal Universal?",
     "opciones": [
       "El Sistema decimal de Dewey.",
@@ -788,7 +739,6 @@
     "tema": "82. El libro y las bibliotecas en la antigüedad.",
     "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "El código de Hammurabi, contenía textos relativos a:",
     "opciones": [
       "Narraciones de victorias militares.",
@@ -804,7 +754,6 @@
     "tema": "51. Las bibliotecas especializadas. Conceptos, funciones y servicios. Situación en España.",
     "bloque": "Bloque 2. Biblioteconomía",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "En la actualidad, ¿la Biblioteca de Palacio y la Real Biblioteca de El Escorial de qué organismo público dependen?",
     "opciones": [
       "Ministerio de Cultura.",
@@ -820,7 +769,6 @@
     "tema": "63. Fuentes de información en Ciencias Sociales y Humanidades.",
     "bloque": "Bloque 3. Bibliografía y Documentación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Cuál es la base de datos especializada en Biblioteconomía y Documentación?:",
     "opciones": [
       "MLA",
@@ -836,7 +784,6 @@
     "tema": "64. Fuentes de información en Ciencia y Tecnología.",
     "bloque": "Bloque 3. Bibliografía y Documentación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "En el ámbito de la Ciencia y la Tecnología las publicaciones poseen una obsolescencia:",
     "opciones": [
       "baja.",
@@ -852,7 +799,6 @@
     "tema": "67. La investigación en biblioteconomía y documentación en España. Bibliometría: concepto y aplicaciones de los estudios bibliométricos. Apoyo a la evaluación científica.",
     "bloque": "Bloque 3. Bibliografía y Documentación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "El efecto Matilda en la Ciencia es definido por primera vez por:",
     "opciones": [
       "Robert K. Merton",
@@ -868,7 +814,6 @@
     "tema": "46. La difusión de servicios y contenidos de la Biblioteca, herramientas y canales. Web 2.0 y redes sociales. Planes de comunicación. Curación de contenidos. La reputación digital.",
     "bloque": "Bloque 2. Biblioteconomía",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Cuál fue la primera plataforma pública de libros electrónicos de ámbito nacional creada en España?",
     "opciones": [
       "eBiblio.",
@@ -884,7 +829,6 @@
     "tema": "46. La difusión de servicios y contenidos de la Biblioteca, herramientas y canales. Web 2.0 y redes sociales. Planes de comunicación. Curación de contenidos. La reputación digital.",
     "bloque": "Bloque 2. Biblioteconomía",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Qué herramienta de la web 2.0 es más utilizada por las bibliotecas para compartir recursos y noticias?",
     "opciones": [
       "Blogs.",
@@ -900,7 +844,6 @@
     "tema": "26. El Ministerio de Cultura. Organización, competencias, organismos y políticas públicas en materia de cultura, lectura, libro y bibliotecas.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "Indique a qué órgano le corresponde desempeñar la jefatura superior de todo el personal en los departamentos ministeriales, así como las funciones inherentes a los servicios comunes del ministerio.",
     "opciones": [
       "Subdirecciones de personal o de recursos humanos.",
@@ -916,7 +859,6 @@
     "tema": "67. La investigación en biblioteconomía y documentación en España. Bibliometría: concepto y aplicaciones de los estudios bibliométricos. Apoyo a la evaluación científica.",
     "bloque": "Bloque 3. Bibliografía y Documentación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "Iniciativas como el Manifiesto de Leiden, DORA, Metric Tide o CoARA abogan por un uso más responsable de:",
     "opciones": [
       "Los indicadores cuantitativos para la evaluación científica.",
@@ -932,7 +874,6 @@
     "tema": "58. Definición y objetivos de la bibliografía. Teoría y técnica. Evolución histórica de la bibliografía y situación actual. Bibliografías nacionales.",
     "bloque": "Bloque 3. Bibliografía y Documentación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "Los repertorios bibliográficos de la segunda mitad del siglo XIX y primera del siglo XX en España:",
     "opciones": [
       "son imprescindibles para conocer la historia de la bibliografía española.",
@@ -948,7 +889,6 @@
     "tema": "60. Bibliografías y fuentes de información fondo antiguo: manuscritos, incunables y raros.",
     "bloque": "Bloque 3. Bibliografía y Documentación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "Según las pautas de la Web Accessibility Initiative (WAI), los principios para que una web sea considerada accesible son:",
     "opciones": [
       "legible, predecible, comprensible y robusto.",
@@ -961,10 +901,9 @@
   },
   {
     "id": "A1.2024.061",
-    "tema": "83. El libro y las bibliotecas en la Edad Media.",
+    "tema": "84. Elementos constitutivos de los códices medievales: su identificación bibliográfica.",
     "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "Son elementos constitutivos de los códices medievales. Elija la opción que presente el orden correcto y más completo.",
     "opciones": [
       "Invocación, incipit, colofón, explicit, signatura topográfica.",
@@ -980,7 +919,6 @@
     "tema": "22. Las políticas de igualdad y no discriminación: normativa vigente. Los derechos de las personas con discapacidad; protección a los colectivos más desfavorecidos; la dependencia. Políticas de igualdad de género. La lucha contra la violencia de género. Derechos de las personas LGTBI e igualdad de las personas trans.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "De acuerdo con el artículo 7 del Real Decreto Legislativo 1/2013, de 29 de noviembre, por el que se aprueba el Texto Refundido de la Ley General de derechos de las personas con discapacidad y de su inclusión social:",
     "opciones": [
       "Las personas con discapacidad tienen los mismos derechos que los demás ciudadanos si así lo determina una norma con rango de Ley.",
@@ -996,7 +934,6 @@
     "tema": "51. Las bibliotecas especializadas. Conceptos, funciones y servicios. Situación en España.",
     "bloque": "Bloque 2. Biblioteconomía",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "Como norma general, cuando el bibliotecario y su órgano rector planifiquen una biblioteca, deberán tener en cuenta los siguientes elementos básicos iniciales:",
     "opciones": [
       "Ubicación, tipo de usuarios, transporte público.",
@@ -1012,7 +949,6 @@
     "tema": "42. Los sistemas integrados de gestión bibliotecaria. Las plataformas de servicios bibliotecarios (PSB). Nuevos modelos y tendencias.",
     "bloque": "Bloque 2. Biblioteconomía",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Qué es Koha-kobli?",
     "opciones": [
       "Es el sistema integrado de gestión de bibliotecas de código abierto para las Bibliotecas de la Administración General del Estado.",
@@ -1028,7 +964,6 @@
     "tema": "85. Invención y difusión de la imprenta. Los incunables. La imprenta en España durante el siglo XV.",
     "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿En qué ciudad inició su labor como impresor Fadrique de Basilea en 1482?:",
     "opciones": [
       "Toledo.",
@@ -1044,7 +979,6 @@
     "tema": "38. El Library Reference Model (LRM) de IFLA. Las RDA (Resource Description and Access).",
     "bloque": "Bloque 2. Biblioteconomía",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Cuáles son los antecedentes del Modelo LRM - IFLA?",
     "opciones": [
       "FRBR, FRAD y FRSAD.",
@@ -1060,7 +994,6 @@
     "tema": "54. Los profesionales de las bibliotecas. Perfiles y competencias profesionales. Ética y deontología. Desarrollo profesional.",
     "bloque": "Bloque 2. Biblioteconomía",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "El Código deontológico (2022) de la Sociedad Española de Documentación Científica (SEDIC) se inspira en los siguientes principios:",
     "opciones": [
       "Autonomía, Justicia, Responsabilidad, Utilidad social.",
@@ -1076,7 +1009,6 @@
     "tema": "99. El patrimonio bibliográfico español. Panorama histórico, normativa legal y acciones de preservación y difusión.",
     "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Cuál será el País Invitado de Honor en la 43ª edición de Liber 2025, en Madrid?",
     "opciones": [
       "Portugal.",
@@ -1092,7 +1024,6 @@
     "tema": "21. El patrocinio y mecenazgo de instituciones y proyectos culturales. Desgravaciones fiscales. Donaciones.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "Se consideran entidades sin fines lucrativos a efectos de Ley 49/2002, de 23 de diciembre, de régimen fiscal de las entidades sin fines lucrativos y de los incentivos fiscales al mecenazgo:",
     "opciones": [
       "Los partidos políticos.",
@@ -1108,7 +1039,6 @@
     "tema": "82. El libro y las bibliotecas en la Antigüedad.",
     "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Qué biblioteca se fundó en Roma en el año 113, y llegó al nivel de las de Pérgamo y Alejandría?",
     "opciones": [
       "Biblioteca Octaviana.",
@@ -1124,7 +1054,6 @@
     "tema": "66. Lenguajes documentales. Los tesauros: normas, creación y mantenimiento.",
     "bloque": "Bloque 3. Bibliografía y Documentación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "La evaluación de los tesauros puede ser:",
     "opciones": [
       "Interna o externa.",
@@ -1140,7 +1069,6 @@
     "tema": "47. Preservación digital de contenidos en bibliotecas. Técnicas y metodologías.",
     "bloque": "Bloque 2. Biblioteconomía",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Cuál de las siguientes no es una técnica adecuada de preservación digital?",
     "opciones": [
       "Refresco de soportes.",
@@ -1156,7 +1084,6 @@
     "tema": "85. Invención y difusión de la imprenta. Los incunables. La imprenta en España durante el siglo XV.",
     "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Cuál de los siguientes incunables se considera el primer libro impreso?:",
     "opciones": [
       "Biblia de Gutenberg, o de 42 líneas.",
@@ -1172,7 +1099,6 @@
     "tema": "59. La normalización de la identificación bibliográfica y documental. El ISBN, el ISSN y otros sistemas internacionales. Identificadores permanentes en Internet: Sistema DOI y Handle.",
     "bloque": "Bloque 3. Bibliografía y Documentación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "El ISSN-L, o ISSN de enlace:",
     "opciones": [
       "se asigna a todos los ISSN de una publicación que sufre cambios menores.",
@@ -1188,7 +1114,6 @@
     "tema": "17. La Ley 16/1985, de 25 de junio, del Patrimonio Histórico Español. El Patrimonio Documental y Bibliográfico. Los Archivos, Bibliotecas y Museos. La declaración de Bienes de Interés Cultural. La protección de los bienes muebles e inmuebles. Las medidas de fomento.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Quién puede solicitar la incoación de expediente para la declaración de un Bien de Interés Cultural?:",
     "opciones": [
       "Cualquier persona.",
@@ -1204,7 +1129,6 @@
     "tema": "23. La Administración electrónica y el servicio a los ciudadanos. El Reglamento de actuación y funcionamiento del sector público por medios electrónicos y su relación con las bibliotecas.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "El sector público deberá respetar los siguientes principios en sus actuaciones y relaciones electrónicas:",
     "opciones": [
       "Neutralidad tecnológica.",
@@ -1220,7 +1144,6 @@
     "tema": "14. Los presupuestos de las Administraciones Públicas en España. Los Presupuestos Generales del Estado y el ciclo presupuestario. Principales capítulos presupuestarios. La ejecución presupuestaria. Modificaciones presupuestarias. El control del gasto público en España: Fases y órganos competentes. La Intervención General de la Administración del Estado.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "En la elaboración de los Presupuestos Generales del Estado, las estructuras de gastos se categorizan en varios grupos, que son:",
     "opciones": [
       "Estructura orgánica, por programas, económica y de operaciones corrientes.",
@@ -1236,7 +1159,6 @@
     "tema": "32. Gestión de calidad en bibliotecas y normas ISO relacionadas. Las cartas de servicios.",
     "bloque": "Bloque 2. Biblioteconomía",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "La gestión de calidad en las bibliotecas puede obtenerse a través de procesos de certificación de calidad. Elija la opción más habitual y completa:",
     "opciones": [
       "European Foundation for Quality Management (EFQM), Gestión de Calidad Total (TQM), Normas ISO 9000.",
@@ -1252,7 +1174,6 @@
     "tema": "37. La catalogación. Principios Internacionales de Catalogación. Normativa internacional y nacional relacionada.",
     "bloque": "Bloque 2. Biblioteconomía",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "La perspectiva actual del control bibliográfico universal está orientada hacia:",
     "opciones": [
       "La interoperabilidad y flexibilidad entre las diferentes comunidades de interesados y de instituciones de la memoria.",
@@ -1268,7 +1189,6 @@
     "tema": "69. La gestión documental en las organizaciones. ISO 30300.",
     "bloque": "Bloque 3. Bibliografía y Documentación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "La gestión de documentos comprende:",
     "opciones": [
       "El conjunto de actividades para gestionar documentos fidedignos.",
@@ -1284,7 +1204,6 @@
     "tema": "67. La investigación en biblioteconomía y documentación en España. Bibliometría: concepto y aplicaciones de los estudios bibliométricos. Apoyo a la evaluación científica.",
     "bloque": "Bloque 3. Bibliografía y Documentación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "Según Derek de Solla Price la ciencia:",
     "opciones": [
       "es el resultado del trabajo de la multitud de pequeñas aportaciones de una mayoría de científicos.",
@@ -1300,7 +1219,6 @@
     "tema": "19. Legislación Bibliotecaria Española. Ley 10/2007, de la lectura, del libro y las bibliotecas. Ley 1/2015 reguladora de la Biblioteca Nacional de España.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "Conforme establecen los artículos 4 a 6 de la Ley 1/2015, de 24 de marzo, reguladora de la Biblioteca Nacional de España:",
     "opciones": [
       "Son órganos rectores y consultivos de la Biblioteca Nacional de España: la Presidencia, el Real Patronato y la Secretaría General.",
@@ -1316,7 +1234,6 @@
     "tema": "66. Lenguajes documentales. Los tesauros: normas, creación y mantenimiento.",
     "bloque": "Bloque 3. Bibliografía y Documentación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "La elaboración de un tesauro se lleva a cabo mediante:",
     "opciones": [
       "Método deductivo, teórico, sintético, a priori o top-down.",
@@ -1329,10 +1246,9 @@
   },
   {
     "id": "A1.2024.084",
-    "tema": "82. El libro y las bibliotecas en la antigüedad.",
+    "tema": "92. Las bibliotecas en el siglo XVIII.",
     "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "En el siglo XVIII surge en las colonias inglesas en Norteamerica un nuevo modelo de biblioteca pública asociativa. Señale la fundada a iniciativa de Benjamin Franklin:",
     "opciones": [
       "Kings Chapel Library.",
@@ -1348,7 +1264,6 @@
     "tema": "52. Las bibliotecas nacionales y regionales. Conceptos, funciones y servicios. La Biblioteca Nacional de España.",
     "bloque": "Bloque 2. Biblioteconomía",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿En qué año se inauguró la Real Biblioteca Digital (RBD)?",
     "opciones": [
       "1992.",
@@ -1364,7 +1279,6 @@
     "tema": "49. Las bibliotecas públicas. Gestión y titularidades. Funciones y servicios. Situación en España.",
     "bloque": "Bloque 2. Biblioteconomía",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "La última versión del Manifiesto IFLA-UNESCO sobre Bibliotecas Públicas es de:",
     "opciones": [
       "1994.",
@@ -1380,7 +1294,6 @@
     "tema": "68. Big data. El análisis de los datos masivos.",
     "bloque": "Bloque 3. Bibliografía y Documentación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "El análisis de datos masivos o Big Data tiene una de sus principales aplicaciones en:",
     "opciones": [
       "El control de accesos.",
@@ -1396,7 +1309,6 @@
     "tema": "18. Acuerdos y tratados internacionales sobre protección del Patrimonio Histórico.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "De acuerdo con el artículo 6 de la Directiva 2014/60/UE del Parlamento Europeo y del Consejo de 15 de mayo de 2014 relativa a la restitución de bienes culturales que hayan salido de forma ilegal del territorio de un Estado miembro, y por la que se modifica el Reglamento (UE) nº 1024/2012, el Estado miembro requirente podrá interponer contra el poseedor y, en su defecto, contra el tenedor, ante los tribunales competentes del Estado miembro requerido, una acción de restitución del bien cultural que haya salido de forma ilegal de su territorio. Para ser admisible, la demanda de restitución deberá ir acompañada de:",
     "opciones": [
       "Un documento fehaciente en el que el dueño anterior acredite su titularidad.",
@@ -1412,7 +1324,6 @@
     "tema": "24. La Ley 19/2013, de 9 de diciembre, de transparencia, acceso a la información pública y buen gobierno. El Consejo de Transparencia y Buen Gobierno: Real Decreto 919/2014, de 31 de octubre, por el que se aprueba su estatuto. Funciones. El Portal de Transparencia. Las Unidades de Información de Transparencia (UITS): funciones. El gobierno abierto: concepto y principios informadores. Datos abiertos y reutilización: marco jurídico y los planes de gobierno abierto en España.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Cuál de las siguientes solicitudes de acceso a la información podrán ser inadmitidas a trámite, mediante resolución motivada, de acuerdo con lo dispuesto en la Ley 19/2013, de 9 de diciembre, de transparencia, acceso a la información pública y buen gobierno?:",
     "opciones": [
       "Las referidas a las retribuciones de los altos cargos.",
@@ -1428,7 +1339,6 @@
     "tema": "19. Legislación Bibliotecaria Española. Ley 10/2007, de la lectura, del libro y las bibliotecas. Ley 1/2015 reguladora de la Biblioteca Nacional de España.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Cuáles son los órganos rectores de la Biblioteca Nacional de España?",
     "opciones": [
       "Presidencia, Comité Científico, Dirección.",
@@ -1441,10 +1351,9 @@
   },
   {
     "id": "A1.2024.091",
-    "tema": "91. El libro en el siglo XVIII.",
-    "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
+    "tema": "2. La Corona en la Constitución Española de 1978. Las Cortes Generales. Composición, elección y funciones de las Cámaras.",
+    "bloque": "Bloque 1. Legislación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿En cual de estos supuestos los actos del Rey son refrendados por el Presidente del Congreso de los Diputados?",
     "opciones": [
       "La publicación de las leyes aprobadas por las Cortes Generales.",
@@ -1453,14 +1362,13 @@
       "Todos los anteriores."
     ],
     "respuesta_correcta": 2,
-    "explicacion": "En el sistema constitucional, el refrendo traslada la responsabilidad política de los actos del Rey a la autoridad que refrenda. La regla general es el refrendo del Presidente del Gobierno o de los Ministros competentes, pero se prevén supuestos específicos en los que el refrendo corresponde al Presidente del Congreso, vinculados a momentos clave del procedimiento de investidura."
+    "explicacion": "El artículo 64.1 de la Constitución Española establece que los actos del Rey serán refrendados por el Presidente del Gobierno y, en su caso, por los Ministros competentes, con la excepción de la propuesta y el nombramiento del Presidente del Gobierno, cuyo refrendo corresponde al Presidente del Congreso de los Diputados."
   },
   {
     "id": "A1.2024.092",
     "tema": "92. Las bibliotecas en el siglo XVIII.",
     "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿En España a qué fecha se remonta el antecedente del Depósito legal para la Biblioteca de El Escorial?",
     "opciones": [
       "1716.",
@@ -1473,10 +1381,9 @@
   },
   {
     "id": "A1.2024.093",
-    "tema": "93. El libro en el siglo XIX.",
+    "tema": "98. Historia de las publicaciones periódicas. Las publicaciones periódicas en la actualidad. Ediciones impresas y digitales.",
     "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Cuál fue el principal periódico del anarcosindicalismo en España, fundado en 1907?",
     "opciones": [
       "Solidaridad Obrera.",
@@ -1489,10 +1396,9 @@
   },
   {
     "id": "A1.2024.094",
-    "tema": "94. Las bibliotecas en el siglo XIX.",
+    "tema": "100. Promoción de la lectura. Hábitos lectores. Planes de fomento de la lectura.",
     "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Qué entidad es la promotora de la Casa del Lector, creada en Madrid en 2012?",
     "opciones": [
       "Biblioteca Regional de Madrid Joaquín Leguina.",
@@ -1508,7 +1414,6 @@
     "tema": "95. Las bibliotecas en el siglo XX.",
     "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "En 2015 el Ministerio de Educación Cultura y Deporte publicó el “Plan Nacional de Conservación Preventiva”. En 2024 el Ministerio de Cultura y Deporte ha publicado un libro que busca un modelo de gestión para hacer frente a los retos presentes y futuros de la preservación. ¿Cómo se titula esta publicación?",
     "opciones": [
       "Libro verde para la preservación del patrimonio nacional.",
@@ -1524,7 +1429,6 @@
     "tema": "96. El libro y la edición en el siglo XX.",
     "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "El expurgo está relacionado con el desarrollo, la evaluación y el mantenimiento de la colección. La Biblioteca Nacional de España establece su justificación en la pertinencia de la colección. Sus objetivos son:",
     "opciones": [
       "Prescindir de aquellos documentos de los que existan más ejemplares de los que la BNE debe conservar.",
@@ -1537,10 +1441,9 @@
   },
   {
     "id": "A1.2024.097",
-    "tema": "97. La industria del libro y la edición en la actualidad. Libros electrónicos, plataformas y servicios. Las licencias digitales. Gestión de derechos digitales. DRM. Mercado editorial: agentes de la producción y difusión del libro.",
-    "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
+    "tema": "37. La catalogación. Principios Internacionales de Catalogación. Normativa internacional y nacional relacionada.",
+    "bloque": "Bloque 2. Biblioteconomía",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿A qué hacen referencia las siglas ISBD?",
     "opciones": [
       "A la Descripción Bibliográfica Internacional Normalizada, que es la norma que especifica los requisitos para la descripción e identificación de los tipos más comunes de recursos publicados que pueden constituir las colecciones de las bibliotecas.",
@@ -1556,7 +1459,6 @@
     "tema": "98. Historia de las publicaciones periódicas. Las publicaciones periódicas en la actualidad. Ediciones impresas y digitales.",
     "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "El Consejo de Cooperación Bibliotecaria (CCB) en su IV Plan Estratégico del CCB 2024-2028 ha decidido reforzar la profesionalización de los profesionales bibliotecarios:",
     "opciones": [
       "Reforzando la formación de los profesionales con cursos reglados.",
@@ -1569,10 +1471,9 @@
   },
   {
     "id": "A1.2024.099",
-    "tema": "99. El patrimonio bibliográfico español. Panorama histórico, normativa legal y acciones de preservación y difusión.",
-    "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
+    "tema": "10. Régimen jurídico del personal al servicio de las Administraciones Públicas. El Estatuto Básico del Empleado Público. Clases de personal al servicio de las Administraciones Públicas Derechos y deberes. Incompatibilidades. Régimen disciplinario de los empleados públicos. Régimen de incompatibilidades de los empleados públicos. La ética pública.",
+    "bloque": "Bloque 1. Legislación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "Los empleados públicos se clasifican en:",
     "opciones": [
       "Funcionarios de carrera, funcionarios eventuales y personal laboral.",
@@ -1585,10 +1486,9 @@
   },
   {
     "id": "A1.2024.100",
-    "tema": "100. Promoción de la lectura. Hábitos lectores. Planes de fomento de la lectura.",
-    "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
+    "tema": "64. Fuentes de información en Ciencia y Tecnología.",
+    "bloque": "Bloque 3. Bibliografía y Documentación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Cuál es la principal fuente de información en el ámbito de la Ciencia y la Tecnología?",
     "opciones": [
       "La literatura gris.",
@@ -1604,7 +1504,6 @@
     "tema": "20. El texto refundido de la Ley de Propiedad Intelectual: sujetos, objeto, contenido, duración y límites. La legislación en materia de propiedad intelectual y su incidencia den la gestión de las bibliotecas: límites de los derechos de autor, el dominio público. La remuneración de autores por préstamos en bibliotecas.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "De acuerdo con el RD legislativo por el que se aprueba el Texto refundido de la Ley de Propiedad Intelectual son objeto de propiedad intelectual:",
     "opciones": [
       "Los textos redactados en respuesta a preguntas de un ser humano por un elemento de inteligencia artificial generativa, aunque no se hayan registrado debidamente.",
@@ -1620,7 +1519,6 @@
     "tema": "12. La Ley 39/2015, de 1 de octubre, del Procedimiento Administrativo Común de las Administraciones Públicas. El procedimiento administrativo común: Concepto, naturaleza, fases y características. Términos y plazos. Recursos administrativos.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "Contra las resoluciones y los actos de trámite, si estos últimos deciden directa o indirectamente el fondo del asunto, determinan la imposibilidad de continuar el procedimiento, producen indefensión o perjuicio irreparable a derechos e intereses legítimos, podrán interponerse por los interesados los siguientes recursos:",
     "opciones": [
       "El recurso extraordinario de revisión.",
@@ -1636,7 +1534,6 @@
     "tema": "57. Los Objetivos de Desarrollo Sostenible y la Agenda 2030: Situación actual. Bibliotecas sostenibles: aplicación de los Objetivos de Desarrollo Sostenible en las bibliotecas.",
     "bloque": "Bloque 2. Biblioteconomía",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿A qué corresponden las 5P sobre las que se articulan los Objetivos de Desarrollo Sostenible?",
     "opciones": [
       "Personas, Participación, Planeta, Paz, Políticas.",
@@ -1652,7 +1549,6 @@
     "tema": "30. Estadísticas de bibliotecas: recopilación y uso. Normativa nacional e internacional. ISO 2146, ISO 2789.",
     "bloque": "Bloque 2. Biblioteconomía",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "La ISO 2.789:2022 sobre estadísticas internacionales de bibliotecas, reemplaza a la ISO 2.789:2013. La nueva edición de 2022 incorpora novedades importantes:",
     "opciones": [
       "Cambia la estructura respecto a la de 2013.",
@@ -1668,7 +1564,6 @@
     "tema": "44. Los servicios presenciales y virtuales de la biblioteca.",
     "bloque": "Bloque 2. Biblioteconomía",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Cómo se denomina el servicio público de información a través de internet que se ofrece gratuitamente a todos los ciudadanos, sostenido por las bibliotecas públicas del Estado y el Ministerio de Cultura?",
     "opciones": [
       "Pregunte, las bibliotecas responden.",
@@ -1684,7 +1579,6 @@
     "tema": "58. Definición y objetivos de la bibliografía. Teoría y técnica. Evolución histórica de la bibliografía y situación actual. Bibliografías nacionales.",
     "bloque": "Bloque 3. Bibliografía y Documentación",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "La Biblioteca Hispana Vetus, de Nicolás Antonio:",
     "opciones": [
       "La primera edición fue publicada en Venecia en 1696.",
@@ -1700,7 +1594,6 @@
     "tema": "52. Las bibliotecas nacionales y regionales. Conceptos, funciones y servicios. La Biblioteca Nacional de España.",
     "bloque": "Bloque 2. Biblioteconomía",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "La colección de prensa y revistas de la Biblioteca Nacional proviene de:",
     "opciones": [
       "El depósito legal, la compra, el canje y los donativos.",
@@ -1716,7 +1609,6 @@
     "tema": "83. El libro y las bibliotecas en la Edad Media.",
     "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿En qué biblioteca universitaria se conserva el Book of Kells?",
     "opciones": [
       "Biblioteca Bodleiana.",
@@ -1732,7 +1624,6 @@
     "tema": "94. Las bibliotecas en el siglo XIX.",
     "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿Qué publicación periódica facilitó la difusión internacional de unas técnicas comunes (reglas de catalogación y sistemas de clasificación) en las bibliotecas, desde el último tercio de siglo XIX?",
     "opciones": [
       "Library Journal.",
@@ -1748,7 +1639,6 @@
     "tema": "97. La industria del libro y la edición en la actualidad. Libros electrónicos, plataformas y servicios. Las licencias digitales. Gestión de derechos digitales. DRM. Mercado editorial: agendes de la producción y difusión del libro.",
     "bloque": "Bloque 5. Historia del Libro y de las Bibliotecas",
     "fuente": "A1 2024",
-    "modelo": "A",
     "pregunta": "¿En qué año se suprimió el Instituto Nacional del Libro Español?",
     "opciones": [
       "2022.",

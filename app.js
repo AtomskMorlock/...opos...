@@ -221,6 +221,12 @@ let currentIndex = 0;
 
 let timer = null;
 let timeRemaining = 0;
+let isOvertime = false;
+let overtimeSeconds = 0;
+let timeUpPromptOpen = false;
+let baseAnsweredIds = new Set();
+let baseCounts = { correct: 0, wrong: 0, noSe: 0 };
+let baseTestIdSet = new Set();
 
 let correctCount = 0;
 let wrongCount = 0;
@@ -260,6 +266,7 @@ const backConfigBtn = document.getElementById("btn-back-config");
 const dbCountPill = document.getElementById("db-count-pill");
 
 const questionText = document.getElementById("question-text");
+const answerExplanation = document.getElementById("answer-explanation");
 const answersContainer = document.getElementById("answers-container");
 const continueBtn = document.getElementById("continue-btn");
 const noSeBtn = document.getElementById("no-btn");
@@ -268,7 +275,6 @@ const modePill = document.getElementById("mode-pill");
 const motivationalPhraseEl = document.getElementById("motivational-phrase");
 
 const ttsPanel = document.getElementById("tts-panel");
-const ttsToggleBtn = document.getElementById("tts-toggle");
 const ttsVoiceList = document.getElementById("tts-voice-list");
 const ttsRateRange = document.getElementById("tts-rate");
 const ttsPitchRange = document.getElementById("tts-pitch");
@@ -309,7 +315,7 @@ const modalTitle = document.getElementById("app-modal-title");
 const modalMessage = document.getElementById("app-modal-message");
 const modalActions = document.getElementById("app-modal-actions");
 
-function openModal({ title, message, actions }) {
+function openModal({ title, message, actions, titleAlign }) {
   return new Promise(resolve => {
     if (!modalOverlay || !modalTitle || !modalMessage || !modalActions) {
       resolve(actions?.[0]?.value ?? null);
@@ -317,6 +323,7 @@ function openModal({ title, message, actions }) {
     }
 
     modalTitle.textContent = title || "Aviso";
+    modalTitle.style.textAlign = titleAlign || "";
     modalMessage.textContent = message || "";
     modalActions.innerHTML = "";
 
@@ -574,29 +581,19 @@ function ttsPopulateVoiceButtons() {
 
 function ttsApplyUIState() {
   const supported = "speechSynthesis" in window;
-  if (ttsToggleBtn) {
-    ttsToggleBtn.innerHTML = supported
-      ? (ttsSettings.enabled ? "Voz" : "<s>Voz</s>")
-      : "Voz no disponible";
-    ttsToggleBtn.disabled = !supported;
-  }
-
   if (ttsRateRange) ttsRateRange.value = String(ttsSettings.rate || 1);
   if (ttsPitchRange) ttsPitchRange.value = String(ttsSettings.pitch || 1);
 
-  const disabled = !supported || !ttsSettings.enabled;
-  if (ttsReadBtn) ttsReadBtn.disabled = disabled;
+  if (ttsReadBtn) {
+    ttsReadBtn.disabled = !supported;
+    ttsReadBtn.classList.toggle("tts-active", !!ttsSettings.enabled);
+  }
   ttsRefreshReadButtonLabel();
 }
 
 function ttsRefreshReadButtonLabel() {
   if (!ttsReadBtn) return;
-  if (!("speechSynthesis" in window)) {
-    ttsReadBtn.textContent = "Leer";
-    return;
-  }
-  const isSpeaking = window.speechSynthesis.speaking || window.speechSynthesis.pending;
-  ttsReadBtn.textContent = isSpeaking ? "Callar" : "Leer";
+  ttsReadBtn.textContent = "Leer";
 }
 
 function ttsSpeak(text, opts = {}) {
@@ -712,16 +709,6 @@ function ttsMaybeAutoRead(q) {
 }
 
 function ttsBindUI() {
-  if (ttsToggleBtn) {
-    ttsToggleBtn.onclick = () => {
-      ttsUserInteracted = true;
-      ttsSettings.enabled = !ttsSettings.enabled;
-      if (!ttsSettings.enabled) ttsStop();
-      ttsSaveSettings();
-      ttsApplyUIState();
-    };
-  }
-
   if (ttsRateRange) {
     ttsRateRange.oninput = () => {
       ttsUserInteracted = true;
@@ -741,12 +728,20 @@ function ttsBindUI() {
   if (ttsReadBtn) {
     ttsReadBtn.onclick = () => {
       ttsUserInteracted = true;
-      if ("speechSynthesis" in window && (window.speechSynthesis.speaking || window.speechSynthesis.pending)) {
-        ttsStop();
+      const supported = "speechSynthesis" in window;
+      if (!supported) return;
+      if (!ttsSettings.enabled) {
+        ttsSettings.enabled = true;
+        ttsSaveSettings();
+        ttsApplyUIState();
+        const q = currentTest[currentIndex];
+        ttsSpeakQuestion(q, currentIndex + 1, currentTest.length);
         return;
       }
-      const q = currentTest[currentIndex];
-      ttsSpeakQuestion(q, currentIndex + 1, currentTest.length);
+      ttsSettings.enabled = false;
+      ttsStop();
+      ttsSaveSettings();
+      ttsApplyUIState();
     };
   }
 }
@@ -827,6 +822,61 @@ function formatTime(sec) {
   return `${m}:${s}`;
 }
 
+function formatTimerDisplay() {
+  if (isOvertime) return `+${formatTime(overtimeSeconds)}`;
+  return formatTime(timeRemaining);
+}
+
+function normalizeForMatch(str) {
+  let s = String(str || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+  s = s.replace(/c\s*\+\s*\+/g, "cplusplus");
+  s = s.replace(/c\s*#/g, "csharp");
+  return s;
+}
+
+function hasCombinedAnswerOptions(options) {
+  const list = Array.isArray(options) ? options : [];
+  for (const opt of list) {
+    const s = normalizeForMatch(opt);
+    if (!s) continue;
+
+    if (/\btodas?\s+las?\s+anteriores\b/.test(s)) return true;
+    if (/\bninguna\s+de\s+las?\s+anteriores\b/.test(s)) return true;
+
+    if (/\b(respuesta|respuestas|opcion|opciones)\s*[abcd](\s*(y|e|,|\/|&)\s*[abcd])+/.test(s)) return true;
+    if (/\b[a-d]\b\s*(y|e|,|\/|&)\s*\b[a-d]\b/.test(s)) return true;
+    if (/\b[a-d]\b\s*,\s*\b[a-d]\b\s*(y|e|,|\/|&)\s*\b[a-d]\b/.test(s)) return true;
+  }
+  return false;
+}
+
+function updateTimerStyle() {
+  if (!timerDisplay) return;
+  timerDisplay.classList.remove("timer-warn", "timer-danger", "timer-blink");
+
+  const total = Math.max(0, sessionOpts?.timeSeconds || 0);
+  if (!total) return;
+
+  if (isOvertime) {
+    timerDisplay.classList.add("timer-danger");
+    return;
+  }
+
+  const elapsed = total - Math.max(0, timeRemaining);
+  const pct = (elapsed / total) * 100;
+
+  if (pct >= 95) {
+    timerDisplay.classList.add("timer-danger", "timer-blink");
+  } else if (pct >= 90) {
+    timerDisplay.classList.add("timer-danger");
+  } else if (pct >= 70) {
+    timerDisplay.classList.add("timer-warn");
+  }
+}
+
 // =======================
 // UTIL: PUNTUACION OFICIAL
 // =======================
@@ -839,6 +889,10 @@ function calcNotaSobre100(correct, wrong, noSe) {
   if (!n) return 0;
   const bruta = calcBruta(correct, wrong);
   return (bruta / n) * 100;
+}
+
+function format1Comma(n) {
+  return Number(n || 0).toFixed(1).replace(".", ",");
 }
 
 // =======================
@@ -1177,9 +1231,9 @@ function showMainMenu() {
   if (!extraBox) {
     extraBox = document.createElement("div");
     extraBox.id = "main-extra";
-    extraBox.style.marginTop = "12px";
     mainMenu.appendChild(extraBox);
   }
+  extraBox.style.marginTop = "auto";
   // Limpieza y cálculo de pendientes reales
   prunePendingGhostIds();
 
@@ -1194,7 +1248,8 @@ function showMainMenu() {
   }
 
   const paused = lsGetJSON(LS_ACTIVE_PAUSED_TEST, null);
-  const hist = lsGetJSON(LS_HISTORY, []);
+  const histRaw = lsGetJSON(LS_HISTORY, []);
+  const hist = asArray(histRaw).filter(h => h && h.finished !== false);
   const last = [...hist].reverse().find(h => ((h?.correct || 0) + (h?.wrong || 0) + (h?.noSe || 0)) > 0) || null;
 
   const reviewBtn = document.getElementById("btn-review");
@@ -1211,6 +1266,15 @@ function showMainMenu() {
   }
 
   extraBox.innerHTML = `
+    <div id="main-buttons">
+      <div class="row" id="main-primary-row">
+        <button id="btn-open-test-modal" class="success">Iniciar test</button>
+      </div>
+      <div class="row" id="main-config-row">
+        <button id="btn-open-config" class="secondary">Configuración</button>
+      </div>
+      <div class="row" id="main-darkmode-row"></div>
+    </div>
     <div class="small" id="main-db-pill" style="margin-top:8px;"></div>
     ${
       last
@@ -1232,6 +1296,11 @@ function showMainMenu() {
     dbPillTarget.appendChild(dbCountPill);
   }
 
+  const openTestModalBtnNow = document.getElementById("btn-open-test-modal");
+  if (openTestModalBtnNow) openTestModalBtnNow.onclick = openTestStartModal;
+  const openConfigBtnNow = document.getElementById("btn-open-config");
+  if (openConfigBtnNow) openConfigBtnNow.onclick = () => showConfigScreen();
+
   if (paused) {
     document.getElementById("btn-continue-paused").onclick = () => resumePausedTest();
     document.getElementById("btn-cancel-paused").onclick = () => {
@@ -1247,8 +1316,6 @@ function showMainMenu() {
     closeTestStartModal();
     openExamSourceModal();
   };
-  if (openConfigBtn) openConfigBtn.onclick = () => showConfigScreen();
-
   refreshDbCountPill();
 
   // ✅ Hook: añade el toggle de modo oscuro en el menú principal
@@ -1336,7 +1403,7 @@ function showReviewScreen() {
     }).join("");
 
     return `
-      <div class="card" style="margin:12px 0;text-align:left;">
+      <div class="review-item">
         <div class="small" style="margin-bottom:6px;">${idx + 1}. ${escapeHtml(a.tema || "")}</div>
         <div style="font-weight:700;margin-bottom:8px;">${escapeHtml(a.pregunta || "")}</div>
         ${optionsHtml}
@@ -1352,7 +1419,8 @@ function showStatsScreen() {
   statsContainer.style.display = "block";
 
   const stats = getStats();
-  const hist = asArray(lsGetJSON(LS_HISTORY, []));
+  const histRaw = lsGetJSON(LS_HISTORY, []);
+  const hist = asArray(histRaw).filter(h => h && h.finished !== false);
   const now = new Date();
   const last10Start = new Date(now);
   last10Start.setHours(0, 0, 0, 0);
@@ -1466,36 +1534,37 @@ function showStatsScreen() {
     .join("");
 
   statsContent.innerHTML = `
-    <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:20px;align-items:start;">
-      <div class="card">
+    <div class="stats-grid">
+      <div class="card stats-card">
         <div style="font-weight:700;margin-bottom:8px;">Histórico total</div>
         <div><strong>Tests realizados:</strong> ${histTotals.tests}</div>
+        <div style="height:6px;"></div>
         <div><strong>Preguntas contestadas:</strong> ${histAnswered}</div>
         <div><strong>Aciertos:</strong> ${histTotals.correct}</div>
         <div><strong>Fallos:</strong> ${histTotals.wrong}</div>
         <div><strong>No lo sé:</strong> ${histTotals.noSe}</div>
+        <div style="height:6px;"></div>
         <div><strong>Porcentaje de acierto:</strong> ${histAccuracy.toFixed(1)}%</div>
-        <div><strong>Puntuación total:</strong> ${histScoreBruta.toFixed(1)}</div>
-        <div><strong>Nota sobre 100:</strong> ${histScore100.toFixed(2)}</div>
-      </div>
-
-      <div style="display:flex;flex-direction:column;align-items:center;gap:16px;">
-        <div style="display:flex;gap:24px;align-items:center;justify-content:center;flex-wrap:wrap;">
+        <div><strong>Nota media:</strong> ${histScore100.toFixed(1)}/100</div>
+        <div class="stats-circle">
           ${renderAccuracyCircle("Histórico total", histTotals.correct, histTotals.wrong, histTotals.noSe)}
-          ${renderAccuracyCircle("Últimos 10 días", last10Totals.correct, last10Totals.wrong, last10Totals.noSe)}
         </div>
       </div>
 
-      <div class="card">
+      <div class="card stats-card">
         <div style="font-weight:700;margin-bottom:8px;">Últimos 10 días</div>
         <div><strong>Tests realizados:</strong> ${last10Totals.tests}</div>
+        <div style="height:6px;"></div>
         <div><strong>Preguntas contestadas:</strong> ${last10Answered}</div>
         <div><strong>Aciertos:</strong> ${last10Totals.correct}</div>
         <div><strong>Fallos:</strong> ${last10Totals.wrong}</div>
         <div><strong>No lo sé:</strong> ${last10Totals.noSe}</div>
+        <div style="height:6px;"></div>
         <div><strong>Porcentaje de acierto:</strong> ${last10Accuracy.toFixed(1)}%</div>
-        <div><strong>Puntuación total:</strong> ${last10ScoreBruta.toFixed(1)}</div>
-        <div><strong>Nota sobre 100:</strong> ${last10Score100.toFixed(2)}</div>
+        <div><strong>Nota media:</strong> ${last10Score100.toFixed(1)}/100</div>
+        <div class="stats-circle">
+          ${renderAccuracyCircle("Últimos 10 días", last10Totals.correct, last10Totals.wrong, last10Totals.noSe)}
+        </div>
       </div>
     </div>
 
@@ -1576,16 +1645,7 @@ function updateProgressUI() {
 }
 
 function updateModePill() {
-  const pretty = {
-    practice: "Test",
-    exam: "Examen",
-    "exam-block": "Examen por bloque",
-    review: "Repaso pendientes",
-    perfection: "Perfeccionamiento",
-    bank: "Banco"
-  }[mode] || mode;
-
-  modePill.textContent = `Modo: ${pretty}`;
+  if (modePill) modePill.textContent = "";
 }
 
 // =======================
@@ -1607,6 +1667,11 @@ function pauseTestToMenu() {
     mode,
     sessionOpts,
     timeRemaining,
+    isOvertime,
+    overtimeSeconds,
+    baseCounts,
+    baseAnsweredIds: Array.from(baseAnsweredIds),
+    baseTestIds: Array.from(baseTestIdSet),
     currentIndex,
     currentTestIds: currentTest.map(q => String(q.id)),
     counts: { correctCount, wrongCount, noSeCount },
@@ -1659,6 +1724,16 @@ async function resumePausedTest() {
   currentTest = pool;
   currentIndex = Math.max(0, Math.min(saved.currentIndex || 0, currentTest.length));
   timeRemaining = Math.max(0, saved.timeRemaining || 0);
+  isOvertime = !!saved.isOvertime;
+  overtimeSeconds = Math.max(0, saved.overtimeSeconds || 0);
+  timeUpPromptOpen = false;
+  baseCounts = {
+    correct: saved.baseCounts?.correct || 0,
+    wrong: saved.baseCounts?.wrong || 0,
+    noSe: saved.baseCounts?.noSe || 0
+  };
+  baseAnsweredIds = new Set(asArray(saved.baseAnsweredIds).map(String));
+  baseTestIdSet = new Set(asArray(saved.baseTestIds).map(String));
 
   correctCount = saved.counts?.correctCount || 0;
   wrongCount = saved.counts?.wrongCount || 0;
@@ -1744,12 +1819,15 @@ function showTemaSelectionScreen() {
 
   const stats = getStats();
   const temaCounts = new Map();
+  const temaToQuestions = new Map();
   for (const q of questions) {
     const temaKey = normalizeTemaKey(q.tema || "Sin tema");
     if (!temaCounts.has(temaKey)) temaCounts.set(temaKey, { total: 0, seen: 0 });
     const entry = temaCounts.get(temaKey);
     entry.total++;
     if ((stats[String(q.id)]?.seen || 0) > 0) entry.seen++;
+    if (!temaToQuestions.has(temaKey)) temaToQuestions.set(temaKey, []);
+    temaToQuestions.get(temaKey).push(q);
   }
 
   const grouped = groupTemasByBloque();
@@ -1760,20 +1838,20 @@ function showTemaSelectionScreen() {
       <h2 style="margin:0;">Personaliza el test</h2>
       <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
         <button id="btn-start-practice-top" class="success">Comenzar test</button>
-        <button id="btn-perfection-toggle" class="secondary">Perfeccionamiento</button>
       </div>
     </div>
     <div class="small" style="margin-bottom:10px;"></div>
 
-    <div style="margin:12px 0;text-align:center;">
+    <div class="card" style="margin:12px 0;text-align:center;padding:10px;">
       <div style="font-weight:700;margin-bottom:6px;">Filtrar</div>
       <div id="fuente-select-wrap" class="small"></div>
     </div>
 
     <div style="margin:12px 0;text-align:center;">
       <div class="row" style="justify-content:center;margin:8px 0;">
-        <button id="btn-toggle-all" class="secondary">Marcar todas</button>
+        <button id="btn-toggle-all">Marcar todas</button>
         <button id="btn-less-used">Solo preguntas menos usadas</button>
+        <button id="btn-perfection-toggle">Perfeccionamiento</button>
       </div>
     </div>
 
@@ -1811,15 +1889,24 @@ function showTemaSelectionScreen() {
   const fuenteWrap = document.getElementById("fuente-select-wrap");
 
   grouped.forEach(({ bloque, temas }) => {
+    const bloqueTotalQuestions = temas.reduce((sum, t) => {
+      const k = normalizeTemaKey(t);
+      const c = temaCounts.get(k) || { total: 0 };
+      return sum + (Number(c.total) || 0);
+    }, 0);
     const bloqueRow = document.createElement("div");
     bloqueRow.style.margin = "10px 0";
     bloqueRow.innerHTML = `
       <div style="padding:10px;border:1px solid rgba(0,0,0,0.08);border-radius:12px;background:white;">
-        <label style="display:flex;align-items:center;gap:8px;font-weight:700;cursor:pointer;">
-          <input type="checkbox" class="bloque-toggle" data-bloque="${escapeHtml(bloque)}">
-          ${escapeHtml(bloque)}
-        </label>
-        <div class="temas-list" data-bloque="${escapeHtml(bloque)}" style="margin-top:8px;padding-left:22px;"></div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <button type="button" class="bloque-expander" data-bloque="${escapeHtml(bloque)}" aria-expanded="false" style="width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;border:none;background:transparent;font-weight:700;font-size:28px;line-height:1;cursor:pointer;padding:0;">+</button>
+          <span class="small bloque-count" data-bloque="${escapeHtml(bloque)}" data-total="${bloqueTotalQuestions}" style="min-width:64px;text-align:right;color:#4b5b74;">0/${bloqueTotalQuestions}</span>
+          <label style="display:flex;align-items:center;gap:8px;font-weight:700;cursor:pointer;">
+            <input type="checkbox" class="bloque-toggle" data-bloque="${escapeHtml(bloque)}">
+            ${escapeHtml(bloque)}
+          </label>
+        </div>
+        <div class="temas-list" data-bloque="${escapeHtml(bloque)}" style="margin-top:8px;padding-left:22px;display:none;"></div>
       </div>
     `;
     wrap.appendChild(bloqueRow);
@@ -1854,8 +1941,8 @@ function showTemaSelectionScreen() {
       line.style.margin = "10px 0";
       line.style.cursor = "pointer";
       line.innerHTML = `
-        <span class="small" style="color:#4b5b74;text-align:right;line-height:1.2;">${counts.seen}/${counts.total}</span>
-        <input type="checkbox" class="tema-checkbox" data-bloque="${escapeHtml(bloque)}" data-tema-key="${escapeHtml(temaKey)}" value="${escapeHtml(t)}" style="margin-top:2px;width:18px;height:18px;justify-self:center;">
+        <span class="small tema-count" style="color:#4b5b74;text-align:right;line-height:1.2;">${counts.seen}/${counts.total}</span>
+        <input type="checkbox" class="tema-checkbox" data-bloque="${escapeHtml(bloque)}" data-tema-key="${escapeHtml(temaKey)}" data-total="${counts.total}" value="${escapeHtml(t)}" style="margin-top:2px;width:18px;height:18px;justify-self:center;">
         <span style="display:block;line-height:1.35;text-align:left;">${escapeHtml(temaNum)}</span>
         <span style="display:block;line-height:1.35;text-align:justify;text-justify:inter-word;">${escapeHtml(temaText)}</span>
       `;
@@ -1924,6 +2011,18 @@ function showTemaSelectionScreen() {
     });
   });
 
+  wrap.querySelectorAll(".bloque-expander").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const b = btn.getAttribute("data-bloque");
+      const list = wrap.querySelector(`.temas-list[data-bloque="${cssEscape(b)}"]`);
+      if (!list) return;
+      const isCollapsed = list.style.display === "none";
+      list.style.display = isCollapsed ? "block" : "none";
+      btn.textContent = isCollapsed ? "−" : "+";
+      btn.setAttribute("aria-expanded", isCollapsed ? "true" : "false");
+    });
+  });
+
   wrap.querySelectorAll(".tema-checkbox").forEach(tcb => {
     tcb.addEventListener("change", () => {
       if (tcb.dataset.auto === "1") {
@@ -1973,6 +2072,7 @@ function showTemaSelectionScreen() {
         });
         wrap.querySelectorAll(".tema-checkbox").forEach(cb => (cb.checked = true));
         toggleAllBtn.textContent = "Desmarcar todas";
+        toggleAllBtn.className = "success";
       } else {
         wrap.querySelectorAll(".bloque-toggle").forEach(cb => {
           cb.checked = false;
@@ -1980,6 +2080,7 @@ function showTemaSelectionScreen() {
         });
         wrap.querySelectorAll(".tema-checkbox").forEach(cb => (cb.checked = false));
         toggleAllBtn.textContent = "Marcar todas";
+        toggleAllBtn.className = "";
       }
       updateSelectedCount();
     };
@@ -2007,7 +2108,10 @@ function showTemaSelectionScreen() {
     perfectionActive = false;
     if (lessUsedBtn) lessUsedBtn.className = "";
     updatePerfectionUi();
-    if (toggleAllBtn) toggleAllBtn.textContent = "Marcar todas";
+    if (toggleAllBtn) {
+      toggleAllBtn.textContent = "Marcar todas";
+      toggleAllBtn.className = "";
+    }
     wrap.querySelectorAll("input").forEach(i => (i.disabled = false));
     wrap.querySelectorAll(".bloque-toggle").forEach(cb => {
       cb.checked = false;
@@ -2084,6 +2188,44 @@ function showTemaSelectionScreen() {
     const pool = buildPoolFromConfig(config);
     document.getElementById("selected-count").innerHTML =
       `<strong>Preguntas seleccionadas:</strong> ${pool.length} / ${totalQuestions}`;
+    updateBloqueCounts();
+  }
+
+  function updateTemaCountsForFuentes() {
+    const fuenteSet = getActiveFuenteSet();
+    wrap.querySelectorAll(".tema-checkbox").forEach(cb => {
+      const temaKey = cb.getAttribute("data-tema-key");
+      const label = cb.closest("label");
+      const countEl = label ? label.querySelector(".tema-count") : null;
+      const list = temaToQuestions.get(temaKey) || [];
+      let total = 0;
+      let seen = 0;
+      for (const q of list) {
+        const f = q.fuente || "Sin fuente";
+        if (!fuenteSet.has(f)) continue;
+        total += 1;
+        if ((stats[String(q.id)]?.seen || 0) > 0) seen += 1;
+      }
+      cb.setAttribute("data-total", String(total));
+      if (countEl) countEl.textContent = `${seen}/${total}`;
+    });
+  }
+
+  function updateBloqueCounts() {
+    wrap.querySelectorAll(".bloque-count").forEach(el => {
+      const b = el.getAttribute("data-bloque");
+      let total = 0;
+      wrap.querySelectorAll(`.tema-checkbox[data-bloque="${cssEscape(b)}"]`).forEach(cb => {
+        total += Number(cb.getAttribute("data-total")) || 0;
+      });
+      el.setAttribute("data-total", String(total));
+      let selected = 0;
+      wrap.querySelectorAll(`.tema-checkbox[data-bloque="${cssEscape(b)}"]:checked`).forEach(cb => {
+        const t = Number(cb.getAttribute("data-total")) || 0;
+        selected += t;
+      });
+      el.textContent = `${selected}/${total}`;
+    });
   }
 
   function applyFuenteFilterToTemas() {
@@ -2104,6 +2246,8 @@ function showTemaSelectionScreen() {
       );
       label.style.display = hasMatch ? "grid" : "none";
     });
+    updateTemaCountsForFuentes();
+    updateBloqueCounts();
   }
 
   function getActiveFuenteSet() {
@@ -2151,13 +2295,12 @@ function showTemaSelectionScreen() {
     if (perfectionActive) {
       perfectionBtn.className = "success";
     } else {
-      perfectionBtn.className = "secondary";
+      perfectionBtn.className = "";
     }
-    const label = perfectionActive ? "Iniciar perfeccionamiento" : "Comenzar test";
     const topBtn = document.getElementById("btn-start-practice-top");
     const bottomBtn = document.getElementById("btn-start-practice");
-    if (topBtn) topBtn.textContent = label;
-    if (bottomBtn) bottomBtn.textContent = label;
+    if (topBtn) topBtn.textContent = "Comenzar test";
+    if (bottomBtn) bottomBtn.textContent = "Comenzar test";
   }
 }
 
@@ -2501,6 +2644,12 @@ function startSession(pool, opts) {
   };
 
   timeRemaining = sessionOpts.timeSeconds;
+  isOvertime = false;
+  overtimeSeconds = 0;
+  timeUpPromptOpen = false;
+  baseAnsweredIds = new Set();
+  baseCounts = { correct: 0, wrong: 0, noSe: 0 };
+  baseTestIdSet = new Set(baseTestIds);
 
   viewState = "question";
   currentShuffledOptions = [];
@@ -2518,6 +2667,10 @@ function startSession(pool, opts) {
 function renderQuestionWithOptions(q, opcionesOrdenadas) {
   questionText.textContent = `${currentIndex + 1}. ${q.pregunta}`;
   answersContainer.innerHTML = "";
+  if (answerExplanation) {
+    answerExplanation.textContent = "";
+    answerExplanation.style.display = "none";
+  }
 
   noSeBtn.style.display = "inline-block";
   noSeBtn.disabled = false;
@@ -2565,46 +2718,60 @@ function showQuestion() {
   }
 
   const q = currentTest[currentIndex];
-  bumpStat(q.id, "seen");
+  const idStr = String(q.id);
+  const isPerfectionRepeat = mode === "perfection" && baseAnsweredIds.has(idStr);
+  if (!isPerfectionRepeat) bumpStat(q.id, "seen");
 
   viewState = "question";
   lastSelectedText = null;
   lastCorrectText = null;
 
-  renderQuestionWithOptions(q, shuffleCopy(q.opciones));
+  const opcionesOrdenadas = hasCombinedAnswerOptions(q.opciones)
+    ? (Array.isArray(q.opciones) ? q.opciones.slice() : [])
+    : shuffleCopy(q.opciones);
+  renderQuestionWithOptions(q, opcionesOrdenadas);
 }
 
 function checkAnswer(selectedText, q) {
   ttsUserInteracted = true;
   const correctText = q.opciones[q.respuesta_correcta];
   const isCorrect = selectedText === correctText;
+  const idStr = String(q.id);
+  const isBase = mode === "perfection" && baseTestIdSet.has(idStr);
+  const isFirstBaseAttempt = isBase && !baseAnsweredIds.has(idStr);
 
   // ✅ answeredIds siempre strings
-  answeredIds.add(String(q.id));
+  answeredIds.add(idStr);
 
   if (isCorrect) {
     correctCount++;
-    bumpStat(q.id, "correct");
+    if (mode !== "perfection" || isFirstBaseAttempt) bumpStat(q.id, "correct");
 
     if (mode === "review") markReviewedDone(q.id);
 
     if (mode === "perfection") {
-      const idStr = String(q.id);
       perfectionSet.delete(idStr);
       perfectionQueue = perfectionQueue.filter(id => String(id) !== idStr);
+      if (isFirstBaseAttempt) {
+        baseAnsweredIds.add(idStr);
+        baseCounts.correct++;
+      }
     }
   } else {
     wrongCount++;
-    bumpStat(q.id, "wrong");
+    if (mode !== "perfection" || isFirstBaseAttempt) bumpStat(q.id, "wrong");
 
     // ✅ fallos siempre a pendientes (incluido examen)
-    markPending(q.id);
+    if (mode !== "perfection" || isFirstBaseAttempt) markPending(q.id);
 
     if (mode === "perfection") {
-      const idStr = String(q.id);
       if (!perfectionSet.has(idStr)) {
         perfectionSet.add(idStr);
         perfectionQueue.push(idStr);
+      }
+      if (isFirstBaseAttempt) {
+        baseAnsweredIds.add(idStr);
+        baseCounts.wrong++;
       }
     }
   }
@@ -2618,24 +2785,30 @@ function checkAnswer(selectedText, q) {
 function onNoSe() {
   ttsUserInteracted = true;
   const q = currentTest[currentIndex];
+  const idStr = String(q.id);
+  const isBase = mode === "perfection" && baseTestIdSet.has(idStr);
+  const isFirstBaseAttempt = isBase && !baseAnsweredIds.has(idStr);
 
   // ✅ answeredIds siempre strings
-  answeredIds.add(String(q.id));
+  answeredIds.add(idStr);
 
   noSeCount++;
-  bumpStat(q.id, "noSe");
+  if (mode !== "perfection" || isFirstBaseAttempt) bumpStat(q.id, "noSe");
 
   // ✅ no lo sé => pendientes
-  markPending(q.id);
+  if (mode !== "perfection" || isFirstBaseAttempt) markPending(q.id);
 
   const correctText = q.opciones[q.respuesta_correcta];
   lastSessionAnswers.push(buildAnswerRecord(q, null, correctText, "NOSE"));
 
   if (mode === "perfection") {
-    const idStr = String(q.id);
     if (!perfectionSet.has(idStr)) {
       perfectionSet.add(idStr);
       perfectionQueue.push(idStr);
+    }
+    if (isFirstBaseAttempt) {
+      baseAnsweredIds.add(idStr);
+      baseCounts.noSe++;
     }
   }
 
@@ -2665,15 +2838,21 @@ function showAnswer(q, selectedTextOrNull) {
   });
 
   const exp = document.createElement("p");
-  exp.style.marginTop = "10px";
-  exp.style.opacity = "0.95";
+  exp.style.margin = "0";
   exp.textContent = q.explicacion || "";
-  answersContainer.appendChild(exp);
+  if (answerExplanation) {
+    answerExplanation.innerHTML = "";
+    answerExplanation.appendChild(exp);
+    answerExplanation.style.display = "flex";
+  }
 
   continueBtn.style.display = "inline-block";
   continueBtn.onclick = () => {
     ttsUserInteracted = true;
-    if (answersContainer.contains(exp)) answersContainer.removeChild(exp);
+    if (answerExplanation && answerExplanation.contains(exp)) {
+      answerExplanation.removeChild(exp);
+      answerExplanation.style.display = "none";
+    }
     buttons.forEach(btn => (btn.style.backgroundColor = ""));
     buttons.forEach(btn => {
       btn.onclick = null;
@@ -2712,22 +2891,80 @@ function buildAnswerRecord(q, selectedText, correctText, result) {
 // =======================
 function startTimer() {
   stopTimer();
-  timerDisplay.textContent = formatTime(timeRemaining);
+  timerDisplay.textContent = formatTimerDisplay();
+  updateTimerStyle();
+
+  if (!isOvertime && timeRemaining <= 0) {
+    stopTimer();
+    handleTimeUp();
+    return;
+  }
 
   timer = setInterval(() => {
+    if (isOvertime) {
+      overtimeSeconds++;
+      timerDisplay.textContent = formatTimerDisplay();
+      updateTimerStyle();
+      return;
+    }
+
     timeRemaining--;
     if (timeRemaining < 0) timeRemaining = 0;
-    timerDisplay.textContent = formatTime(timeRemaining);
+    timerDisplay.textContent = formatTimerDisplay();
+    updateTimerStyle();
 
     if (timeRemaining <= 0) {
       stopTimer();
-      finishTest("time");
+      handleTimeUp();
     }
   }, 1000);
 }
 function stopTimer() {
   if (timer) clearInterval(timer);
   timer = null;
+}
+
+function isResultsVisible() {
+  if (!resultsContainer) return false;
+  const style = window.getComputedStyle(resultsContainer);
+  return style.display !== "none" && style.visibility !== "hidden" && style.opacity !== "0";
+}
+
+async function handleTimeUp() {
+  if (isResultsVisible()) return;
+  if (timeUpPromptOpen) return;
+  timeUpPromptOpen = true;
+
+  const choice = await openModal({
+    title: "Times Up!",
+    message: "",
+    titleAlign: "center",
+    actions: [
+      {
+        label: "Aceptar la derrota",
+        value: "defeat",
+        className: "danger"
+      },
+      {
+        label: "Continuar",
+        value: "continue",
+        className: "secondary",
+        role: "cancel",
+        default: true
+      }
+    ]
+  });
+
+  timeUpPromptOpen = false;
+
+  if (choice === "continue") {
+    isOvertime = true;
+    overtimeSeconds = 0;
+    startTimer();
+    return;
+  }
+
+  finishTest("time");
 }
 
 // =======================
@@ -2747,41 +2984,69 @@ function finalizeUnansweredAsPendingIfNeeded() {
 function finishTest(reason = "manual") {
   stopTimer();
   ttsStop();
+  timeUpPromptOpen = false;
   finalizeUnansweredAsPendingIfNeeded();
 
+  const useCounts = mode === "perfection"
+    ? { correct: baseCounts.correct, wrong: baseCounts.wrong, noSe: baseCounts.noSe }
+    : { correct: correctCount, wrong: wrongCount, noSe: noSeCount };
   const nTotal = correctCount + wrongCount + noSeCount;
-  const scoreBruta = calcBruta(correctCount, wrongCount);
-  const score100 = calcNotaSobre100(correctCount, wrongCount, noSeCount);
+  const scoreBruta = calcBruta(useCounts.correct, useCounts.wrong);
+  const score100 = calcNotaSobre100(useCounts.correct, useCounts.wrong, useCounts.noSe);
+  const baseTotal = sessionOpts?.meta?.baseTestIds?.length || currentTest.length;
+  const maxBruta = mode === "perfection" ? baseTotal : currentTest.length;
+  const baseTime = Math.max(0, sessionOpts?.timeSeconds || 0);
+  const timeTotalLabel = formatTime(baseTime);
+  const timeRestLabel = (() => {
+    if (isOvertime) {
+      const totalUsed = baseTime + Math.max(0, overtimeSeconds || 0);
+      return `${formatTime(totalUsed)}/${formatTime(baseTime)}`;
+    }
+    return `${formatTime(Math.max(0, timeRemaining || 0))}/${timeTotalLabel}`;
+  })();
 
   addHistoryEntry({
     date: new Date().toISOString(),
     mode,
-    total: currentTest.length,
-    correct: correctCount,
-    wrong: wrongCount,
-    noSe: noSeCount,
+    total: mode === "perfection" ? baseTotal : currentTest.length,
+    correct: useCounts.correct,
+    wrong: useCounts.wrong,
+    noSe: useCounts.noSe,
     scoreBruta,
     score100,
-    reason
+    reason,
+    finished: true
   });
 
   clearPausedTest();
   showResultsScreen();
 
+  const passLabel = score100 >= 50
+    ? `<p style="color:#2e8b57;font-weight:700;font-size:32px;">¡Aprobado!</p>`
+    : `<p style="color:#d9534f;font-weight:700;font-size:32px;">Suspendido...</p>`;
+
   resultsText.innerHTML = `
+    <div style="height:8px;"></div>
+    ${passLabel}
+    <p><strong>Nota:</strong> ${score100.toFixed(1)}/100</p>
+    <p><strong>Puntuación bruta:</strong> ${format1Comma(scoreBruta)}/${maxBruta}</p>
+    <div style="height:8px;"></div>
     <p><strong>Aciertos:</strong> ${correctCount}</p>
     <p><strong>Fallos:</strong> ${wrongCount}</p>
     <p><strong>No lo sé:</strong> ${noSeCount}</p>
-    <p><strong>Puntuación bruta:</strong> ${scoreBruta.toFixed(1)}</p>
-    <p><strong>Nota sobre 100:</strong> ${score100.toFixed(2)}</p>
+    <div style="height:8px;"></div>
     <p><strong>Total preguntas:</strong> ${nTotal}</p>
-
-    <div style="display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:12px;">
+    <p><strong>Tiempo restante:</strong> ${timeRestLabel}</p>
+  `;
+  const resultsActionsBottom = document.getElementById("results-actions-bottom");
+  if (resultsActionsBottom) {
+    resultsActionsBottom.innerHTML = `
       <button id="btn-copy-test-text">Copiar test en portapapeles</button>
       <button id="btn-repeat-test">Repetir test</button>
       <button id="btn-review-test">Repasar test</button>
-    </div>
-  `;
+    `;
+    resultsActionsBottom.appendChild(backToMenuBtnResults);
+  }
 
   document.getElementById("btn-copy-test-text").onclick = () => exportLastTestText("copy");
   document.getElementById("btn-repeat-test").onclick = () => repeatLastTest();
