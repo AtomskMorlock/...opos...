@@ -535,7 +535,7 @@ body.is-home-screen #main-primary-row.is-start-open.is-paused .home-start-panel 
 }
 
 body.is-home-screen #main-primary-row.is-start-open > #btn-open-test-modal {
-  pointer-events: auto;
+  pointer-events: none;
 }
 
 body.is-home-screen .home-start-panel-title {
@@ -853,7 +853,7 @@ body.is-home-screen #main-config-row.is-config-open.is-voice-open .home-config-p
 }
 
 body.is-home-screen #main-config-row.is-config-open > #btn-open-config {
-  pointer-events: auto;
+  pointer-events: none;
 }
 
 body.is-home-screen .home-config-panel-title {
@@ -866,6 +866,7 @@ body.is-home-screen .home-config-panel-title {
   font-weight: 700;
   text-align: center;
   margin: 0;
+  cursor: pointer;
   transition: top 320ms ease, transform 320ms ease;
 }
 

@@ -1978,13 +1978,23 @@ function showMainMenu() {
       }, 160);
     };
   }
+  const homeConfigPanelTitle = document.querySelector("#main-config-row .home-config-panel-title");
+  if (homeConfigPanelTitle) homeConfigPanelTitle.onclick = () => closeHomeConfigPanel();
   const homeBtnBank = document.getElementById("home-btn-bank");
-  if (homeBtnBank) homeBtnBank.onclick = () => {
+  if (homeBtnBank) homeBtnBank.onclick = (e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     closeHomeConfigPanel();
     showQuestionBank();
   };
   const homeBtnStats = document.getElementById("home-btn-stats");
-  if (homeBtnStats) homeBtnStats.onclick = () => {
+  if (homeBtnStats) homeBtnStats.onclick = (e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     closeHomeConfigPanel();
     showStatsScreen();
   };
