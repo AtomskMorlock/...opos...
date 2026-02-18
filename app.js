@@ -5497,6 +5497,39 @@ function showQuestionBank() {
     bankDbPillTarget.appendChild(dbCountPill);
   }
   refreshDbCountPill();
+  const BANK_PAGE_SIZE = 50;
+  let bankFilteredResults = [];
+  let bankPageIndex = 0;
+
+  const renderCurrentBankPage = () => {
+    const total = bankFilteredResults.length;
+    if (total === 0) {
+      renderBankResults([], { total: 0, start: 0, pageSize: BANK_PAGE_SIZE });
+      return;
+    }
+    const maxPage = Math.max(0, Math.ceil(total / BANK_PAGE_SIZE) - 1);
+    bankPageIndex = Math.min(Math.max(bankPageIndex, 0), maxPage);
+    const start = bankPageIndex * BANK_PAGE_SIZE;
+    const pageItems = bankFilteredResults.slice(start, start + BANK_PAGE_SIZE);
+    renderBankResults(pageItems, { total, start, pageSize: BANK_PAGE_SIZE });
+
+    const prevBtn = document.getElementById("bank-page-prev");
+    const nextBtn = document.getElementById("bank-page-next");
+    if (prevBtn) {
+      prevBtn.onclick = () => {
+        if (bankPageIndex <= 0) return;
+        bankPageIndex--;
+        renderCurrentBankPage();
+      };
+    }
+    if (nextBtn) {
+      nextBtn.onclick = () => {
+        if ((bankPageIndex + 1) * BANK_PAGE_SIZE >= total) return;
+        bankPageIndex++;
+        renderCurrentBankPage();
+      };
+    }
+  };
 
   const runSearch = () => {
     const term = (document.getElementById("bank-search").value || "").trim().toLowerCase();
@@ -5527,7 +5560,9 @@ function showQuestionBank() {
 
     if (term) {
       if (!searchTemaOn && !searchQaOn) {
-        renderBankResults([]);
+        bankFilteredResults = [];
+        bankPageIndex = 0;
+        renderCurrentBankPage();
         return;
       }
       res = res.filter(q => {
@@ -5539,7 +5574,9 @@ function showQuestionBank() {
       });
     }
 
-    renderBankResults(res.slice(0, 200));
+    bankFilteredResults = res;
+    bankPageIndex = 0;
+    renderCurrentBankPage();
   };
 
   document.getElementById("bank-refresh").onclick = runSearch;
@@ -5616,14 +5653,36 @@ function showQuestionBank() {
   runSearch();
 }
 
-function renderBankResults(list) {
+function renderBankResults(list, meta = {}) {
   const box = document.getElementById("bank-results");
   if (!box) return;
+  const totalCount = Number(meta.total ?? list.length) || 0;
+  const start = Number(meta.start ?? 0) || 0;
 
-  if (!list.length) {
+  if (!list.length && totalCount === 0) {
     box.innerHTML = "<p>No hay resultados.</p>";
     return;
   }
+
+  const from = totalCount > 0 ? start + 1 : 0;
+  const to = totalCount > 0 ? Math.min(start + list.length, totalCount) : 0;
+  const showPrev = start > 0;
+  const showNext = to < totalCount;
+  const paginationHtml = totalCount > 0
+    ? `
+      <div class="row" style="justify-content:space-between;align-items:center;gap:10px;margin-top:12px;">
+        <div style="width:44px;display:flex;justify-content:flex-start;">
+          ${showPrev ? `<button id="bank-page-prev" class="secondary" aria-label="Página anterior">←</button>` : ""}
+        </div>
+        <div class="small" style="text-align:center;flex:1;">
+          Mostrando de ${from} a ${to} de ${totalCount}
+        </div>
+        <div style="width:44px;display:flex;justify-content:flex-end;">
+          ${showNext ? `<button id="bank-page-next" class="secondary" aria-label="Página siguiente">→</button>` : ""}
+        </div>
+      </div>
+    `
+    : "";
 
   box.innerHTML = list.map(q => {
     return `
@@ -5649,7 +5708,7 @@ function renderBankResults(list) {
         </div>
       </div>
     `;
-  }).join("");
+  }).join("") + paginationHtml;
 
   box.querySelectorAll("button[data-edit]").forEach(btn => {
     btn.onclick = () => openEditQuestionModal(btn.getAttribute("data-edit"));
