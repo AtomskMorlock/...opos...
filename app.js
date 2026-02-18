@@ -797,8 +797,11 @@ function ttsInitVoices() {
 
 function ttsGetSpanishVoicePreferred(voices) {
   if (!voices || !voices.length) return null;
-  const preferredNames = ["mónica", "monica", "google español"];
-  const byName = voices.filter(v => preferredNames.includes(String(v.name || "").toLowerCase()));
+  const preferredNames = ["mónica", "monica", "google español", "siri"];
+  const byName = voices.filter(v => {
+    const n = String(v.name || "").toLowerCase();
+    return preferredNames.some(p => n.includes(p));
+  });
   if (byName.length) return byName[0];
   const esVoices = voices.filter(v => String(v.lang || "").toLowerCase().startsWith("es"));
   if (esVoices.length) {
@@ -815,40 +818,82 @@ function ttsPopulateVoiceButtons() {
 
   targets.forEach(el => { el.innerHTML = ""; });
 
-  const preferredNames = ["mónica", "monica", "google español"];
-  const esEsVoices = ttsVoices.filter(v => String(v.lang || "").toLowerCase() === "es-es");
-  const allowedVoices = esEsVoices.filter(v =>
-    preferredNames.includes(String(v.name || "").toLowerCase())
-  );
+  const normalizeName = (s) =>
+    String(s || "")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+  const esVoices = ttsVoices.filter(v => String(v.lang || "").toLowerCase().startsWith("es"));
 
-  if (!allowedVoices.length) {
+  if (!esVoices.length) {
     targets.forEach(target => {
       const msg = document.createElement("div");
       msg.className = "small";
-      msg.textContent = "No están disponibles las voces Mónica o Google español.";
+      msg.textContent = "No hay voces en español disponibles en este dispositivo.";
       target.appendChild(msg);
     });
     return;
   }
 
-  if (!ttsSettings.voiceURI || !allowedVoices.find(v => v.voiceURI === ttsSettings.voiceURI)) {
-    ttsSettings.voiceURI = allowedVoices[0].voiceURI;
+  const monicaVoice =
+    esVoices.find(v => normalizeName(v.name).includes("monica")) ||
+    esVoices[0];
+
+  const googleNamedVoice = esVoices.find(v => {
+    const n = normalizeName(v.name);
+    return n.includes("google") && (n.includes("espanol") || n.includes("spanish"));
+  });
+  const googleVoice =
+    (googleNamedVoice && googleNamedVoice.voiceURI !== monicaVoice.voiceURI)
+      ? googleNamedVoice
+      : (esVoices.find(v => v.voiceURI !== monicaVoice.voiceURI) || null);
+
+  const entries = [
+    { label: "Mónica", voice: monicaVoice, enabled: !!monicaVoice },
+    { label: "Google español", voice: googleVoice, enabled: !!googleVoice }
+  ];
+
+  // Añadir voces Siri en español cuando existan (sin duplicar voiceURI)
+  const fixedVoiceUris = new Set(entries.filter(e => e.enabled).map(e => e.voice.voiceURI));
+  const siriEsVoices = esVoices.filter(v => normalizeName(v.name).includes("siri"));
+  siriEsVoices.forEach(v => {
+    if (fixedVoiceUris.has(v.voiceURI)) return;
+    entries.push({ label: v.name || "Siri (español)", voice: v, enabled: true });
+    fixedVoiceUris.add(v.voiceURI);
+  });
+
+  const selectableVoices = entries.filter(e => e.enabled).map(e => e.voice);
+  if (!ttsSettings.voiceURI || !selectableVoices.find(v => v.voiceURI === ttsSettings.voiceURI)) {
+    ttsSettings.voiceURI = selectableVoices[0].voiceURI;
     ttsSaveSettings();
   }
 
   targets.forEach(target => {
-    allowedVoices.forEach(v => {
+    const isHomeVoiceListTarget = target.id === "home-tts-voice-list";
+    entries.forEach(entry => {
       const btn = document.createElement("button");
       btn.type = "button";
-      btn.className = ttsSettings.voiceURI === v.voiceURI ? "success" : "secondary";
-      if (target.id === "home-tts-voice-list") btn.classList.add("home-voice-choice");
-      btn.textContent = v.name;
-      btn.onclick = () => {
+      const isSelected = entry.enabled && ttsSettings.voiceURI === entry.voice.voiceURI;
+      btn.className = isSelected ? "success" : "secondary";
+      if (isHomeVoiceListTarget) btn.classList.add("home-voice-choice");
+      btn.textContent = entry.label;
+      if (!entry.enabled) {
+        btn.disabled = true;
+        btn.title = "No disponible en este dispositivo";
+      } else if (entry.voice?.name) {
+        btn.title = entry.voice.name;
+      }
+      btn.onclick = (e) => {
+        if (e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+        if (!entry.enabled) return;
         ttsUserInteracted = true;
-        ttsSettings.voiceURI = v.voiceURI;
+        ttsSettings.voiceURI = entry.voice.voiceURI;
         ttsSaveSettings();
         ttsPopulateVoiceButtons();
-        ttsSpeakPreview(getRandomMotivationalPhrase(), v.voiceURI);
+        ttsSpeakPreview(getRandomMotivationalPhrase(), entry.voice.voiceURI);
       };
       target.appendChild(btn);
     });
@@ -2529,7 +2574,11 @@ function showMainMenu() {
     showStatsScreen();
   };
   const homeBtnVoice = document.getElementById("home-btn-voice");
-  if (homeBtnVoice) homeBtnVoice.onclick = () => {
+  if (homeBtnVoice) homeBtnVoice.onclick = (e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     scheduleHomeAction(() => {
       const row = document.getElementById("home-voice-row");
       if (row && row.classList.contains("is-voice-open")) {
@@ -2539,6 +2588,24 @@ function showMainMenu() {
       openHomeVoicePanel();
     });
   };
+  const homeVoicePanel = document.getElementById("home-voice-panel");
+  if (homeVoicePanel) {
+    homeVoicePanel.onclick = (e) => {
+      if (e) e.stopPropagation();
+    };
+    homeVoicePanel.ontouchstart = (e) => {
+      if (e) e.stopPropagation();
+    };
+  }
+  const homeVoiceList = document.getElementById("home-tts-voice-list");
+  if (homeVoiceList) {
+    homeVoiceList.onclick = (e) => {
+      if (e) e.stopPropagation();
+    };
+    homeVoiceList.ontouchstart = (e) => {
+      if (e) e.stopPropagation();
+    };
+  }
   const homeTtsRate = document.getElementById("home-tts-rate");
   if (homeTtsRate) {
     homeTtsRate.oninput = () => {

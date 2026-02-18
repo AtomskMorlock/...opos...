@@ -1,3 +1,5 @@
+0.4.3 - correcion voces
+0.4.2 - descripcion correccion voz
 0.4.1 - patch banco de preguntas en online
 0.4.0 - Rediseño completo de Importar preguntas: modos Manual/Conjunto separados, prompt IA copiable y expandible, validación de formato reforzada, IDs automáticos por origen (Usuario.Manual / Usuario.Conjunto), fuente automática por origen y mejoras de navegación/UX en importación.
 0.3.1 - ...
