@@ -1302,16 +1302,44 @@ function normalizeForMatch(str) {
 
 function hasCombinedAnswerOptions(options) {
   const list = Array.isArray(options) ? options : [];
+  const riskyPatterns = [
+    // Referencias a "anteriores/superiores/previas"
+    /\btodas?\s+las?\s+anteriores\b/,
+    /\blas?\s+dos\s+anteriores\b/,
+    /\bninguna\s+de\s+las?\s+anteriores\b/,
+    /\bninguno\s+de\s+los?\s+anteriores\b/,
+    /\b(anteriores?|precedentes?|previas?|superiores?)\b/,
+
+    // Formulaciones tipo "ambas/ninguna/todas son ..."
+    /\bambas?\s+son\b/,
+    /\bson\s+ambas?\b/,
+    /\bninguna\s+es\b/,
+    /\bninguno\s+es\b/,
+    /\btodas?\s+son\b/,
+    /\btodas?\s+las?\s+respuestas?\s+son\b/,
+    /\bninguna\s+de\s+las?\s+(otras?\s+)?respuestas?\b/,
+    /\bninguna\s+respuesta\s+es\b/,
+    /\blas?\s+anteriores?\s+son\b/,
+
+    // Referencias a posiciones ("la primera", etc.) que dependen del orden
+    /\b(opcion|opciones|respuesta|respuestas|alternativa|alternativas)\s+(primera|segunda|tercera|cuarta)\b/,
+    /\bla\s+(primera|segunda|tercera|cuarta)\b/,
+    /\blas?\s+(primera|segunda|tercera|cuarta)\s+y\s+las?\s+(primera|segunda|tercera|cuarta)\b/,
+
+    // Referencias explícitas por letra
+    /\b(respuesta|respuestas|opcion|opciones)\s*[abcd](\s*(y|e|,|\/|&)\s*[abcd])+/,
+    /\b(la\s+)?[a-d]\s*(y|e|,|\/|&)\s*(la\s+)?[a-d]\b/,
+    /\b[a-d]\s*,\s*[a-d]\s*(y|e|,|\/|&)\s*[a-d]\b/,
+    /\b(la|respuesta|opcion)\s*[a-d]\s*(es|son)\b/,
+    /\b(es|son)\s+la?\s*[a-d]\b/
+  ];
+
   for (const opt of list) {
-    const s = normalizeForMatch(opt);
+    let s = normalizeForMatch(opt);
     if (!s) continue;
-
-    if (/\btodas?\s+las?\s+anteriores\b/.test(s)) return true;
-    if (/\bninguna\s+de\s+las?\s+anteriores\b/.test(s)) return true;
-
-    if (/\b(respuesta|respuestas|opcion|opciones)\s*[abcd](\s*(y|e|,|\/|&)\s*[abcd])+/.test(s)) return true;
-    if (/\b[a-d]\b\s*(y|e|,|\/|&)\s*\b[a-d]\b/.test(s)) return true;
-    if (/\b[a-d]\b\s*,\s*\b[a-d]\b\s*(y|e|,|\/|&)\s*\b[a-d]\b/.test(s)) return true;
+    // A) / B. / C: -> A B C para detectar combinaciones por letra
+    s = s.replace(/\b([a-d])\s*[\)\.\:]/g, "$1 ");
+    if (riskyPatterns.some(re => re.test(s))) return true;
   }
   return false;
 }

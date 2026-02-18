@@ -1,3 +1,4 @@
+0.4.4 - corrección version safari
 0.4.3 - correcion voces
 0.4.2 - descripcion correccion voz
 0.4.1 - patch banco de preguntas en online

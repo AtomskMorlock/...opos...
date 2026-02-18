@@ -3,6 +3,7 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 VERSION_FILE="$ROOT_DIR/version.js"
+VERSION_JSON_FILE="$ROOT_DIR/version.json"
 CHANGELOG_FILE="$ROOT_DIR/CHANGELOG.md"
 
 usage() {
@@ -71,11 +72,13 @@ ENTRY="${NEXT} - ${SUMMARY}"
 if [[ "$DRY_RUN" -eq 1 ]]; then
   echo "[DRY-RUN] version actual: $CURRENT"
   echo "[DRY-RUN] version nueva:  $NEXT"
+  echo "[DRY-RUN] version json:   $VERSION_JSON_FILE"
   echo "[DRY-RUN] changelog:      $ENTRY"
   exit 0
 fi
 
 printf 'window.APP_VERSION = "%s";\n' "$NEXT" > "$VERSION_FILE"
+printf '{\n  "version": "%s"\n}\n' "$NEXT" > "$VERSION_JSON_FILE"
 
 TMP_FILE="$(mktemp)"
 {
@@ -87,4 +90,5 @@ TMP_FILE="$(mktemp)"
 mv "$TMP_FILE" "$CHANGELOG_FILE"
 
 echo "Version actualizada: $CURRENT -> $NEXT"
+echo "Version JSON actualizado en: $VERSION_JSON_FILE"
 echo "Changelog actualizado en: $CHANGELOG_FILE"

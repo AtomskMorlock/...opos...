@@ -137,7 +137,96 @@
       #stats-actions button { width: 100%; max-width: 100%; }
     }
   </style>
-  <link rel="stylesheet" href="styles.css?v=20260217">
+  <script>
+    (function () {
+      const VERSION_STORAGE_KEY = "opostest_last_known_version_v1";
+      const FALLBACK_VERSION = "0.4.3";
+      const VERSION_RE = /^\d+\.\d+\.\d+$/;
+      let activeStyleVersion = "";
+
+      function isValidVersion(v) {
+        return VERSION_RE.test(String(v || "").trim());
+      }
+
+      function readStoredVersion() {
+        try {
+          const v = localStorage.getItem(VERSION_STORAGE_KEY);
+          return isValidVersion(v) ? v : "";
+        } catch (_) {
+          return "";
+        }
+      }
+
+      function saveStoredVersion(v) {
+        if (!isValidVersion(v)) return;
+        try {
+          localStorage.setItem(VERSION_STORAGE_KEY, v);
+        } catch (_) {}
+      }
+
+      function applyVersion(v) {
+        if (!isValidVersion(v)) return;
+        window.APP_VERSION = v;
+        window.__appAssetVersion = v;
+        saveStoredVersion(v);
+      }
+
+      function setStylesheet(version) {
+        const v = isValidVersion(version) ? version : "";
+        const href = v ? `styles.css?v=${encodeURIComponent(v)}` : "styles.css";
+        if (activeStyleVersion === v) return;
+        activeStyleVersion = v;
+
+        let link = document.getElementById("app-stylesheet");
+        if (!link) {
+          link = document.createElement("link");
+          link.id = "app-stylesheet";
+          link.rel = "stylesheet";
+          document.head.appendChild(link);
+        }
+        link.href = href;
+      }
+
+      function parseVersionFromVersionJs(text) {
+        const m = String(text || "").match(/window\.APP_VERSION\s*=\s*"(\d+\.\d+\.\d+)"/);
+        return m ? m[1] : "";
+      }
+
+      const cachedVersion = readStoredVersion() || FALLBACK_VERSION;
+      applyVersion(cachedVersion);
+      setStylesheet(cachedVersion);
+
+      window.__appVersionPromise = (async function resolveLatestVersion() {
+        const nonce = Date.now();
+        const sources = [
+          async () => {
+            const res = await fetch(`version.json?ts=${nonce}`, { cache: "no-store" });
+            if (!res.ok) throw new Error(`version.json HTTP ${res.status}`);
+            const data = await res.json();
+            return String(data && data.version ? data.version : "").trim();
+          },
+          async () => {
+            const res = await fetch(`version.js?ts=${nonce}`, { cache: "no-store" });
+            if (!res.ok) throw new Error(`version.js HTTP ${res.status}`);
+            const text = await res.text();
+            return parseVersionFromVersionJs(text);
+          }
+        ];
+
+        for (const readVersion of sources) {
+          try {
+            const v = await readVersion();
+            if (!isValidVersion(v)) continue;
+            applyVersion(v);
+            setStylesheet(v);
+            return v;
+          } catch (_) {}
+        }
+
+        return cachedVersion;
+      })();
+    })();
+  </script>
 </head>
 <body>
 
@@ -395,7 +484,32 @@ Plantilla exacta:
   </div>
 </div>
 
-<script src="version.js"></script>
-<script src="app.js?v=0.4.0"></script>
+<script>
+  (function () {
+    function loadScript(src) {
+      return new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = src;
+        script.onload = () => resolve(src);
+        script.onerror = () => reject(new Error(`No se pudo cargar ${src}`));
+        document.body.appendChild(script);
+      });
+    }
+
+    function loadApp(version) {
+      const v = String(version || "").trim();
+      const primary = v ? `app.js?v=${encodeURIComponent(v)}` : "app.js";
+      return loadScript(primary).catch(() => {
+        if (primary === "app.js") throw new Error("No se pudo cargar app.js");
+        return loadScript("app.js");
+      });
+    }
+
+    const versionPromise = window.__appVersionPromise || Promise.resolve(window.__appAssetVersion || window.APP_VERSION || "");
+    versionPromise
+      .then(v => loadApp(v))
+      .catch(() => loadApp(window.__appAssetVersion || window.APP_VERSION || ""));
+  })();
+</script>
 </body>
 </html>
