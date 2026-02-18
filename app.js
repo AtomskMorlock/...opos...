@@ -24,6 +24,7 @@ const LS_PENDING_REVIEW_DONE = "chatgpt_pending_review_done_v1";
 const LS_ACTIVE_PAUSED_TEST = "chatgpt_active_paused_test_v1";
 const LS_DELETED_IDS = "chatgpt_deleted_ids_v1";
 const LS_TTS_SETTINGS = "chatgpt_tts_settings_v1";
+const LS_UI_STATE = "chatgpt_ui_state_v1";
 
 // ✅ NUEVO: IDs purgadas definitivamente (no deben volver aunque estén en questions.json)
 const LS_PURGED_IDS = "chatgpt_purged_ids_v1";
@@ -275,6 +276,7 @@ const dbCountPill = document.getElementById("db-count-pill");
 const questionText = document.getElementById("question-text");
 const answerExplanation = document.getElementById("answer-explanation");
 const answersContainer = document.getElementById("answers-container");
+const testBottom = document.getElementById("test-bottom");
 const continueBtn = document.getElementById("continue-btn");
 const noSeBtn = document.getElementById("no-btn");
 const timerDisplay = document.getElementById("timer");
@@ -301,6 +303,8 @@ const examCloseBtn = document.getElementById("btn-exam-close");
 
 let openTestModalTimer = null;
 let homeActionTimer = null;
+let testBottomResizeObserver = null;
+let testBottomResizeRaf = null;
 const voiceSettingsBtn = document.getElementById("btn-voice-settings");
 const voiceSettingsBackBtn = document.getElementById("btn-voice-back");
 const openImportBtn = document.getElementById("btn-open-import");
@@ -354,9 +358,14 @@ function showPauseExplanationOverlay(text) {
   if (!box) {
     box = document.createElement("div");
     box.id = "pause-explanation-overlay";
+  }
+  if (modalOverlay && box.parentElement !== modalOverlay) {
+    modalOverlay.appendChild(box);
+  } else if (!box.parentElement) {
     document.body.appendChild(box);
   }
   box.textContent = msg;
+  box.scrollTop = 0;
 }
 
 function hidePauseExplanationOverlay() {
@@ -367,6 +376,15 @@ function hidePauseExplanationOverlay() {
 function positionPauseExplanationOverlay() {
   const box = document.getElementById("pause-explanation-overlay");
   if (!box) return;
+  if (modalOverlay && box.parentElement === modalOverlay) {
+    const modal = modalOverlay.querySelector(".modal");
+    const overlayRect = modalOverlay.getBoundingClientRect();
+    const modalRect = modal ? modal.getBoundingClientRect() : null;
+    const modalBottom = modalRect ? modalRect.bottom : overlayRect.top;
+    const available = Math.floor(overlayRect.bottom - modalBottom - 16);
+    box.style.maxHeight = `${Math.max(120, available)}px`;
+    return;
+  }
   const modal = modalOverlay ? modalOverlay.querySelector(".modal") : null;
   if (!modal) return;
   const modalRect = modal.getBoundingClientRect();
@@ -550,6 +568,37 @@ function flashButtonPress(btn) {
   }
 }
 
+function updateTestBottomScrollClearance() {
+  if (!testContainer || !testBottom) return;
+  const bottomHeight = Math.ceil(testBottom.getBoundingClientRect().height || testBottom.offsetHeight || 0);
+  const minClearance = 340;
+  const extraGapAboveAnswers = 22;
+  const clearance = Math.max(minClearance, bottomHeight + extraGapAboveAnswers);
+  testContainer.style.setProperty("--test-bottom-clearance", `${clearance}px`);
+}
+
+function scheduleTestBottomScrollClearanceUpdate() {
+  if (testBottomResizeRaf) cancelAnimationFrame(testBottomResizeRaf);
+  testBottomResizeRaf = requestAnimationFrame(() => {
+    testBottomResizeRaf = null;
+    updateTestBottomScrollClearance();
+  });
+}
+
+function ensureTestBottomClearanceObserver() {
+  if (!testBottom) return;
+  if (typeof ResizeObserver === "function") {
+    if (!testBottomResizeObserver) {
+      testBottomResizeObserver = new ResizeObserver(() => {
+        scheduleTestBottomScrollClearanceUpdate();
+      });
+    }
+    testBottomResizeObserver.disconnect();
+    testBottomResizeObserver.observe(testBottom);
+  }
+  scheduleTestBottomScrollClearanceUpdate();
+}
+
 document.addEventListener("pointerdown", e => {
   const btn = e.target instanceof Element ? e.target.closest("button") : null;
   if (btn) flashButtonPress(btn);
@@ -560,6 +609,10 @@ document.addEventListener("keydown", e => {
   const btn = e.target instanceof Element ? e.target.closest("button") : null;
   if (btn) flashButtonPress(btn);
 });
+
+window.addEventListener("resize", () => {
+  scheduleTestBottomScrollClearanceUpdate();
+}, { passive: true });
 
 // =======================
 // UTIL: STORAGE
@@ -576,6 +629,143 @@ function lsGetJSON(key, fallback) {
 function lsSetJSON(key, value) {
   localStorage.setItem(key, JSON.stringify(value));
 }
+
+function setUiScreenState(screen, extra = {}) {
+  const payload = {
+    screen: String(screen || "home"),
+    savedAt: new Date().toISOString(),
+    ...(extra && typeof extra === "object" ? extra : {})
+  };
+  lsSetJSON(LS_UI_STATE, payload);
+}
+
+function getUiScreenState() {
+  const raw = lsGetJSON(LS_UI_STATE, null);
+  if (!raw || typeof raw !== "object") return null;
+  const screen = String(raw.screen || "").trim();
+  if (!screen) return null;
+  return { ...raw, screen };
+}
+
+function resolveImportBackTarget(handler) {
+  if (handler === showQuestionBank) return "bank";
+  if (handler === showConfigScreen) return "config";
+  if (handler === showVoiceSettingsScreen) return "voice-settings";
+  return "home";
+}
+
+function resolveImportBackHandler(target) {
+  switch (String(target || "").trim()) {
+    case "bank": return showQuestionBank;
+    case "config": return showConfigScreen;
+    case "voice-settings": return showVoiceSettingsScreen;
+    default: return showMainMenu;
+  }
+}
+
+function detectCurrentUiScreen() {
+  if (isElementShown(testContainer)) return "test";
+  if (isElementShown(resultsContainer)) return "results";
+  if (isElementShown(reviewContainer)) return "review";
+  if (isElementShown(statsContainer)) return "stats";
+  if (isElementShown(importContainer)) return "import";
+  if (isElementShown(voiceSettingsContainer)) return "voice-settings";
+  if (isElementShown(configContainer)) return "config";
+  if (isElementShown(testMenu)) {
+    if (mode === "bank") return "bank";
+    if (mode === "trash") return "trash";
+    return "test-menu";
+  }
+  if (isElementShown(mainMenu)) return "home";
+  return "home";
+}
+
+function persistUiStateForReload() {
+  const screen = detectCurrentUiScreen();
+  if (screen === "import") {
+    setUiScreenState("import", {
+      mode: importScreenMode === "manual" ? "manual" : "batch",
+      backTarget: resolveImportBackTarget(importBackHandler)
+    });
+  } else {
+    setUiScreenState(screen);
+  }
+
+  if (screen === "test") {
+    const payload = buildPausedTestPayload();
+    if (payload) lsSetJSON(LS_ACTIVE_PAUSED_TEST, payload);
+  }
+}
+
+async function restoreUiScreenAfterBootstrap() {
+  const state = getUiScreenState();
+  if (!state) {
+    showMainMenu();
+    return;
+  }
+
+  switch (state.screen) {
+    case "home":
+      showMainMenu();
+      return;
+    case "config":
+      showConfigScreen();
+      return;
+    case "voice-settings":
+      showVoiceSettingsScreen();
+      return;
+    case "stats":
+      showStatsScreen();
+      return;
+    case "bank":
+      showQuestionBank();
+      return;
+    case "trash":
+      showTrashScreen();
+      return;
+    case "tema-selection":
+      showTemaSelectionScreen();
+      return;
+    case "exam-menu":
+      showExamMenu();
+      return;
+    case "exam-block-select":
+      showExamByBlockSelect();
+      return;
+    case "test-menu":
+      showTestMenuScreen();
+      return;
+    case "results":
+      showResultsScreen();
+      return;
+    case "review":
+      showReviewScreen();
+      return;
+    case "import": {
+      const modeValue = state.mode === "manual" ? "manual" : "batch";
+      const backHandler = resolveImportBackHandler(state.backTarget);
+      showImportScreen(modeValue, backHandler);
+      return;
+    }
+    case "test": {
+      const saved = lsGetJSON(LS_ACTIVE_PAUSED_TEST, null);
+      if (saved) {
+        await resumePausedTest();
+        return;
+      }
+      showMainMenu();
+      return;
+    }
+    default:
+      showMainMenu();
+  }
+}
+
+window.addEventListener("pagehide", persistUiStateForReload);
+window.addEventListener("beforeunload", persistUiStateForReload);
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "hidden") persistUiStateForReload();
+});
 
 // =======================
 // TTS (LECTURA POR VOZ)
@@ -1286,6 +1476,10 @@ function isArcadeModeValue(modeValue = mode) {
   return isClockModeValue(modeValue) || isSurvivalModeValue(modeValue);
 }
 
+function isRepeatSessionValue(opts = sessionOpts) {
+  return !!(opts && typeof opts === "object" && opts.meta && opts.meta.isRepeatSession === true);
+}
+
 function isStatsEligibleHistoryEntry(entry) {
   return !!(entry && entry.finished !== false && !isArcadeModeValue(entry.mode));
 }
@@ -1659,8 +1853,11 @@ function setPendingDoneSet(setObj) {
 // --- acciones ---
 function markPending(id) {
   const pending = getPendingReviewSet();
+  const done = getPendingDoneSet();
   pending.add(normalizeId(id));
+  done.delete(normalizeId(id));
   setPendingReviewSet(pending);
+  setPendingDoneSet(done);
 }
 
 function markReviewedDone(id) {
@@ -2278,6 +2475,7 @@ function closeHomeVoicePanel(immediate = false) {
 function showMainMenu() {
   stopTimer();
   hideAll();
+  setUiScreenState("home");
   document.body.classList.add("is-home-screen");
   mainMenu.style.display = "block";
   ensureHomeStarsLayer();
@@ -2691,6 +2889,7 @@ function showMainMenu() {
 
 function showConfigScreen() {
   hideAll();
+  setUiScreenState("config");
   configContainer.style.display = "block";
 
   if (configActions) {
@@ -2749,6 +2948,7 @@ function closeTestStartModal() {
 // =======================
 function showTestMenuScreen() {
   hideAll();
+  setUiScreenState("test-menu");
   testMenu.classList.remove("customize-test-theme");
   testMenu.classList.remove("bank-theme");
   testMenu.style.display = "block";
@@ -2756,15 +2956,18 @@ function showTestMenuScreen() {
 
 function showVoiceSettingsScreen() {
   hideAll();
+  setUiScreenState("voice-settings");
   voiceSettingsContainer.style.display = "block";
   ttsApplyUIState();
 }
 
 function showTestScreen() {
   hideAll();
+  setUiScreenState("test");
   const isMobileViewport = window.matchMedia && window.matchMedia("(max-width: 700px)").matches;
   testContainer.style.display = isMobileViewport ? "flex" : "block";
   ensurePauseAndFinishUI();
+  ensureTestBottomClearanceObserver();
   updateModePill();
   updateTestTopUiForMode();
   ttsApplyUIState();
@@ -2774,11 +2977,13 @@ function showResultsScreen() {
   stopTimer();
   ttsStop();
   hideAll();
+  setUiScreenState("results");
   resultsContainer.style.display = "block";
 }
 
 function showReviewScreen() {
   hideAll();
+  setUiScreenState("review");
   reviewContainer.style.display = "block";
 
   if (!lastSessionAnswers || !lastSessionAnswers.length) {
@@ -2810,19 +3015,36 @@ function showReviewScreen() {
 
 function showStatsScreen() {
   hideAll();
+  setUiScreenState("stats");
   statsContainer.style.display = "block";
 
   const stats = getStats();
   const histRaw = lsGetJSON(LS_HISTORY, []);
   const hist = asArray(histRaw).filter(isStatsEligibleHistoryEntry);
   const now = new Date();
-  const last10Start = new Date(now);
-  last10Start.setHours(0, 0, 0, 0);
-  last10Start.setDate(last10Start.getDate() - 9);
-  const histLast10 = hist.filter(h => {
+  const dayMs = 24 * 60 * 60 * 1000;
+  const todayStart = new Date(now);
+  todayStart.setHours(0, 0, 0, 0);
+  const last7Start = new Date(todayStart);
+  last7Start.setDate(last7Start.getDate() - 6);
+  const histLast7 = hist.filter(h => {
     const d = h?.date ? new Date(h.date) : null;
-    return d && !isNaN(d) && d >= last10Start;
+    return d && !isNaN(d) && d >= last7Start;
   });
+
+  const firstSessionDate = hist.reduce((minDate, h) => {
+    const d = h?.date ? new Date(h.date) : null;
+    if (!d || isNaN(d)) return minDate;
+    if (!minDate) return d;
+    return d < minDate ? d : minDate;
+  }, null);
+  const firstSessionStart = firstSessionDate ? new Date(firstSessionDate) : null;
+  if (firstSessionStart) firstSessionStart.setHours(0, 0, 0, 0);
+  const daysSinceFirstSession = firstSessionStart
+    ? Math.max(0, Math.floor((todayStart.getTime() - firstSessionStart.getTime()) / dayMs))
+    : 0;
+  // Requisito de negocio: mostrar la tarjeta de 7 días solo si el histórico supera 7 días.
+  const showLast7Card = daysSinceFirstSession > 7;
 
   let totalAnswered = 0;
   let totalCorrect = 0;
@@ -2861,7 +3083,7 @@ function showStatsScreen() {
     { tests: 0, correct: 0, wrong: 0, noSe: 0, total: 0 }
   );
 
-  const last10Totals = histLast10.reduce(
+  const last7Totals = histLast7.reduce(
     (acc, h) => {
       acc.tests += 1;
       acc.correct += Number(h.correct) || 0;
@@ -2875,12 +3097,12 @@ function showStatsScreen() {
 
   const histAnswered = histTotals.correct + histTotals.wrong + histTotals.noSe;
   const histAccuracy = histAnswered ? (histTotals.correct / histAnswered) * 100 : 0;
-  const last10Answered = last10Totals.correct + last10Totals.wrong + last10Totals.noSe;
-  const last10Accuracy = last10Answered ? (last10Totals.correct / last10Answered) * 100 : 0;
+  const last7Answered = last7Totals.correct + last7Totals.wrong + last7Totals.noSe;
+  const last7Accuracy = last7Answered ? (last7Totals.correct / last7Answered) * 100 : 0;
   const histScoreBruta = calcBruta(histTotals.correct, histTotals.wrong);
   const histScore100 = calcNotaSobre100(histTotals.correct, histTotals.wrong, histTotals.noSe);
-  const last10ScoreBruta = calcBruta(last10Totals.correct, last10Totals.wrong);
-  const last10Score100 = calcNotaSobre100(last10Totals.correct, last10Totals.wrong, last10Totals.noSe);
+  const last7ScoreBruta = calcBruta(last7Totals.correct, last7Totals.wrong);
+  const last7Score100 = calcNotaSobre100(last7Totals.correct, last7Totals.wrong, last7Totals.noSe);
 
   const calcAvgSpeedFromHistory = (entries) => {
     const agg = asArray(entries).reduce((acc, h) => {
@@ -2896,7 +3118,7 @@ function showStatsScreen() {
   };
 
   const histAvgSpeedSec = calcAvgSpeedFromHistory(hist);
-  const last10AvgSpeedSec = calcAvgSpeedFromHistory(histLast10);
+  const last7AvgSpeedSec = calcAvgSpeedFromHistory(histLast7);
 
   const renderAccuracyCircle = (title, correct, wrong, noSe) => {
     const total = correct + wrong + noSe;
@@ -2933,11 +3155,11 @@ function showStatsScreen() {
   const dayRows = Array.from(byDay.entries())
     .sort((a, b) => b[0].localeCompare(a[0]))
     .map(([day, v]) => {
-      const pct = v.total ? (v.correct / v.total) * 100 : 0;
+      const answered = v.correct + v.wrong;
       const dateLabel = new Date(`${day}T00:00:00`).toLocaleDateString("es-ES");
       return `
         <div class="small" style="margin:6px 0;">
-          <strong>${dateLabel}:</strong> ${v.tests} tests · ${v.correct} aciertos · ${v.wrong} fallos · ${v.noSe} no lo sé · ${pct.toFixed(1)}%
+          <strong>${dateLabel}:</strong> ${answered} respondidas · ${v.correct} aciertos · ${v.wrong} fallos
         </div>
       `;
     })
@@ -2961,23 +3183,24 @@ function showStatsScreen() {
           ${renderAccuracyCircle("Histórico total", histTotals.correct, histTotals.wrong, histTotals.noSe)}
         </div>
       </div>
-
+      ${showLast7Card ? `
       <div class="card stats-card">
-        <div style="font-weight:700;margin-bottom:8px;">Últimos 10 días</div>
-        <div><strong>Tests realizados:</strong> ${last10Totals.tests}</div>
+        <div style="font-weight:700;margin-bottom:8px;">Últimos 7 días</div>
+        <div><strong>Tests realizados:</strong> ${last7Totals.tests}</div>
         <div style="height:6px;"></div>
-        <div><strong>Preguntas contestadas:</strong> ${last10Answered}</div>
-        <div><strong>Aciertos:</strong> ${last10Totals.correct}</div>
-        <div><strong>Fallos:</strong> ${last10Totals.wrong}</div>
-        <div><strong>No lo sé:</strong> ${last10Totals.noSe}</div>
+        <div><strong>Preguntas contestadas:</strong> ${last7Answered}</div>
+        <div><strong>Aciertos:</strong> ${last7Totals.correct}</div>
+        <div><strong>Fallos:</strong> ${last7Totals.wrong}</div>
+        <div><strong>No lo sé:</strong> ${last7Totals.noSe}</div>
         <div style="height:6px;"></div>
-        <div><strong>Porcentaje de acierto:</strong> ${last10Accuracy.toFixed(1)}%</div>
-        <div><strong>Nota media:</strong> ${last10Score100.toFixed(1)}/100</div>
-        <div><strong>Velocidad media:</strong> ${formatSpeedTime(last10AvgSpeedSec)}</div>
+        <div><strong>Porcentaje de acierto:</strong> ${last7Accuracy.toFixed(1)}%</div>
+        <div><strong>Nota media:</strong> ${last7Score100.toFixed(1)}/100</div>
+        <div><strong>Velocidad media:</strong> ${formatSpeedTime(last7AvgSpeedSec)}</div>
         <div class="stats-circle">
-          ${renderAccuracyCircle("Últimos 10 días", last10Totals.correct, last10Totals.wrong, last10Totals.noSe)}
+          ${renderAccuracyCircle("Últimos 7 días", last7Totals.correct, last7Totals.wrong, last7Totals.noSe)}
         </div>
       </div>
+      ` : ""}
     </div>
 
     <div class="card" style="margin-top:16px;">
@@ -3028,6 +3251,10 @@ function showImportScreen(modeValue = "batch", backHandler = null) {
   } else {
     importBackHandler = showMainMenu;
   }
+  setUiScreenState("import", {
+    mode: importScreenMode === "manual" ? "manual" : "batch",
+    backTarget: resolveImportBackTarget(importBackHandler)
+  });
   hideAll();
   importContainer.style.display = "block";
   if (importScreenMode === "batch") setImportTemplateExpanded(false);
@@ -3101,16 +3328,9 @@ function updateModePill() {
 // PAUSA / CONTINUAR TEST
 // =======================
 
-function pauseTestToMenu() {
-  stopTimer();
-  ttsStop();
-
-  if (!currentTest || !currentTest.length) {
-    showMainMenu();
-    return;
-  }
-
-  const payload = {
+function buildPausedTestPayload() {
+  if (!currentTest || !currentTest.length) return null;
+  return {
     version: 1,
     savedAt: new Date().toISOString(),
     mode,
@@ -3137,6 +3357,17 @@ function pauseTestToMenu() {
       correctText: lastCorrectText
     }
   };
+}
+
+function pauseTestToMenu() {
+  stopTimer();
+  ttsStop();
+
+  const payload = buildPausedTestPayload();
+  if (!payload) {
+    showMainMenu();
+    return;
+  }
 
   lsSetJSON(LS_ACTIVE_PAUSED_TEST, payload);
   showMainMenu();
@@ -3348,6 +3579,7 @@ function showTemaSelectionScreen() {
   mode = "practice";
 
   showTestMenuScreen();
+  setUiScreenState("tema-selection");
   testMenu.classList.add("customize-test-theme");
 
   const stats = getStats();
@@ -4021,6 +4253,7 @@ function startExamFromSources() {
 // =======================
 function showExamMenu() {
   showTestMenuScreen();
+  setUiScreenState("exam-menu");
 
   testMenu.innerHTML = `
     <h2>Modo examen</h2>
@@ -4160,6 +4393,7 @@ function startExamByBlock(bloqueName) {
 
 function showExamByBlockSelect() {
   showTestMenuScreen();
+  setUiScreenState("exam-block-select");
 
   const bloques = getAvailableExamBlocks();
 
@@ -4417,6 +4651,7 @@ function renderQuestionWithOptions(q, opcionesOrdenadas) {
     answersContainer.appendChild(btn);
   });
 
+  scheduleTestBottomScrollClearanceUpdate();
   updateProgressUI();
   ttsMaybeAutoRead(q);
 }
@@ -4442,7 +4677,8 @@ function showQuestion() {
   const q = currentTest[currentIndex];
   const idStr = String(q.id);
   const isPerfectionRepeat = mode === "perfection" && baseAnsweredIds.has(idStr);
-  if (!isPerfectionRepeat) bumpStat(q.id, "seen");
+  const isRepeatSession = isRepeatSessionValue();
+  if (!isPerfectionRepeat && !isRepeatSession) bumpStat(q.id, "seen");
 
   viewState = "question";
   lastSelectedText = null;
@@ -4461,15 +4697,16 @@ function checkAnswer(selectedText, q) {
   const idStr = String(q.id);
   const isBase = mode === "perfection" && baseTestIdSet.has(idStr);
   const isFirstBaseAttempt = isBase && !baseAnsweredIds.has(idStr);
+  const isRepeatSession = isRepeatSessionValue();
 
   // ✅ answeredIds siempre strings
   answeredIds.add(idStr);
 
   if (isCorrect) {
     correctCount++;
-    if (mode !== "perfection" || isFirstBaseAttempt) bumpStat(q.id, "correct");
+    if (!isRepeatSession && (mode !== "perfection" || isFirstBaseAttempt)) bumpStat(q.id, "correct");
 
-    if (mode === "review") markReviewedDone(q.id);
+    if (mode === "review" && !isRepeatSession) markReviewedDone(q.id);
 
     if (mode === "perfection") {
       perfectionSet.delete(idStr);
@@ -4481,7 +4718,7 @@ function checkAnswer(selectedText, q) {
     }
   } else {
     wrongCount++;
-    if (mode !== "perfection" || isFirstBaseAttempt) bumpStat(q.id, "wrong");
+    if (!isRepeatSession && (mode !== "perfection" || isFirstBaseAttempt)) bumpStat(q.id, "wrong");
 
     // ✅ fallos siempre a pendientes (incluido examen)
     if (mode !== "perfection" || isFirstBaseAttempt) markPending(q.id);
@@ -4516,12 +4753,13 @@ function onNoSe() {
   const idStr = String(q.id);
   const isBase = mode === "perfection" && baseTestIdSet.has(idStr);
   const isFirstBaseAttempt = isBase && !baseAnsweredIds.has(idStr);
+  const isRepeatSession = isRepeatSessionValue();
 
   // ✅ answeredIds siempre strings
   answeredIds.add(idStr);
 
   noSeCount++;
-  if (mode !== "perfection" || isFirstBaseAttempt) bumpStat(q.id, "noSe");
+  if (!isRepeatSession && (mode !== "perfection" || isFirstBaseAttempt)) bumpStat(q.id, "noSe");
 
   // ✅ no lo sé => pendientes
   if (mode !== "perfection" || isFirstBaseAttempt) markPending(q.id);
@@ -4609,6 +4847,7 @@ function showAnswer(q, selectedTextOrNull) {
   buttons.forEach(btn => {
     btn.onclick = continueFromFeedback;
   });
+  scheduleTestBottomScrollClearanceUpdate();
 }
 
 function buildAnswerRecord(q, selectedText, correctText, result) {
@@ -4743,6 +4982,7 @@ function finishTest(reason = "manual") {
   const previousArcadeBest = isArcadeMode ? getClockBest(mode) : 0;
   const isDarkTheme = document.body.classList.contains("chatgpt-dark") || document.body.classList.contains("chari-dark");
   const nTotal = correctCount + wrongCount + noSeCount;
+  const isRepeatSession = isRepeatSessionValue();
   const scoreBruta = calcBruta(useCounts.correct, useCounts.wrong);
   const score100 = calcNotaSobre100(useCounts.correct, useCounts.wrong, useCounts.noSe);
   const baseTotal = sessionOpts?.meta?.baseTestIds?.length || currentTest.length;
@@ -4764,20 +5004,22 @@ function finishTest(reason = "manual") {
     return `${formatTime(Math.max(0, timeRemaining || 0))}/${timeTotalLabel}`;
   })();
 
-  addHistoryEntry({
-    date: new Date().toISOString(),
-    mode,
-    total: mode === "perfection" ? baseTotal : currentTest.length,
-    correct: useCounts.correct,
-    wrong: useCounts.wrong,
-    noSe: useCounts.noSe,
-    scoreBruta,
-    score100,
-    timeUsedSec: elapsedUsedSec,
-    avgSpeedSec,
-    reason,
-    finished: true
-  });
+  if (!isRepeatSession) {
+    addHistoryEntry({
+      date: new Date().toISOString(),
+      mode,
+      total: mode === "perfection" ? baseTotal : currentTest.length,
+      correct: useCounts.correct,
+      wrong: useCounts.wrong,
+      noSe: useCounts.noSe,
+      scoreBruta,
+      score100,
+      timeUsedSec: elapsedUsedSec,
+      avgSpeedSec,
+      reason,
+      finished: true
+    });
+  }
 
   clearPausedTest();
   showResultsScreen();
@@ -4868,7 +5110,7 @@ function repeatLastTest() {
     mode: repeatMode,
     timeSeconds: sessionOpts?.timeSeconds || (pool.length * 60),
     countNonAnsweredAsWrongOnFinish: !!sessionOpts?.countNonAnsweredAsWrongOnFinish,
-    meta: { ...(sessionOpts?.meta || {}) }
+    meta: { ...(sessionOpts?.meta || {}), isRepeatSession: true }
   });
 }
 
@@ -5503,7 +5745,19 @@ async function restoreQuestionsToFactory() {
 function showQuestionBank() {
   mode = "bank";
   showTestMenuScreen();
+  setUiScreenState("bank");
   testMenu.classList.add("bank-theme");
+  const bankScrollContainer = testMenu;
+
+  const scrollBankTo = (target = "top", behavior = "smooth") => {
+    if (!bankScrollContainer) return;
+    const top = target === "bottom" ? bankScrollContainer.scrollHeight : 0;
+    try {
+      bankScrollContainer.scrollTo({ top, behavior });
+    } catch (_) {
+      bankScrollContainer.scrollTop = top;
+    }
+  };
 
   const bloques = [...new Set(questions.map(q => q.bloque || "Sin bloque"))]
     .sort((a, b) => String(a).localeCompare(String(b), "es", { sensitivity: "base" }));
@@ -5515,6 +5769,7 @@ function showQuestionBank() {
     <div class="row bank-top-head">
       <div id="bank-db-pill-target"></div>
       <button id="bank-back" class="secondary">Volver</button>
+      <button id="bank-jump-top" class="secondary" aria-label="Subir al inicio de resultados" title="Subir">↑</button>
     </div>
 
     <div id="bank-actions-card" class="card">
@@ -5561,12 +5816,17 @@ function showQuestionBank() {
     </div>
 
     <div id="bank-results"></div>
+    <button id="bank-jump-bottom" class="secondary" aria-label="Bajar al final de resultados" title="Bajar">↓</button>
   `;
 
   document.getElementById("bank-back").onclick = () => {
     showMainMenu();
     openHomeConfigPanel(true);
   };
+  const bankJumpTopBtn = document.getElementById("bank-jump-top");
+  if (bankJumpTopBtn) bankJumpTopBtn.onclick = () => scrollBankTo("top");
+  const bankJumpBottomBtn = document.getElementById("bank-jump-bottom");
+  if (bankJumpBottomBtn) bankJumpBottomBtn.onclick = () => scrollBankTo("bottom");
   document.getElementById("bank-import-questions").onclick = () => {
     const row = document.getElementById("bank-import-row");
     const panel = document.getElementById("bank-import-panel");
@@ -5615,6 +5875,7 @@ function showQuestionBank() {
         if (bankPageIndex <= 0) return;
         bankPageIndex--;
         renderCurrentBankPage();
+        requestAnimationFrame(() => scrollBankTo("bottom", "auto"));
       };
     }
     if (nextBtn) {
@@ -5622,6 +5883,7 @@ function showQuestionBank() {
         if ((bankPageIndex + 1) * BANK_PAGE_SIZE >= total) return;
         bankPageIndex++;
         renderCurrentBankPage();
+        requestAnimationFrame(() => scrollBankTo("bottom", "auto"));
       };
     }
   };
@@ -5968,6 +6230,7 @@ async function deleteQuestion(id) {
 function showTrashScreen() {
   mode = "trash";
   showTestMenuScreen();
+  setUiScreenState("trash");
 
   // IDs eliminados (strings)
   const deletedIds = new Set(normalizeIdArray(lsGetJSON(LS_DELETED_IDS, [])));
@@ -6725,7 +6988,7 @@ fetch("questions_manifest.json")
       )
     );
   })
-  .then(datasets => {
+  .then(async datasets => {
     const merged = [];
     for (const data of datasets) {
       if (Array.isArray(data)) merged.push(...data);
@@ -6734,16 +6997,16 @@ fetch("questions_manifest.json")
     mergeQuestions();
     applyDeletedFilter();
     refreshDbCountPill();
-    showMainMenu();
+    await restoreUiScreenAfterBootstrap();
   })
-  .catch(err => {
+  .catch(async err => {
     showAlert("Error cargando questions_manifest.json o alguno de sus archivos");
     console.error(err);
     questionsBase = [];
     mergeQuestions();
     applyDeletedFilter();
     refreshDbCountPill();
-    showMainMenu();
+    await restoreUiScreenAfterBootstrap();
   });
 
   // commit test identidad noreply
