@@ -804,7 +804,7 @@
       "Donde esté el Consejo de Gobierno de la Comunidad Autónoma.",
       "A es válida, pero en los Estatutos de Autonomía se puede establecer otra ubicación.",
       "A es válida, pero en un Real Decreto se puede establecer en otro sitio.",
-      "A, by c son ciertas."
+      "A, b y c son ciertas."
     ],
     "respuesta_correcta": 3,
     "explicacion": "La sede de las Delegaciones del Gobierno se establece donde esté el Consejo de Gobierno de la Comunidad Autónoma, aunque tanto los Estatutos de Autonomía como el Gobierno mediante Real Decreto pueden establecer otra ubicación."
@@ -1644,7 +1644,7 @@
       "Proveer el contenido del Portal de Transparencia, entre otras finalidades.",
       "Coordinar la Unidades de Información y Transparencia, entre otras finalidades.",
       "Salvaguardar el ejercicio de derecho de acceso a la información pública, entre otras finalidades.",
-      "by c son ciertas."
+      "b y c son ciertas."
     ],
     "respuesta_correcta": 2,
     "explicacion": "Entre las funciones principales del Consejo de Transparencia y Buen Gobierno destaca la de salvaguardar el ejercicio del derecho de acceso a la información pública, resolviendo las reclamaciones que se presenten."
@@ -2239,7 +2239,7 @@
     "tema": "19. Legislación Bibliotecaria Española. Ley 10/2007, de la lectura, del libro y las bibliotecas. Ley 1/2015 reguladora de la Biblioteca Nacional de España.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "Cuestionarios 2023",
-    "pregunta": "Según la misma Ley ¿quién es la persona natural o jurídica que realiza servicios comerciales y que sirve de enlace entre editores y libreros, para situar y reponer libros en su punto de venta y facilitar su difusión?",
+    "pregunta": "Según la Ley 10/2007, de 22 de junio, ¿quién es la persona natural o jurídica que realiza servicios comerciales y que sirve de enlace entre editores y libreros, para situar y reponer libros en su punto de venta y facilitar su difusión?",
     "opciones": [
       "Librero.",
       "Distribuidor.",
@@ -2299,7 +2299,7 @@
     "tema": "19. Legislación Bibliotecaria Española. Ley 10/2007, de la lectura, del libro y las bibliotecas. Ley 1/2015 reguladora de la Biblioteca Nacional de España.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "Cuestionarios 2023",
-    "pregunta": "Las bibliotecas digitales, según la ley:",
+    "pregunta": "Según la Ley 10/2007, de 22 de junio, las bibliotecas digitales:",
     "opciones": [
       "Son colecciones organizadas de contenidos digitales.",
       "Pueden contener materiales digitalizados.",
@@ -2344,7 +2344,7 @@
     "tema": "19. Legislación Bibliotecaria Española. Ley 10/2007, de la lectura, del libro y las bibliotecas. Ley 1/2015 reguladora de la Biblioteca Nacional de España.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "Cuestionarios 2023",
-    "pregunta": "Y dedica a las bibliotecas:",
+    "pregunta": "La Ley 10/2007, de 22 de junio, dedica a las bibliotecas:",
     "opciones": [
       "El Capítulo III.",
       "El Capítulo I.",
@@ -2359,7 +2359,7 @@
     "tema": "19. Legislación Bibliotecaria Española. Ley 10/2007, de la lectura, del libro y las bibliotecas. Ley 1/2015 reguladora de la Biblioteca Nacional de España.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "Cuestionarios 2023",
-    "pregunta": "Según la Ley, tienen especial importancia en la consolidación de hábitos lectores:",
+    "pregunta": "Según la Ley 10/2007, de 22 de junio, tienen especial importancia en la consolidación de hábitos lectores:",
     "opciones": [
       "Las bibliotecas públicas, escolares y universitarias.",
       "Las bibliotecas especializadas.",
@@ -2374,7 +2374,7 @@
     "tema": "19. Legislación Bibliotecaria Española. Ley 10/2007, de la lectura, del libro y las bibliotecas. Ley 1/2015 reguladora de la Biblioteca Nacional de España.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "Cuestionarios 2023",
-    "pregunta": "Para llevar a cabo la promoción de la lectura según la Ley, el Gobierno:",
+    "pregunta": "Para llevar a cabo la promoción de la lectura según la Ley 10/2007, de 22 de junio, el Gobierno:",
     "opciones": [
       "Contratará personal especializado.",
       "Establecerá acuerdos con las administraciones autonómicas y locales.",
@@ -2404,7 +2404,7 @@
     "tema": "19. Legislación Bibliotecaria Española. Ley 10/2007, de la lectura, del libro y las bibliotecas. Ley 1/2015 reguladora de la Biblioteca Nacional de España.",
     "bloque": "Bloque 1. Legislación",
     "fuente": "Cuestionarios 2023",
-    "pregunta": "La Ley citada:",
+    "pregunta": "La Ley 10/2007, de 22 de junio:",
     "opciones": [
       "No recoge el análisis de la situación de la lectura y las bibliotecas.",
       "No menciona la necesidad de evaluar la situación de la lectura y las bibliotecas.",

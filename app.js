@@ -277,6 +277,8 @@ const questionText = document.getElementById("question-text");
 const answerExplanation = document.getElementById("answer-explanation");
 const answersContainer = document.getElementById("answers-container");
 const testBottom = document.getElementById("test-bottom");
+const testContentScroll = document.getElementById("test-content-scroll");
+const testActionsFixed = document.getElementById("test-actions-fixed");
 const continueBtn = document.getElementById("continue-btn");
 const noSeBtn = document.getElementById("no-btn");
 const timerDisplay = document.getElementById("timer");
@@ -305,6 +307,7 @@ let openTestModalTimer = null;
 let homeActionTimer = null;
 let testBottomResizeObserver = null;
 let testBottomResizeRaf = null;
+let testAnswerDockRaf = null;
 const voiceSettingsBtn = document.getElementById("btn-voice-settings");
 const voiceSettingsBackBtn = document.getElementById("btn-voice-back");
 const openImportBtn = document.getElementById("btn-open-import");
@@ -1122,6 +1125,62 @@ function scheduleTestBottomScrollClearanceUpdate() {
   });
 }
 
+function isMobileTestViewport() {
+  return !!(window.matchMedia && window.matchMedia("(max-width: 700px)").matches);
+}
+
+function moveAnswersToBottomDock() {
+  if (!testBottom || !answersContainer || !testActionsFixed) return;
+  if (answersContainer.parentElement !== testBottom) {
+    testBottom.insertBefore(answersContainer, testActionsFixed);
+  }
+  testBottom.classList.remove("answers-after-actions");
+}
+
+function moveAnswersToScrollArea() {
+  if (!testContentScroll || !answersContainer || !testBottom) return;
+  if (answersContainer.parentElement !== testContentScroll) {
+    testContentScroll.appendChild(answersContainer);
+  }
+  testBottom.classList.add("answers-after-actions");
+}
+
+function updateTestAnswerDocking() {
+  if (!testContainer || !questionText || !answersContainer) return;
+  if (!isMobileTestViewport() || testContainer.style.display === "none") {
+    moveAnswersToBottomDock();
+    return;
+  }
+  if (!testActionsFixed || !testContentScroll || !testBottom) return;
+
+  // Medimos con respuestas en su posición natural (encima de controles).
+  moveAnswersToBottomDock();
+
+  const hasExplanation = !!(
+    answerExplanation &&
+    answerExplanation.style.display !== "none" &&
+    String(answerExplanation.textContent || "").trim()
+  );
+  const anchorEl = hasExplanation ? answerExplanation : questionText;
+  const anchorBottom = anchorEl.getBoundingClientRect().bottom;
+  const actionsTop = testActionsFixed.getBoundingClientRect().top;
+  const answersHeight = Math.ceil(answersContainer.getBoundingClientRect().height || 0);
+  const buffer = 12;
+  const shouldPushBelowControls = (anchorBottom + answersHeight + buffer) > actionsTop;
+
+  if (shouldPushBelowControls) {
+    moveAnswersToScrollArea();
+  }
+}
+
+function scheduleTestAnswerDockingUpdate() {
+  if (testAnswerDockRaf) cancelAnimationFrame(testAnswerDockRaf);
+  testAnswerDockRaf = requestAnimationFrame(() => {
+    testAnswerDockRaf = null;
+    updateTestAnswerDocking();
+  });
+}
+
 function ensureTestBottomClearanceObserver() {
   if (!testBottom) return;
   if (typeof ResizeObserver === "function") {
@@ -1134,6 +1193,7 @@ function ensureTestBottomClearanceObserver() {
     testBottomResizeObserver.observe(testBottom);
   }
   scheduleTestBottomScrollClearanceUpdate();
+  scheduleTestAnswerDockingUpdate();
 }
 
 document.addEventListener("pointerdown", e => {
@@ -1149,6 +1209,7 @@ document.addEventListener("keydown", e => {
 
 window.addEventListener("resize", () => {
   scheduleTestBottomScrollClearanceUpdate();
+  scheduleTestAnswerDockingUpdate();
 }, { passive: true });
 
 // =======================
@@ -2049,9 +2110,16 @@ function hasCombinedAnswerOptions(options) {
   const riskyPatterns = [
     // Referencias a "anteriores/superiores/previas"
     /\btodas?\s+las?\s+anteriores\b/,
+    /\btodos?\s+los?\s+anteriores\b/,
+    /\btodo\s+lo\s+anterior\b/,
     /\blas?\s+dos\s+anteriores\b/,
+    /\bninguna\s+anterior\b/,
+    /\bningun[oa]\s+anterior\b/,
     /\bninguna\s+de\s+las?\s+anteriores\b/,
     /\bninguno\s+de\s+los?\s+anteriores\b/,
+    /\bningun[oa]\s+de\s+lo\s+anterior\b/,
+    /\btodas?\s+las?\s+(opciones|respuestas|alternativas)\s+anteriores\b/,
+    /\bningun[oa]\s+de\s+las?\s+(opciones|respuestas|alternativas)\s+anteriores\b/,
     /\b(anteriores?|precedentes?|previas?|superiores?)\b/,
 
     // Formulaciones tipo "ambas/ninguna/todas son ..."
@@ -3554,10 +3622,10 @@ function showVoiceSettingsScreen() {
 function showTestScreen() {
   hideAll();
   setUiScreenState("test");
-  const isMobileViewport = window.matchMedia && window.matchMedia("(max-width: 700px)").matches;
-  testContainer.style.display = isMobileViewport ? "flex" : "block";
+  testContainer.style.display = "";
   ensurePauseAndFinishUI();
   ensureTestBottomClearanceObserver();
+  scheduleTestAnswerDockingUpdate();
   updateModePill();
   updateTestTopUiForMode();
   ttsApplyUIState();
@@ -5299,6 +5367,7 @@ function renderQuestionWithOptions(q, opcionesOrdenadas) {
   });
 
   scheduleTestBottomScrollClearanceUpdate();
+  scheduleTestAnswerDockingUpdate();
   updateProgressUI();
   ttsMaybeAutoRead(q);
 }
@@ -5495,6 +5564,7 @@ function showAnswer(q, selectedTextOrNull) {
     btn.onclick = continueFromFeedback;
   });
   scheduleTestBottomScrollClearanceUpdate();
+  scheduleTestAnswerDockingUpdate();
 }
 
 function buildAnswerRecord(q, selectedText, correctText, result) {
@@ -7598,6 +7668,66 @@ document.addEventListener("keydown", e => {
     handleEscBack();
   }
 });
+
+function initMobilePortraitLock() {
+  const overlay = document.getElementById("orientation-lock-overlay");
+  const isLikelyMobile = () => !!(
+    window.matchMedia &&
+    window.matchMedia("(pointer: coarse) and (hover: none)").matches
+  );
+  const isLandscapeNow = () => {
+    if (window.matchMedia && window.matchMedia("(orientation: landscape)").matches) return true;
+    return window.innerWidth > window.innerHeight;
+  };
+
+  const tryLockPortrait = () => {
+    const orientation = screen && screen.orientation;
+    if (!orientation || typeof orientation.lock !== "function") return;
+    orientation.lock("portrait").catch(() => {});
+  };
+
+  const updateOrientationLockState = () => {
+    const mobile = isLikelyMobile();
+    const splashVisible = !!(
+      appSplash &&
+      appSplash.style.display !== "none" &&
+      !appSplash.classList.contains("is-hidden")
+    );
+    const lockActive = mobile && isLandscapeNow() && !splashVisible;
+
+    if (document.body) {
+      document.body.classList.toggle("orientation-lock-active", lockActive);
+    }
+    if (overlay) {
+      overlay.setAttribute("aria-hidden", lockActive ? "false" : "true");
+    }
+  };
+
+  window.addEventListener("resize", updateOrientationLockState, { passive: true });
+  window.addEventListener("orientationchange", () => {
+    tryLockPortrait();
+    setTimeout(updateOrientationLockState, 60);
+  }, { passive: true });
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) {
+      tryLockPortrait();
+      updateOrientationLockState();
+    }
+  });
+  if (appSplash && typeof MutationObserver === "function") {
+    const splashObserver = new MutationObserver(() => {
+      updateOrientationLockState();
+    });
+    splashObserver.observe(appSplash, {
+      attributes: true,
+      attributeFilter: ["class", "style"]
+    });
+  }
+  tryLockPortrait();
+  updateOrientationLockState();
+}
+
+initMobilePortraitLock();
 
 fetch("frases_motivadoras.json")
   .then(res => {

@@ -118,6 +118,39 @@
     .stats-card { display: flex; flex-direction: column; gap: 6px; position: relative; padding-right: 190px; }
     .stats-circle { position: absolute; right: 16px; bottom: 16px; display: flex; align-items: center; justify-content: center; margin: 0; }
     .review-item { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px; margin: 12px 0; text-align: left; }
+    #orientation-lock-overlay { display: none; }
+    #app-splash {
+      position: fixed;
+      inset: 0;
+      z-index: 2147483646;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(180deg, #221b5f 0%, #2c2773 44%, #1f1b57 74%, #14103d 100%);
+      color: #edf2ff;
+      text-align: center;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    body.splash-active #app-splash {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+    #app-splash .app-splash-core { width: min(92vw, 760px); }
+    #app-splash .app-splash-stage {
+      min-height: 46vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #app-splash .app-splash-logo-line {
+      font-size: clamp(2.2rem, 9vw, 4rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    #app-splash .app-splash-sub { font-size: 1rem; opacity: 0.9; }
 
     @media (max-width: 700px) {
       body { padding: 6px; }
@@ -156,10 +189,23 @@
       #test-progress { grid-area: bar; }
       #test-progress { width: 100%; }
     #test-progress .progress-bar { width: 100%; }
-      #test-container { display: flex; flex-direction: column; height: calc(100dvh - 24px); position: relative; padding-bottom: 0; }
-      #test-bottom { position: absolute; left: 0; right: 0; bottom: 6px; padding-bottom: 6px; }
-      #test-bottom { padding-left: 6px; padding-right: 6px; }
-    #answer-explanation { max-height: none; overflow: visible; }
+      #test-container {
+        display: flex;
+        flex-direction: column;
+        height: calc(100dvh - 24px);
+        max-height: calc(100dvh - 24px);
+        min-height: calc(100dvh - 24px);
+        position: relative;
+        padding-bottom: 0;
+        overflow: hidden;
+      }
+      #test-content-scroll { flex: 1 1 auto; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 2px 0 8px; }
+      #test-bottom { position: static; left: auto; right: auto; bottom: auto; padding: 0 6px 6px; margin-top: auto; display: flex; flex-direction: column; min-height: 0; }
+      #answers-container { margin-top: 10px; }
+      #test-actions-fixed { position: sticky; bottom: 0; z-index: 8; background: var(--brand-soft); padding-top: 4px; padding-bottom: calc(6px + env(safe-area-inset-bottom, 0px)); }
+      #test-actions-fixed #test-continue-row,
+      #test-actions-fixed #test-controls-row { margin: 0; }
+      #answer-explanation { max-height: none; overflow: visible; }
       #test-controls-row { gap: 6px; }
       #results-container { height: calc(100dvh - 24px); position: relative; padding-bottom: 0; }
       #results-actions-bottom { position: absolute; left: 0; right: 0; bottom: 8px; gap: 6px; padding-left: 6px; padding-right: 6px; }
@@ -285,6 +331,14 @@
   </div>
 </div>
 
+<div id="orientation-lock-overlay" aria-hidden="true">
+  <div class="orientation-lock-card">
+    <div class="orientation-lock-icon" aria-hidden="true">📱</div>
+    <h2 class="orientation-lock-title">Usa el móvil en vertical</h2>
+    <p class="orientation-lock-text">Gira el dispositivo para continuar usando TESTA+.</p>
+  </div>
+</div>
+
 <!-- PANTALLA PRINCIPAL -->
 <div id="main-menu" class="card">
   <div id="main-top">
@@ -384,14 +438,15 @@
   </div>
   <div id="test-bottom">
     <div id="answers-container"></div>
+    <div id="test-actions-fixed">
+      <div class="row" id="test-continue-row">
+        <button id="continue-btn" style="display:none">Continuar</button>
+      </div>
 
-    <div class="row">
-      <button id="continue-btn" style="display:none">Continuar</button>
-    </div>
-
-    <hr>
-    <div class="row" id="test-controls-row">
-      <button id="no-btn" class="secondary">No lo sé</button>
+      <hr id="test-actions-separator">
+      <div class="row" id="test-controls-row">
+        <button id="no-btn" class="secondary">No lo sé</button>
+      </div>
     </div>
   </div>
 </div>
